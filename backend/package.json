@@ -4,7 +4,8 @@
   "description": "Mobile App for Farmer Grain Assistant",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon":"nodemon index.js"
   },
   "keywords": [
     "Nodejs",

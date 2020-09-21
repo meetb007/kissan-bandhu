@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 const db = 'mongodb://localhost/kisaan';
 const port = 5000;
 
+const farmerLoginRoute = require('./routes/loginFarmer');
+const farmerRegisterRoute = require('./routes/registerFarmer');
+
+
 mongoose.connect(
   db,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -20,6 +24,9 @@ mongoose.connect(
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
+app.use('/auth/farmer/login',farmerLoginRoute);
+app.use('/auth/farmer/register',farmerRegisterRoute);
+
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
@@ -29,7 +36,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
-    error: err.message,
+    Error: err.message,
   });
 });
 
