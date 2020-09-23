@@ -2,6 +2,30 @@ const express = require('express');
 const Farmer = require('../models/farmerModel');
 const router = express.Router();
 
+/**
+ * @swagger
+ * /auth/farmer/login:
+ *  post:
+ *    summary: Farmer Logins
+ *    description: Login Api for farmer
+ *    tags:
+ *      - name: Farmer
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            properties:
+ *              mobile:
+ *                type: number
+ *              password:
+ *                type: string
+ *
+ *    responses:
+ *      200:
+ *        description: Login Successfully
+ *      401:
+ *        description: Error in Login
+ */
 router.post('/', async (req, res) => {
   const { mobile, password } = req.body;
   const temp = await Farmer.findOne({ mobile }).exec();
