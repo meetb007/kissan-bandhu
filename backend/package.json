@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "nodemon index.js"
+    "nodemon":"nodemon index.js"
   },
   "keywords": [
     "Nodejs",
@@ -19,8 +19,6 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.6",
-    "nodemon": "^2.0.4",
-    "swagger-jsdoc": "^4.0.0",
-    "swagger-ui-express": "^4.1.4"
+    "nodemon": "^2.0.4"
   }
 }
