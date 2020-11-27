@@ -5,9 +5,8 @@ const mongoose = require('mongoose');
 const db = 'mongodb://localhost/kisaan';
 const port = 5000;
 
-const farmerLoginRoute = require('./routes/loginFarmer');
+const LoginRoute = require('./routes/login');
 const farmerRegisterRoute = require('./routes/registerFarmer');
-
 
 mongoose.connect(
   db,
@@ -24,8 +23,8 @@ mongoose.connect(
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
-app.use('/auth/farmer/login',farmerLoginRoute);
-app.use('/auth/farmer/register',farmerRegisterRoute);
+app.use('/auth/login', LoginRoute);
+app.use('/auth/register/farmer', farmerRegisterRoute);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
