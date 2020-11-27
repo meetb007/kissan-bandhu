@@ -7,6 +7,8 @@ const port = 5000;
 
 const LoginRoute = require('./routes/login');
 const farmerRegisterRoute = require('./routes/registerFarmer');
+const driverRegisterRoute = require('./routes/registerDriver');
+const buyerRegisterRoute = require('./routes/registerBuyer');
 
 mongoose.connect(
   db,
@@ -25,6 +27,8 @@ app.use(bodyparser.json());
 
 app.use('/auth/login', LoginRoute);
 app.use('/auth/register/farmer', farmerRegisterRoute);
+app.use('/auth/register/driver', driverRegisterRoute);
+app.use('/auth/register/buyer', buyerRegisterRoute);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
