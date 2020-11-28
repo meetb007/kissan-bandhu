@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Welcome/welcome_screen.dart';
+import 'package:frontend/Screens/Farmer/main_screen.dart';
+import 'Screens/Welcome/welcome_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
       home: WelcomeScreen(),
+      //home: MainScreen(),
     );
   }
 }
