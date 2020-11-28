@@ -36,6 +36,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/",(req,res)=>{
+  res.send("Hello");
+})
 app.use('/auth/login', LoginRoute);
 app.use('/auth/register/farmer', farmerRegisterRoute);
 app.use('/auth/register/driver', driverRegisterRoute);
