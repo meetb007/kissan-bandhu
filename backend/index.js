@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
-const db = 'mongodb://localhost/kisaan';
-const port = 5000;
+const config = require('./config');
+const db = config.url;
+const port = process.env.PORT || 5000;
 
 const LoginRoute = require('./routes/login');
 const farmerRegisterRoute = require('./routes/registerFarmer');
@@ -24,6 +25,16 @@ mongoose.connect(
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET POST PATCH DELETE');
+    return res.status(200).json({});
+  }
+  next();
+});
 
 app.use('/auth/login', LoginRoute);
 app.use('/auth/register/farmer', farmerRegisterRoute);

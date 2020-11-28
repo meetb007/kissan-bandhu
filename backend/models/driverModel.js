@@ -10,4 +10,4 @@ const driverSchema = mongoose.Schema({
   driverLicence: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('drivers', driverSchema);
+module.exports = mongoose.model('driver', driverSchema);
