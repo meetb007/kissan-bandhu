@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Login/login_screen.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
@@ -10,6 +12,8 @@ import 'package:frontend/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:developer';
+import '../../../url.dart';
+import 'package:http/http.dart' as http;
 
 // class Body extends StatelessWidget {
 //   // Body() {
@@ -196,6 +200,28 @@ class _BodyFarmerState extends State<BodyFarmer> {
     latitude = position.latitude.toString();
     longitude = position.longitude.toString();
 
-    print(name + "***"+address+"**"+mobile+"**"+password+"**"+latitude+"**"+longitude);
+    print(name +
+        "***" +
+        address +
+        "**" +
+        mobile +
+        "**" +
+        password +
+        "**" +
+        latitude +
+        "**" +
+        longitude);
+    print(farmer_register);
+    var response = await http.post(farmer_register, body: {
+      'name': name,
+      'address': address,
+      'mobile': mobile,
+      'latitude': latitude,
+      'longitude': longitude,
+      'password': password
+    });
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
   }
 }
