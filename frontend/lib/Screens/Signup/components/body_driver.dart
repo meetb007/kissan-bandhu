@@ -8,7 +8,6 @@ import 'package:frontend/components/rounded_button.dart';
 import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:geolocator/geolocator.dart';
 import 'dart:developer';
 
 class Body extends StatelessWidget {
