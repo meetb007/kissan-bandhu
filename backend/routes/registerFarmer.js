@@ -3,7 +3,7 @@ const Farmer = require('../models/farmerModel');
 const router = express.Router();
 const Login = require('../models/loginModel');
 
-router.post('/', (req, res) => {
+router.post('/', async(req, res) => {
   const { name, password, mobile, address, latitude, longitude } = req.body;
   const farmertemp = new Farmer({
     name,
@@ -13,7 +13,16 @@ router.post('/', (req, res) => {
     longitude,
   });
 
-  
+  const temp = await Farmer.findOne({mobile}).exec();
+
+  if(temp){
+    res.status(302).json({
+        message: 'Farmer Already Exist',
+        response:temp,
+        statusCode: 302,
+    });
+    return
+  }
 
   farmertemp
     .save()

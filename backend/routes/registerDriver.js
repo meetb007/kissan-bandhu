@@ -3,7 +3,7 @@ const Driver = require('../models/driverModel');
 const router = express.Router();
 const Login = require('../models/loginModel');
 
-router.post('/', (req, res) => {
+router.post('/', async(req, res) => {
   const {
     name,
     password,
@@ -24,7 +24,16 @@ router.post('/', (req, res) => {
     driverLicence,
   });
 
-  
+  const temp = await Driver.findOne({mobile}).exec();
+
+  if(temp){
+    res.status(302).json({
+        message: 'Driver Already Exist',
+        response:temp,
+        statusCode: 302,
+    });
+    return;
+  }
 
   drivertemp
     .save()

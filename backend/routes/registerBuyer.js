@@ -3,7 +3,7 @@ const Buyer = require('../models/buyerModel');
 const router = express.Router();
 const Login = require('../models/loginModel');
 
-router.post('/', (req, res) => {
+router.post('/', async(req, res) => {
   const { name, password, mobile, address, latitude, longitude } = req.body;
   const buyertemp = new Buyer({
     name,
@@ -13,7 +13,16 @@ router.post('/', (req, res) => {
     longitude,
   });
 
+  const temp = await Buyer.findOne({mobile}).exec();
 
+  if(temp){
+    res.status(302).json({
+        message: 'Buyer Already Exist',
+        response:temp,
+        statusCode: 302,
+    });
+    return ;
+  }
 
   buyertemp
     .save()
