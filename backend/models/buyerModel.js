@@ -8,4 +8,4 @@ const buyerSchema = mongoose.Schema({
   longitude: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('drivers', buyerSchema);
+module.exports = mongoose.model('buyers', buyerSchema);

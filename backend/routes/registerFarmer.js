@@ -13,21 +13,23 @@ router.post('/', (req, res) => {
     longitude,
   });
 
-  const loginModel = new Login({
-    mobile,
-    password,
-    role: 'farmer',
-  });
+  
 
   farmertemp
     .save()
     .then((doc) => {
-      loginModel.save();
+      const loginModel = new Login({
+        mobile,
+        password,
+        role: 'farmer',
+        userFk:doc._id
+      });
+      return loginModel.save();
     })
-    .then((doc) => {
+    .then((doc1) => {
       res.status(200).json({
         message: 'Farmer Register Successfully',
-        response: doc,
+        response: doc1,
         statusCode: 200,
       });
     })

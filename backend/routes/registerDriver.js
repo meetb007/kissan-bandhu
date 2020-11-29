@@ -24,21 +24,23 @@ router.post('/', (req, res) => {
     driverLicence,
   });
 
-  const loginModel = new Login({
-    mobile,
-    password,
-    role: 'driver',
-  });
+  
 
   drivertemp
     .save()
     .then((doc) => {
-      loginModel.save();
+      const loginModel = new Login({
+        mobile,
+        password,
+        role: 'driver',
+        userFk:doc._id
+      });
+      return loginModel.save();
     })
-    .then((doc) => {
+    .then((doc1) => {
       res.status(200).json({
         message: 'Driver Register Successfully',
-        response: doc,
+        response: doc1,
         statusCode: 200,
       });
     })
