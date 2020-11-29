@@ -10,6 +10,7 @@ const LoginRoute = require('./routes/login');
 const farmerRegisterRoute = require('./routes/registerFarmer');
 const driverRegisterRoute = require('./routes/registerDriver');
 const buyerRegisterRoute = require('./routes/registerBuyer');
+const farmerProfileRoute = require('./routes/farmerProfile');
 
 mongoose.connect(
   db,
@@ -37,12 +38,13 @@ app.use((req, res, next) => {
 });
 
 app.get("/",(req,res)=>{
-  res.send("Hello");
+  res.send("API for kissan bandhu");
 })
 app.use('/auth/login', LoginRoute);
 app.use('/auth/register/farmer', farmerRegisterRoute);
 app.use('/auth/register/driver', driverRegisterRoute);
 app.use('/auth/register/buyer', buyerRegisterRoute);
+app.use('/farmer/profile',farmerProfileRoute);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
