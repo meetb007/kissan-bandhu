@@ -10,7 +10,8 @@ class SideBar extends StatefulWidget {
   _SideBarState createState() => _SideBarState();
 }
 
-class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<SideBar> {
+class _SideBarState extends State<SideBar>
+    with SingleTickerProviderStateMixin<SideBar> {
   AnimationController _animationController;
   StreamController<bool> isSidebarOpenedStreamController;
   Stream<bool> isSidebarOpenedStream;
@@ -20,7 +21,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: _animationDuration);
+    _animationController =
+        AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
@@ -66,7 +68,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  color: const Color(0xFF8B3AFD),
+                  color: const Color(0xFFA884DA),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -75,7 +77,10 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ListTile(
                         title: Text(
                           "Farmer1",
-                          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w800),
                         ),
                         subtitle: Text(
                           "**********",
@@ -87,7 +92,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         leading: CircleAvatar(
                           child: Icon(
                             Icons.perm_identity,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           radius: 40,
                         ),
@@ -104,7 +109,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         title: "Home",
                         onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.HomePageClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(NavigationEvents.HomePageClickedEvent);
                         },
                       ),
                       MenuItem(
@@ -112,7 +118,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         title: "My Account",
                         onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.ProfileClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(NavigationEvents.ProfileClickedEvent);
                         },
                       ),
                       MenuItem(
@@ -120,15 +127,17 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         title: "My Orders",
                         onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyOrdersClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(NavigationEvents.MyOrdersClickedEvent);
                         },
                       ),
                       MenuItem(
                         icon: Icons.local_shipping,
                         title: "Track",
-                         onTap: () {
+                        onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.TrackOrderClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(NavigationEvents.TrackOrderClickedEvent);
                         },
                       ),
                       Divider(
@@ -165,7 +174,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                     child: Container(
                       width: 35,
                       height: 110,
-                      color: Color(0xFF8B3AFD),
+                      color: Color(0xFFA884DA),
                       alignment: Alignment.centerLeft,
                       child: AnimatedIcon(
                         progress: _animationController.view,

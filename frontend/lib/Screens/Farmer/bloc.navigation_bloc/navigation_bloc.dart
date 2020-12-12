@@ -17,7 +17,7 @@ abstract class NavigationStates {}
 
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   @override
-  NavigationStates get initialState => Profile();
+  NavigationStates get initialState => Sell();
 
   @override
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
