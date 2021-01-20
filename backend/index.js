@@ -3,6 +3,9 @@ const app = express();
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
 const db = config.url;
 const port = process.env.PORT || 5000;
 
@@ -23,6 +26,20 @@ mongoose.connect(
     }
   }
 );
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Kisaan Bandhu',
+      description: 'An Api Documentation for Kisaan Bandhu',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes/*.js'],
+};
+
+const swaggerSpec = swaggerJsdoc(options);
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -45,6 +62,7 @@ app.use('/auth/register/farmer', farmerRegisterRoute);
 app.use('/auth/register/driver', driverRegisterRoute);
 app.use('/auth/register/buyer', buyerRegisterRoute);
 app.use('/farmer/profile',farmerProfileRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

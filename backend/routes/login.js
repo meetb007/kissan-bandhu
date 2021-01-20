@@ -4,6 +4,32 @@ const router = express.Router();
 const md5 = require('md5');
 const Token = require("../models/tokenModel");
 
+
+/**
+ * @swagger
+ * /auth/login:
+ *  post:
+ *    summary: Logins Api
+ *    description: Login Api for all user
+ *    tags:
+ *      - name: Login
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            properties:
+ *              mobile:
+ *                type: number
+ *              password:
+ *                type: string
+ *
+ *    responses:
+ *      200:
+ *        description: Login Successfully
+ *      401:
+ *        description: Error in Login
+ */
+
 router.post('/', async (req, res) => {
   const { mobile, password } = req.body;
   const temp = await Login.findOne({ mobile }).exec();

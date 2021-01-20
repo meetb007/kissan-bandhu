@@ -3,6 +3,40 @@ const Buyer = require('../models/buyerModel');
 const router = express.Router();
 const Login = require('../models/loginModel');
 
+/**
+ * @swagger
+ * /auth/register/buyer:
+ *  post:
+ *    summary: Buyer Register
+ *    description: Register Api for buyer
+ *    tags:
+ *      - name: Buyer
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            properties:
+ *              mobile:
+ *                type: number
+ *              password:
+ *                type: string
+ *              name:
+ *                type: string
+ *              address:
+ *                type: string
+ *              latitude:
+ *                type: number
+ *              longitude:
+ *                type: number
+ *    responses:
+ *      200:
+ *        description: Buyer Register Successfully
+ *      302:
+ *        description: Buyer Already Exist
+ *      500:
+ *        description: Error in Buyer Register API
+ */
+
 router.post('/', async(req, res) => {
   const { name, password, mobile, address, latitude, longitude } = req.body;
   const buyertemp = new Buyer({

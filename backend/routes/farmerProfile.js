@@ -3,6 +3,23 @@ const router = express.Router();
 const Token = require('../models/tokenModel');
 const Farmer = require('../models/farmerModel');
 
+
+/**
+ * @swagger
+ * /farmer/profile:
+ *  get:
+ *    summary: Farmer Profile
+ *    description: Api for farmer profile
+ *    tags:
+ *      - name: Farmer
+ *    responses:
+ *      200:
+ *        description: Farmer Profile
+ *      403:
+ *        description: Error in Token
+ *      500:
+ *        description: Error in Farmer Profile
+ */
 router.get('/', async (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
