@@ -3,7 +3,6 @@ import 'package:frontend/Screens/Farmer/components/sell.dart';
 import 'package:frontend/Screens/Farmer/components/my_orders.dart';
 import 'package:frontend/Screens/Farmer/components/profile.dart';
 import 'package:frontend/Screens/Farmer/components/track.dart';
-import 'package:frontend/logout.dart';
 
 enum NavigationEvents {
   HomePageClickedEvent,

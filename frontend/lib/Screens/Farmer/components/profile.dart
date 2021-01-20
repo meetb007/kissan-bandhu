@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Farmer/components/profile_animations/animations.dart';
 import 'package:frontend/constants.dart';
 import '../bloc.navigation_bloc/navigation_bloc.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class Profile extends StatelessWidget with NavigationStates {
   const Profile({Key key}) : super(key: key);
@@ -18,8 +17,8 @@ class Profile extends StatelessWidget with NavigationStates {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromRGBO(4, 9, 35, 1),
-                Color.fromRGBO(139, 95, 171, 0.5),
+                Color.fromRGBO(20, 9, 50, 1),
+                Color.fromRGBO(150, 95, 171, 0.5),
               ],
               begin: FractionalOffset.bottomCenter,
               end: FractionalOffset.topCenter,
@@ -46,9 +45,6 @@ class Profile extends StatelessWidget with NavigationStates {
                       //   color: Colors.white,
                       // ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 20,
                   ),
                   Text(
                     'My\nProfile',
@@ -172,7 +168,7 @@ class Profile extends StatelessWidget with NavigationStates {
                               child: Center(
                                 child: Container(
                                   child: Image.asset(
-                                    'assets/img/profile.png',
+                                    'assets/images/profile.png',
                                     width: innerWidth * 0.45,
                                     fit: BoxFit.fitWidth,
                                   ),
@@ -216,16 +212,15 @@ class Profile extends StatelessWidget with NavigationStates {
                             height: 10,
                           ),
                           FadeAnimation(
-                            1.6,
-                            Text(
-                              "Mobile Number",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.underline),
-                            )
-                          ),
+                              1.6,
+                              Text(
+                                "Mobile Number",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                              )),
                           SizedBox(
                             height: 10,
                           ),
@@ -238,28 +233,28 @@ class Profile extends StatelessWidget with NavigationStates {
                           SizedBox(
                             height: 20,
                           ),
-                           FadeAnimation(
-                            1.6,
-                            Text(
-                              "Address",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.underline),
-                            )),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            FadeAnimation(
-                                1.6,
-                                Text(
-                                  "Mumbai.",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      height: 2,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                          FadeAnimation(
+                              1.6,
+                              Text(
+                                "Address",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          FadeAnimation(
+                              1.6,
+                              Text(
+                                "Mumbai.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    height: 2,
+                                    fontWeight: FontWeight.bold),
+                              )),
                         ],
                       ),
                     ),

@@ -20,6 +20,7 @@ class _SellState extends State<Sell> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,8 @@ class _SellState extends State<Sell> {
       body: Center(
           child: _image == null
               ? Text("Image is not Loaded")
-              : Image.file(_image)),
+              : Image.file(_image)
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
         tooltip: 'Click',
