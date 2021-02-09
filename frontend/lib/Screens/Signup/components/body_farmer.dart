@@ -11,7 +11,6 @@ import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:developer';
 import '../../../url.dart';
 import 'package:http/http.dart' as http;
 
@@ -192,6 +191,7 @@ class _BodyFarmerState extends State<BodyFarmer> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   void SignUp() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);

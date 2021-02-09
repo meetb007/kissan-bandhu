@@ -3,16 +3,13 @@ import 'package:frontend/Screens/Farmer/components/profile_animations/animations
 import '../../../constants.dart';
 import '../bloc.navigation_bloc/navigation_bloc.dart';
 
- class MyOrders extends StatelessWidget with NavigationStates{
-  const MyOrders({
-    Key key
-  }) : super(key: key);
+class MyOrders extends StatelessWidget with NavigationStates {
+  const MyOrders({Key key}) : super(key: key);
   final Color color = kPrimaryLightColor;
-
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
@@ -50,7 +47,6 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
                       // ),
                     ],
                   ),
-                  
                   Text(
                     'My\nPrevious\nOrders',
                     textAlign: TextAlign.center,
@@ -60,7 +56,6 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
                       fontFamily: 'Nisebuschgardens',
                     ),
                   ),
-                  
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(
@@ -144,30 +139,34 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
                                           ),
                                         ),
                                         //Column(
-                                          Positioned.fill(
-                                            //bottom: 50,
-                                            child: Container(
-                                              child: Align(
-                                                alignment: Alignment.bottomCenter,
-                                                child: FadeAnimation(
-                                                  2,
-                                                  Container(
-                                                    margin: EdgeInsets.symmetric(horizontal: 5),
-                                                    height: 50,
-                                                    width:150,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(90),
-                                                        color: Colors.deepPurple),
-                                                    child: Align(
-                                                        child: Text(
-                                                      "View",
-                                                      style: TextStyle(color: Colors.white),
-                                                    )),
-                                                  ),
+                                        Positioned.fill(
+                                          //bottom: 50,
+                                          child: Container(
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: FadeAnimation(
+                                                2,
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  height: 50,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              90),
+                                                      color: Colors.deepPurple),
+                                                  child: Align(
+                                                      child: Text(
+                                                    "View",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
                                                 ),
                                               ),
                                             ),
-                                         // )
+                                          ),
+                                          // )
                                         ),
                                       ],
                                     )
@@ -266,30 +265,34 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
                                           ),
                                         ),
                                         //Column(
-                                          Positioned.fill(
-                                            //bottom: 50,
-                                            child: Container(
-                                              child: Align(
-                                                alignment: Alignment.bottomCenter,
-                                                child: FadeAnimation(
-                                                  2,
-                                                  Container(
-                                                    margin: EdgeInsets.symmetric(horizontal: 5),
-                                                    height: 50,
-                                                    width:150,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(90),
-                                                        color: Colors.deepPurple),
-                                                    child: Align(
-                                                        child: Text(
-                                                      "View",
-                                                      style: TextStyle(color: Colors.white),
-                                                    )),
-                                                  ),
+                                        Positioned.fill(
+                                          //bottom: 50,
+                                          child: Container(
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: FadeAnimation(
+                                                2,
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  height: 50,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              90),
+                                                      color: Colors.deepPurple),
+                                                  child: Align(
+                                                      child: Text(
+                                                    "View",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
                                                 ),
                                               ),
                                             ),
-                                         // )
+                                          ),
+                                          // )
                                         ),
                                       ],
                                     )
@@ -388,30 +391,34 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
                                           ),
                                         ),
                                         //Column(
-                                          Positioned.fill(
-                                            //bottom: 50,
-                                            child: Container(
-                                              child: Align(
-                                                alignment: Alignment.bottomCenter,
-                                                child: FadeAnimation(
-                                                  2,
-                                                  Container(
-                                                    margin: EdgeInsets.symmetric(horizontal: 5),
-                                                    height: 50,
-                                                    width:150,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(90),
-                                                        color: Colors.deepPurple),
-                                                    child: Align(
-                                                        child: Text(
-                                                      "View",
-                                                      style: TextStyle(color: Colors.white),
-                                                    )),
-                                                  ),
+                                        Positioned.fill(
+                                          //bottom: 50,
+                                          child: Container(
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: FadeAnimation(
+                                                2,
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  height: 50,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              90),
+                                                      color: Colors.deepPurple),
+                                                  child: Align(
+                                                      child: Text(
+                                                    "View",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
                                                 ),
                                               ),
                                             ),
-                                         // )
+                                          ),
+                                          // )
                                         ),
                                       ],
                                     )
