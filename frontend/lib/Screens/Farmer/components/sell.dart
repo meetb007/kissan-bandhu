@@ -13,6 +13,7 @@ class _SellState extends State<Sell> {
   File _image;
 
   Future getImage() async {
+    // ignore: deprecated_member_use
     final image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
     setState(() {

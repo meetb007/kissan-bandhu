@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/components/profile_animations/animations.dart';
-import '../../../constants.dart';
-import '../bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Driver/components/profile_animations/animations.dart';
+import 'package:frontend/constants.dart';
+import 'package:frontend/Screens/Driver/bloc.navigation_bloc/navigation_bloc.dart';
 
-class Track extends StatelessWidget with NavigationStates {
-  const Track({Key key}) : super(key: key);
-
+class MyOrders extends StatelessWidget with NavigationStates {
+  const MyOrders({Key key}) : super(key: key);
   final Color color = kPrimaryLightColor;
 
   @override
   Widget build(BuildContext context) {
-    //double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
@@ -49,7 +48,7 @@ class Track extends StatelessWidget with NavigationStates {
                     ],
                   ),
                   Text(
-                    'My\nCurrent\nOrders',
+                    'My\nPrevious\nOrders',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
