@@ -4,12 +4,21 @@ import 'package:frontend/Screens/Signup/components/background.dart';
 import 'package:frontend/Screens/Signup/components/or_divider.dart';
 import 'package:frontend/Screens/Signup/components/social_icon.dart';
 import 'package:frontend/components/already_have_an_account_acheck.dart';
+import 'package:frontend/components/role_button.dart';
 import 'package:frontend/components/rounded_button.dart';
 import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
+  set password(String password) {}
+
+  set address(String address) {}
+
+  set mobile(String mobile) {}
+
+  set name(String name) {}
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -18,25 +27,40 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "SIGNUP",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
             SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
               "assets/icons/signup.svg",
               height: size.height * 0.35,
             ),
             RoundedInputField(
-              hintText: "Your Email",
-              onChanged: (value) {},
+              hintText: "Name",
+              onChanged: (value) {
+                this.name = value;
+              },
+            ),
+            RoundedInputField(
+              hintText: "Mobile Number",
+              onChanged: (value) {
+                this.mobile = value;
+              },
+            ),
+            RoundedInputField(
+              hintText: "Address",
+              onChanged: (value) {
+                this.address = value;
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                this.password = value;
+              },
             ),
+            RoleButton(),
             RoundedButton(
               text: "SIGNUP",
-              press: () {},
+              press: () {
+                // SignUp();
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -56,15 +80,15 @@ class Body extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/facebook.svg",
                   press: () {},
                 ),
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/twitter.svg",
                   press: () {},
                 ),
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
                   press: () {},
                 ),

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:frontend/components/role_button.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Login/login_screen.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
@@ -80,15 +80,15 @@ import 'package:http/http.dart' as http;
 //             Row(
 //               mainAxisAlignment: MainAxisAlignment.center,
 //               children: <Widget>[
-//                 SocalIcon(
+//                 SocialIcon(
 //                   iconSrc: "assets/icons/facebook.svg",
 //                   press: () {},
 //                 ),
-//                 SocalIcon(
+//                 SocialIcon(
 //                   iconSrc: "assets/icons/twitter.svg",
 //                   press: () {},
 //                 ),
-//                 SocalIcon(
+//                 SocialIcon(
 //                   iconSrc: "assets/icons/google-plus.svg",
 //                   press: () {},
 //                 ),
@@ -147,10 +147,11 @@ class _BodyFarmerState extends State<BodyFarmer> {
                 this.password = value;
               },
             ),
+            RoleButton(),
             RoundedButton(
               text: "SIGNUP",
               press: () {
-                SignUp();
+                // SignUp();
               },
             ),
             SizedBox(height: size.height * 0.03),
@@ -171,15 +172,15 @@ class _BodyFarmerState extends State<BodyFarmer> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/facebook.svg",
                   press: () {},
                 ),
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/twitter.svg",
                   press: () {},
                 ),
-                SocalIcon(
+                SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
                   press: () {},
                 ),
