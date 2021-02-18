@@ -11,7 +11,7 @@ import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../url.dart';
+import 'package:frontend/url.dart';
 import 'package:http/http.dart' as http;
 
 // class Body extends StatelessWidget {
@@ -151,7 +151,7 @@ class _BodyFarmerState extends State<BodyFarmer> {
             RoundedButton(
               text: "SIGNUP",
               press: () {
-                // SignUp();
+                SignUp();
               },
             ),
             SizedBox(height: size.height * 0.03),
@@ -200,7 +200,8 @@ class _BodyFarmerState extends State<BodyFarmer> {
     //     position.latitude.toString() + "****" + position.longitude.toString());
     latitude = position.latitude.toString();
     longitude = position.longitude.toString();
-
+    String role = RoleButton.value;
+    String url = "";
     print(name +
         "***" +
         address +
@@ -213,7 +214,18 @@ class _BodyFarmerState extends State<BodyFarmer> {
         "**" +
         longitude);
     print(farmer_register);
-    var response = await http.post(farmer_register, body: {
+    print(role);
+
+    if (role == "Farmer") {
+      url = farmer_register;
+    } else if (role == "Buyer") {
+      url = buyer_register;
+    }
+    else{
+      url = driver_register;
+    }
+
+    var response = await http.post(url, body: {
       'name': name,
       'address': address,
       'mobile': mobile,
