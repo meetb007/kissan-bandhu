@@ -6,8 +6,8 @@ const driverSchema = mongoose.Schema({
   address: { type: String, required: true },
   latitude: { type: String, required: true },
   longitude: { type: String, required: true },
-  capacity: { type: String, required: true },
-  driverLicence: { type: String, required: true },
+  capacity: { type: String },
+  driverLicence: { type: String},
 });
 
 module.exports = mongoose.model('driver', driverSchema);
