@@ -34,6 +34,16 @@ router.post('/', async (req, res) => {
   const { mobile, password } = req.body;
   const temp = await Login.findOne({ mobile }).exec();
   if (temp && temp.password === password) {
+    const tempUser = await Token.findOne({userFk:temp.userFk}).exec();
+    if(tempUser){
+      res.status(200).json({
+        message: 'Login Successfully',
+        statusCode: 200,
+        role: tempUser.role,
+        token: tempUser.token
+      });
+      return;
+    }
     const token = md5(temp._id);
     const tempToken = new Token({ token, userFk: temp.userFk,role:temp.role });
     tempToken.save().then(doc =>{
