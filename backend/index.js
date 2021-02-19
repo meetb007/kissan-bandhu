@@ -16,6 +16,8 @@ const buyerRegisterRoute = require('./routes/registerBuyer');
 const farmerProfileRoute = require('./routes/farmerProfile');
 const farmerProductRoute = require("./routes/SellProduct")
 const driverPickUpRoute = require("./routes/DriverPickUpRoute")
+const buyerProfileRoute = require('./routes/buyerProfile');
+const driverProfileRoute = require('./routes/driverProfile');
 
 mongoose.connect(
   db,
@@ -64,6 +66,8 @@ app.use('/auth/register/farmer', farmerRegisterRoute);
 app.use('/auth/register/driver', driverRegisterRoute);
 app.use('/auth/register/buyer', buyerRegisterRoute);
 app.use('/farmer/profile',farmerProfileRoute);
+app.use('/buyer/profile',buyerProfileRoute);
+app.use('/driver/profile',driverProfileRoute);
 app.use('/farmer/product',farmerProductRoute);
 app.use('/driver/pickup',driverPickUpRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -21,6 +21,13 @@ def knn():
 	pickUpLocation = findPathForDriver(pickUpNodes)
 	return pickUpLocation
 
+@app.route('/predictItem',methods=["GET"])
+def predict():
+
+
+
+
+
 # calculate the distance between two vectors
 def distanceBtwTwoLocation(driver,farmer):
 	lat1 = radians(driver[0])
@@ -57,6 +64,8 @@ def get_neighbors(farmers, driver, num_neighbors,threshold):
 #Use Alogrithm to Find smallest path
 def findPathForDriver(pickUpNodes):
 	pass
+
+
 
 
 if __name__ == "__main__":
