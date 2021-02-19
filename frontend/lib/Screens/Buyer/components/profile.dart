@@ -1,15 +1,33 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/components/profile_animations/animations.dart';
-import 'package:frontend/constants.dart';
 import 'package:frontend/Screens/Buyer/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
 
-class Profile extends StatelessWidget with NavigationStates {
-  const Profile({Key key}) : super(key: key);
+class Profile extends StatefulWidget with NavigationStates {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  bool getData = false;
+  var profileData;
+  _ProfileState() {
+    getProfile();
+  }
+
   final Color color = kPrimaryLightColor;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    if (!getData) {
+      return Text("no profile fetch");
+    }
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -84,7 +102,7 @@ class Profile extends StatelessWidget with NavigationStates {
                                       height: 80,
                                     ),
                                     Text(
-                                      'Buyer1',
+                                      profileData["name"],
                                       style: TextStyle(
                                         color: Color.fromRGBO(39, 105, 171, 1),
                                         fontFamily: 'Nunito',
@@ -190,72 +208,100 @@ class Profile extends StatelessWidget with NavigationStates {
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'My Details',
-                            style: TextStyle(
-                              color: Color.fromRGBO(39, 105, 171, 1),
-                              fontSize: 27,
-                              fontFamily: 'Nunito',
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          Divider(
-                            thickness: 2.5,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          FadeAnimation(
-                              1.6,
-                              Text(
-                                "Mobile Number",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          FadeAnimation(
-                              1.6,
-                              Text(
-                                "**********",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          FadeAnimation(
-                              1.6,
-                              Text(
-                                "Address",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
-                              )),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          FadeAnimation(
-                              1.6,
-                              Text(
-                                "Mumbai.",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    height: 2,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ],
+                            Text(
+                              'My Details',
+                              style: TextStyle(
+                                color: Color.fromRGBO(39, 105, 171, 1),
+                                fontSize: 27,
+                                fontFamily: 'Nunito',
+                              ),
+                            ),
+                            Divider(
+                              thickness: 2.5,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  "Mobile Number",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  profileData["mobile"],
+                                  style: TextStyle(color: Colors.black),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  "Address",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  profileData["address"].toString().toUpperCase(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      height: 2,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                                SizedBox(
+                              height: 10,
+                            ),
+                            Positioned.fill(
+                              bottom: 50,
+                              child: Container(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: FadeAnimation(
+                                    2,
+                                    Container(
+                                      margin: EdgeInsets.symmetric(horizontal: 30),
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          color: Colors.deepPurple),
+                                      child: Align(
+                                          child: Text(
+                                        "Edit Profile",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -264,30 +310,48 @@ class Profile extends StatelessWidget with NavigationStates {
             ),
           ),
         ),
-        Positioned.fill(
-          bottom: 50,
-          child: Container(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: FadeAnimation(
-                2,
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 30),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.deepPurple),
-                  child: Align(
-                      child: Text(
-                    "Edit Profile",
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-              ),
-            ),
-          ),
-        )
+        // Positioned.fill(
+        //   bottom: 50,
+        //   child: Container(
+        //     child: Align(
+        //       alignment: Alignment.bottomCenter,
+        //       child: FadeAnimation(
+        //         2,
+        //         Container(
+        //           margin: EdgeInsets.symmetric(horizontal: 30),
+        //           height: 50,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(50),
+        //               color: Colors.deepPurple),
+        //           child: Align(
+        //               child: Text(
+        //             "Edit Profile",
+        //             style: TextStyle(color: Colors.white),
+        //           )),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // )
       ],
     );
+  }
+
+  void getProfile() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.get(
+      buyer_profile,
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    profileData = res["response"];
+    setState(() {
+      getData = true;
+    });
+    print(profileData);
   }
 }
