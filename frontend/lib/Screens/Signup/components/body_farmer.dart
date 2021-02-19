@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:frontend/components/role_button.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toast/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Login/login_screen.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
@@ -109,7 +111,7 @@ class BodyFarmer extends StatefulWidget {
 }
 
 class _BodyFarmerState extends State<BodyFarmer> {
-  String name, address, latitude, longitude, mobile, password;
+  String name = "", address = "", latitude = "", longitude = "", mobile = "", password = "";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -236,5 +238,20 @@ class _BodyFarmerState extends State<BodyFarmer> {
     print(response.statusCode);
     var res = jsonDecode(response.body);
     print(res);
+    var status = res["statusCode"];
+    if(status == 200){
+      Toast.show(res["message"], context, duration : Toast.LENGTH_SHORT);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        ),
+      );
+    }
+    else{
+     Toast.show("Error in signup", context, duration : Toast.LENGTH_LONG);
+    }
   }
 }

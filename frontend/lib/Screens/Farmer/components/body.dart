@@ -1,62 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/Farmer/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:frontend/Screens/Login/components/background.dart';
-import 'package:frontend/Screens/Signup/signup_screen.dart';
-import 'package:frontend/components/already_have_an_account_acheck.dart';
-import 'package:frontend/components/rounded_button.dart';
-import 'package:frontend/components/rounded_input_field.dart';
-import 'package:frontend/components/rounded_password_field.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatelessWidget with NavigationStates {
   const Body({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
+    getToken();
     return Background(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "LOGIN",
+              "Dashboard",
               style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/login.svg",
-              height: size.height * 0.35,
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedInputField(
-              hintText: "Mobile number",
-              onChanged: (value) {},
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {},
-            ),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {},
-            ),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    },
-                  ),
-                );
-              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void getToken() async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
   }
 }

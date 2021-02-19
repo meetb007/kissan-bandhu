@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Driver/sidebar/sidebar_layout.dart';
@@ -90,37 +90,44 @@ class _BodyState extends State<Body> {
     print(response.statusCode);
     var res = jsonDecode(response.body);
     print(res);
-    String role = res["role"];
-    print(role);
-    if (role == "farmer") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return FarmerSideBarLayout();
-          },
-        ),
-      );
-    } else if (role == "buyer") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return BuyerSideBarLayout();
-          },
-        ),
-      );
-    } else if (role == "driver") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return DriverSideBarLayout();
-          },
-        ),
-      );
+    var status = res["statusCode"];
+    if (status == 200) {
+      String role = res["role"];
+      print(role);
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      await storage.setString("token", res["token"]);
+      if (role == "farmer") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return FarmerSideBarLayout();
+            },
+          ),
+        );
+      } else if (role == "buyer") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return BuyerSideBarLayout();
+            },
+          ),
+        );
+      } else if (role == "driver") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return DriverSideBarLayout();
+            },
+          ),
+        );
+      } else {
+        print("Not successful");
+      }
     } else {
-      print("Not successful");
+      print("error");
     }
   }
 }

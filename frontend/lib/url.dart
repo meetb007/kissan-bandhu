@@ -7,3 +7,5 @@ final String buyer_register = baseURL + "auth/register/buyer";
 final String driver_register = baseURL + "auth/register/driver";
 // ignore: non_constant_identifier_names
 final String login_url = baseURL + "auth/login";
+// ignore: non_constant_identifier_names
+final String farmer_profile = baseURL + "farmer/profile";
