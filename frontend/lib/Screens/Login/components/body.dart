@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Driver/sidebar/sidebar_layout.dart';
@@ -94,7 +94,8 @@ class _BodyState extends State<Body> {
     if (status == 200) {
       String role = res["role"];
       print(role);
-      //await GetStorage().write("token", res["token"]);
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      await storage.setString("token", res["token"]);
       if (role == "farmer") {
         Navigator.push(
           context,

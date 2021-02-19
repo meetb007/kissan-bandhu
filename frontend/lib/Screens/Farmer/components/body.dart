@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Farmer/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:frontend/Screens/Login/components/background.dart';
-//import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatelessWidget with NavigationStates {
   const Body({
@@ -11,7 +11,7 @@ class Body extends StatelessWidget with NavigationStates {
   @override
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
-    //print(GetStorage().read("token"));
+    getToken();
     return Background(
       child: SingleChildScrollView(
         child: Column(
@@ -25,5 +25,10 @@ class Body extends StatelessWidget with NavigationStates {
         ),
       ),
     );
+  }
+
+  void getToken() async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
   }
 }
