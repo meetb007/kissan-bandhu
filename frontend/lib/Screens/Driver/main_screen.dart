@@ -13,7 +13,7 @@ import 'package:frontend/Screens/Driver/sidebar/sidebar_layout.dart';
 class MainScreen extends StatelessWidget{
     Widget build(BuildContext context) {
     return Scaffold(
-      body: SideBarLayout(),
+      body: DriverSideBarLayout(),
     );
   }
 }
