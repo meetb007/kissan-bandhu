@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// This is the stateful widget that the main application instantiates.
 class RoleButton extends StatefulWidget {
   RoleButton({Key key}) : super(key: key);
-  static String value;
+  static String value = 'Farmer';
 
   @override
   _RoleButtonState createState() => _RoleButtonState();

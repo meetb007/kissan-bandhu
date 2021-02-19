@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:frontend/Screens/Farmer/components/body.dart';
 import 'package:frontend/Screens/Farmer/components/sell.dart';
 import 'package:frontend/Screens/Farmer/components/my_orders.dart';
 import 'package:frontend/Screens/Farmer/components/profile.dart';
@@ -16,7 +17,7 @@ abstract class NavigationStates {}
 
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   @override
-  NavigationStates get initialState => Sell();
+  NavigationStates get initialState => Body();
 
   @override
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
