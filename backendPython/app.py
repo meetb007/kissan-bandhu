@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from math import radians, cos, sin, asin, sqrt 
+import numpy as np
+from cv2 import cv2
+import json
 
 app = Flask(__name__)
 
@@ -23,9 +26,8 @@ def knn():
 
 @app.route('/predictItem',methods=["GET"])
 def predict():
-
-
-
+	return "predict"
+	
 
 
 # calculate the distance between two vectors
@@ -69,4 +71,4 @@ def findPathForDriver(pickUpNodes):
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run()
