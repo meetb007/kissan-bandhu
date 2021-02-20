@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:frontend/Screens/Farmer/components/sell_detail.dart';
 import 'package:frontend/components/rounded_button.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -35,14 +34,14 @@ class _SellState extends State<Sell> {
     // final responseJson = json.decode(response.body);
     // print(responseJson);
     print('data:image/png;base64,' + base64Encode(_image.readAsBytesSync()));
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return SellDetail();
-    //     },
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return SellDetail();
+        },
+      ),
+    );
   }
 
   @override
