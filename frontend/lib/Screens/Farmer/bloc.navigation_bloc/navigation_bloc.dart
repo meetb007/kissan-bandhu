@@ -3,6 +3,7 @@ import 'package:frontend/Screens/Farmer/components/body.dart';
 import 'package:frontend/Screens/Farmer/components/sell.dart';
 import 'package:frontend/Screens/Farmer/components/my_orders.dart';
 import 'package:frontend/Screens/Farmer/components/profile.dart';
+import 'package:frontend/Screens/Farmer/components/sell_detail.dart';
 import 'package:frontend/Screens/Farmer/components/track.dart';
 
 enum NavigationEvents {
@@ -10,6 +11,7 @@ enum NavigationEvents {
   ProfileClickedEvent,
   MyOrdersClickedEvent,
   TrackOrderClickedEvent,
+  SellDetailEvent,
   //LogoutClickedEvent,
 }
 
@@ -33,6 +35,9 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
         break;
       case NavigationEvents.TrackOrderClickedEvent:
         yield Track();
+        break;
+      case NavigationEvents.SellDetailEvent:
+        yield SellDetail();
         break;
       // case NavigationEvents.LogoutClickedEvent:
       //   yield Logout();

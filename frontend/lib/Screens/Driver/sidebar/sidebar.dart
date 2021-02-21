@@ -4,6 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:frontend/Screens/Driver/bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:frontend/Screens/Driver/sidebar/menu_item.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../logout.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -17,6 +25,11 @@ class _SideBarState extends State<SideBar>
   Stream<bool> isSidebarOpenedStream;
   StreamSink<bool> isSidebarOpenedSink;
   final _animationDuration = const Duration(milliseconds: 500);
+  bool getData = false;
+  var profileData;
+  _SideBarState() {
+    getProfile();
+  }
 
   @override
   void initState() {
@@ -76,14 +89,14 @@ class _SideBarState extends State<SideBar>
                       ),
                       ListTile(
                         title: Text(
-                          "Driver",
+                          profileData["name"],
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 30,
                               fontWeight: FontWeight.w800),
                         ),
                         subtitle: Text(
-                          "**********",
+                          profileData["mobile"],
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -154,10 +167,17 @@ class _SideBarState extends State<SideBar>
                       MenuItem(
                         icon: Icons.exit_to_app,
                         title: "Logout",
-                        // onTap: () {
-                        //   onIconPressed();
-                        //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.LogoutClickedEvent);
-                        // },
+                        onTap: () {
+                          onIconPressed();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Logout();
+                                },
+                              ),
+                            );
+                        },
                       ),
                     ],
                   ),
@@ -191,6 +211,24 @@ class _SideBarState extends State<SideBar>
         );
       },
     );
+  }
+
+  void getProfile() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.get(
+      driver_profile,
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    profileData = res["response"];
+    setState(() {
+      getData = true;
+    });
+    print(profileData);
   }
 }
 
