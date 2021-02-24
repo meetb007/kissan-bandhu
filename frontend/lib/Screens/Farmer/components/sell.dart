@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 //import 'package:frontend/components/rounded_button.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import '../bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
 import 'package:path/path.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
 import 'package:frontend/components/rounded_button.dart';
@@ -92,10 +94,10 @@ class _SellState extends State<Sell> {
                       // flag = true;
                       // ignore: unnecessary_statements
                       // showWidget;
-                        setState(() {
-                          viewVisible = true;
-                        });
                       upload(true, context);
+                      //  setState(() {
+                      //     viewVisible = true;
+                      //   });
                       // flag = true;
                     },
                     child: Text("Upload"),
@@ -115,83 +117,77 @@ class _SellState extends State<Sell> {
                     maintainState: true,
                     visible: viewVisible,
                     // child: Container(
-                      // child: SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(height: size.height * 0.03),
-                            RoundedInputField(
-                              hintText: "Name",
-                              onChanged: (value) {
-                                this.name = value;
-                              },
-                            ),
-                            RoundedInputField(
-                              hintText: "Quantity",
-                              onChanged: (value) {
-                                this.quantity = int.parse(value);
-                              },
-                            ),
-                            RoundedInputField(
-                              hintText: "Address",
-                              onChanged: (value) {
-                                this.address = value;
-                              },
-                            ),
-                            RoundedInputField(
-                              hintText: "Cost",
-                              onChanged: (value) {
-                                this.cost = int.parse(value);
-                              },
-                            ),
-                            RoundedInputField(
-                              hintText: "Quality",
-                              onChanged: (value) {
-                                this.quality = value;
-                              },
-                            ),
-                            RoundedButton(
-                              text: "Submit",
-                              press: () {
-                                submit();
-                              },
-                            ),
-                            RoundedButton(
-                              text: "Reset",
-                              press: () {
-                                reset();
-                              },
-                            ),
-                            RoundedButton(
-                              text: "Cancel",
-                              press: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) {
-                                //       return Sell();
-                                //     },
-                                //   ),
-                                // );
-                                // hideWidget;
-                                setState(() {
-                                  viewVisible = false;
-                                });
-                              },
-                            ),
-                            // RaisedButton(
-                            //   color: Colors.cyan,
-                            //   onPressed: () {
-                            //     // print("selected image" + selectedImage.path);
-                            //     // flag = true;
-                            //     // ignore: unnecessary_statements
-                            //     hideWidget;
-                            //   },
-                            //   child: Text("Reset"),
-                            // ),
-                            SizedBox(height: size.height * 0.03),
-                          ],
+                    // child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: size.height * 0.03),
+                        RoundedInputField(
+                          hintText: "Name",
+                          onChanged: (value) {
+                            this.name = value;
+                          },
                         ),
-                      ),
+                        RoundedInputField(
+                          hintText: "Quantity",
+                          onChanged: (value) {
+                            this.quantity = int.parse(value);
+                          },
+                        ),
+                        RoundedInputField(
+                          hintText: "Address",
+                          onChanged: (value) {
+                            this.address = value;
+                          },
+                        ),
+                        RoundedInputField(
+                          hintText: "Cost",
+                          onChanged: (value) {
+                            this.cost = int.parse(value);
+                          },
+                        ),
+                        RoundedButton(
+                          text: "Submit",
+                          press: () {
+                            submit();
+                          },
+                        ),
+                        RoundedButton(
+                          text: "Reset",
+                          press: () {
+                            reset();
+                          },
+                        ),
+                        RoundedButton(
+                          text: "Cancel",
+                          press: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return Sell();
+                            //     },
+                            //   ),
+                            // );
+                            // hideWidget;
+                            setState(() {
+                              viewVisible = false;
+                            });
+                          },
+                        ),
+                        // RaisedButton(
+                        //   color: Colors.cyan,
+                        //   onPressed: () {
+                        //     // print("selected image" + selectedImage.path);
+                        //     // flag = true;
+                        //     // ignore: unnecessary_statements
+                        //     hideWidget;
+                        //   },
+                        //   child: Text("Reset"),
+                        // ),
+                        SizedBox(height: size.height * 0.03),
+                      ],
+                    ),
+                  ),
                   //   ),
                   // ),
                 ],
@@ -215,7 +211,7 @@ class _SellState extends State<Sell> {
   void upload(bool flag, BuildContext context) async {
     var request = http.MultipartRequest(
       'GET',
-      Uri.parse("https://kissan-bandhu.govindapatel61.repl.co/predictItem"),
+      Uri.parse(cnn_model),
     );
     Map<String, String> headers = {"Content-type": "multipart/form-data"};
     request.files.add(
@@ -224,13 +220,22 @@ class _SellState extends State<Sell> {
         selectedImage.readAsBytes().asStream(),
         selectedImage.lengthSync(),
         filename: basename(selectedImage.path),
-        contentType: MediaType('image', 'jpeg'),
+        //contentType: MediaType('image', 'jpeg'),
       ),
     );
     request.headers.addAll(headers);
     print("request: " + request.toString());
     var res = await request.send();
     print("This is response:" + res.toString());
+    final respStr = await res.stream.bytesToString();
+    print(respStr);
+    final body1 = json.decode(respStr);
+    print(body1["data"]);
+    setState(() {
+      viewVisible = true;
+    });
+    // var res1 = jsonDecode(res);
+    // print(res1);
     // viewSellDetail(context);
   }
 

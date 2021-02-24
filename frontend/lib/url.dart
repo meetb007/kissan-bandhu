@@ -13,3 +13,5 @@ final String farmer_profile = baseURL + "farmer/profile";
 final String buyer_profile = baseURL + "buyer/profile";
 // ignore: non_constant_identifier_names
 final String driver_profile = baseURL + "driver/profile";
+// ignore: non_constant_identifier_names
+final String cnn_model = "http://42825438b50f.ngrok.io" + "/predictItem";
