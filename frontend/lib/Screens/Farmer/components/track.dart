@@ -71,7 +71,7 @@ class Track extends StatelessWidget with NavigationStates {
                               left: 0,
                               right: 0,
                               child: Container(
-                                height: innerHeight * 0.72,
+                                height: innerHeight * 1,
                                 width: innerWidth,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
@@ -197,7 +197,7 @@ class Track extends StatelessWidget with NavigationStates {
                               left: 0,
                               right: 0,
                               child: Container(
-                                height: innerHeight * 0.72,
+                                height: innerHeight * 1,
                                 width: innerWidth,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
@@ -323,7 +323,7 @@ class Track extends StatelessWidget with NavigationStates {
                               left: 0,
                               right: 0,
                               child: Container(
-                                height: innerHeight * 0.72,
+                                height: innerHeight * 1,
                                 width: innerWidth,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),

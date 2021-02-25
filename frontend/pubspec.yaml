@@ -39,6 +39,7 @@ dependencies:
   path: ^1.7.0
   http_parser: ^3.1.4
   google_maps_flutter: ^0.5.33
+  flutter_image_compress: ^0.7.0
   #provider: ^4.3.1 # for State management
 
 

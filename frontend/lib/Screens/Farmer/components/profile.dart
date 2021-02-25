@@ -311,29 +311,6 @@ class _ProfileState extends State<Profile> {
             ),
           ),
         ),
-        // Positioned.fill(
-        //   bottom: 50,
-        //   child: Container(
-        //     child: Align(
-        //       alignment: Alignment.bottomCenter,
-        //       child: FadeAnimation(
-        //         2,
-        //         Container(
-        //           margin: EdgeInsets.symmetric(horizontal: 30),
-        //           height: 50,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(50),
-        //               color: Colors.deepPurple),
-        //           child: Align(
-        //               child: Text(
-        //             "Edit Profile",
-        //             style: TextStyle(color: Colors.white),
-        //           )),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // )
       ],
     );
   }
