@@ -87,14 +87,14 @@ class _SideBarState extends State<SideBar>
                       ),
                       ListTile(
                         title: Text(
-                          profileData["name"],
+                          getData ? profileData["name"] : "",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 30,
                               fontWeight: FontWeight.w800),
                         ),
                         subtitle: Text(
-                          profileData["mobile"],
+                          getData ? profileData["mobile"] : "",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,

@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 //import 'package:frontend/components/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 import '../bloc.navigation_bloc/navigation_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
 import 'package:path/path.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
 import 'package:frontend/components/rounded_button.dart';
@@ -16,75 +21,27 @@ class Sell extends StatefulWidget with NavigationStates {
 }
 
 class _SellState extends State<Sell> {
-  // File _image;
+  //backup
+  File selectedImage;
+  String name = "";
+  bool viewVisible = false;
+  String quantity = "", cost = "", latitude = "", longitude = "";
 
-  // Future getImage() async {
-  //   // ignore: deprecated_member_use
-  //   final image = await ImagePicker.pickImage(
-  //       source: ImageSource.camera, imageQuality: 50);
+  // void showWidget() {
   //   setState(() {
-  //     _image = image;
+  //     viewVisible = true;
   //   });
   // }
 
-  // submitForm() async {
-  //   // final response = await http.post(
-  //   //   "",
-  //   //   body: {
-  //   //     'photo': _image != null ? 'data:image/png;base64,' +
-  //   //         base64Encode(_image.readAsBytesSync()) : '',
-  //   //   },
-  //   // );
-  //   // final responseJson = json.decode(response.body);
-  //   // print(responseJson);
-  //   print('data:image/png;base64,' + base64Encode(_image.readAsBytesSync()));
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) {
-  //         return SellDetail();
-  //       },
-  //     ),
-  //   );
+  // void hideWidget() {
+  //   setState(() {
+  //     viewVisible = false;
+  //   });
   // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     // appBar: AppBar(
-  //     //   title: Text('Sell'),
-  //     // ),
-  //     body: Center(
-  //         child: Column(
-  //       children: [
-  //         _image == null ? Text("Image is not Loaded") : Image.file(_image),
-  //         SizedBox(height: 20),
-  //         _image == null
-  //             ? Text("")
-  //             : RoundedButton(
-  //                 text: "Submit",
-  //                 press: () {
-  //                   submitForm();
-  //                 },
-  //               ),
-  //       ],
-  //     )),
-  //     floatingActionButton: FloatingActionButton(
-  //       onPressed: getImage,
-  //       tooltip: 'Click',
-  //       child: Icon(Icons.camera_alt),
-  //     ),
-  //   );
-  // }
-  File selectedImage;
-  String name = "", address = "", quality = "";
-
-  int quantity, cost;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool flag = false;
     return Scaffold(
       body: Background(
         child: SingleChildScrollView(
@@ -124,7 +81,6 @@ class _SellState extends State<Sell> {
                     ),
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey[500])),
-                        
                   ),
                 ],
               ),
@@ -137,9 +93,15 @@ class _SellState extends State<Sell> {
                   RaisedButton(
                     color: Colors.cyan,
                     onPressed: () {
-                      print("selected image" + selectedImage.path);
-                      flag = true;
-                      upload(true);
+                      // print("selected image" + selectedImage.path);
+                      // flag = true;
+                      // ignore: unnecessary_statements
+                      // showWidget;
+                      // testCompressAndGetFile(selectedImage, selectedImage.path);
+                      upload(true, context);
+                      //  setState(() {
+                      //     viewVisible = true;
+                      //   });
                       // flag = true;
                     },
                     child: Text("Upload"),
@@ -153,144 +115,139 @@ class _SellState extends State<Sell> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // if (flag == true)
-                  // [
-                      SizedBox(height: size.height * 0.03),
-                      RoundedInputField(
-                        hintText: "Name",
-                        onChanged: (value) {
-                          this.name = value;
-                        },
-                      ),
-                      RoundedInputField(
-                        hintText: "Quantity",
-                        onChanged: (value) {
-                          this.quantity = int.parse(value);
-                        },
-                      ),
-                      RoundedInputField(
-                        hintText: "Address",
-                        onChanged: (value) {
-                          this.address = value;
-                        },
-                      ),
-                      RoundedInputField(
-                        hintText: "Cost",
-                        onChanged: (value) {
-                          this.cost = int.parse(value);
-                        },
-                      ),
-                      RoundedInputField(
-                        hintText: "Quality",
-                        onChanged: (value) {
-                          this.quality = value;
-                        },
-                      ),
-                      RoundedButton(
-                        text: "Submit",
-                        press: () {
-                          Submit();
-                        },
-                      ),
-                      RoundedButton(
-                        text: "Cancel",
-                        press: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Sell();
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: size.height * 0.03),
-                  ],
-                // ],
+                  Visibility(
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    visible: viewVisible,
+                    // child: Container(
+                    // child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: size.height * 0.03),
+                        viewVisible
+                            ? RoundedInputField(
+                                hintText: "Name",
+                                text: name,
+                                onChanged: (value) {
+                                  this.name = value;
+                                },
+                              )
+                            : Text(""),
+                        RoundedInputField(
+                          hintText: "Quantity",
+                          onChanged: (value) {
+                            this.quantity = value;
+                          },
+                        ),
+                        // RoundedInputField(
+                        //   hintText: "Address",
+                        //   onChanged: (value) {
+                        //     this.address = value;
+                        //   },
+                        // ),
+                        RoundedInputField(
+                          hintText: "Cost",
+                          onChanged: (value) {
+                            this.cost = value;
+                          },
+                        ),
+                        RoundedButton(
+                          text: "Submit",
+                          press: () {
+                            submit(context);
+                          },
+                        ),
+                        RoundedButton(
+                          text: "Reset",
+                          press: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return Sell();
+                            //     },
+                            //   ),
+                            // );
+                            // hideWidget;
+                            setState(() {
+                              name = "";
+                              quantity = "";
+                              cost = "";
+                              latitude = "";
+                              longitude = "";
+                              selectedImage = null;
+                              viewVisible = false;
+                            });
+                          },
+                        ),
+                        SizedBox(height: size.height * 0.03),
+                      ],
+                    ),
+                  ),
+                  //   ),
+                  // ),
+                ],
               ),
             ],
           ),
         ),
       ),
-      // if(flag){
-      //   child: SingleChildScrollView(
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: <Widget>[
-      //         SizedBox(height: size.height * 0.03),
-      //         SvgPicture.asset(
-      //           "assets/icons/signup.svg",
-      //           height: size.height * 0.35,
-      //         ),
-      //         RoundedInputField(
-      //           hintText: "Name",
-      //           onChanged: (value) {
-      //             this.name = value;
-      //           },
-      //         ),
-      //         RoundedInputField(
-      //           hintText: "Quantity",
-      //           onChanged: (value) {
-      //             this.quantity = int.parse(value);
-      //           },
-      //         ),
-      //         RoundedInputField(
-      //           hintText: "Address",
-      //           onChanged: (value) {
-      //             this.address = value;
-      //           },
-      //         ),
-      //         RoundedInputField(
-      //           hintText: "Cost",
-      //           onChanged: (value) {
-      //             this.cost = int.parse(value);
-      //           },
-      //         ),
-      //         RoundedInputField(
-      //           hintText: "Quality",
-      //           onChanged: (value) {
-      //             this.quality = value;
-      //           },
-      //         ),
-      //         RoundedButton(
-      //           text: "Submit",
-      //           press: () {
-      //             Submit();
-      //           },
-      //         ),
-      //         RoundedButton(
-      //           text: "Cancel",
-      //           press: () {
-      //             Navigator.push(
-      //               context,
-      //               MaterialPageRoute(
-      //                 builder: (context) {
-      //                   return Sell();
-      //                 },
-      //               ),
-      //             );
-      //           },
-      //         ),
-      //         SizedBox(height: size.height * 0.03),
-      //       ],
-      //     ),
-      //   ),
-      // }
-      // ],
-      // ),
     );
   }
 
 // ignore: non_constant_identifier_names
-  void Submit() async {
-    print("success");
+  void submit(BuildContext context) async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    latitude = position.latitude.toString();
+    longitude = position.longitude.toString();
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String token = storage.getString("token");
+
+    var response = await http.post(
+      sell_product,
+      body: {
+        'name': name,
+        'quantity': quantity,
+        'latitude': latitude,
+        'longitude': longitude,
+        'cost': cost
+      },
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    var status = res["statusCode"];
+    if (status == 200) {
+      Toast.show("Order placed successfully", context, duration : Toast.LENGTH_LONG);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return FarmerSideBarLayout();
+            },
+          ),
+        );
+    } else {
+      Toast.show("Order was not placed successfully", context, duration : Toast.LENGTH_LONG);
+      setState(() {
+        name = "";
+        quantity = "";
+        cost = "";
+        latitude = "";
+        longitude = "";
+        selectedImage = null;
+        viewVisible = false;
+      });
+    }
   }
 
-  void upload(bool flag) async {
+  void upload(bool flag, BuildContext context) async {
     var request = http.MultipartRequest(
       'GET',
-      Uri.parse("https://kissan-bandhu.govindapatel61.repl.co/predictItem"),
+      Uri.parse(cnn_model),
     );
     Map<String, String> headers = {"Content-type": "multipart/form-data"};
     request.files.add(
@@ -299,21 +256,34 @@ class _SellState extends State<Sell> {
         selectedImage.readAsBytes().asStream(),
         selectedImage.lengthSync(),
         filename: basename(selectedImage.path),
-        contentType: MediaType('image', 'jpeg'),
+        //contentType: MediaType('image', 'jpeg'),
       ),
     );
     request.headers.addAll(headers);
     print("request: " + request.toString());
     var res = await request.send();
     print("This is response:" + res.toString());
-    viewSellDetail();
+    final respStr = await res.stream.bytesToString();
+    print(respStr);
+    final body1 = json.decode(respStr);
+    if (body1["statusCode"] == 200) {
+      print(body1["data"]);
+      setState(() {
+        name = body1["data"];
+        viewVisible = true;
+      });
+    } else {
+      Toast.show("Please try again with a clear image", context,
+          duration: Toast.LENGTH_LONG);
+    }
+    // var res1 = jsonDecode(res);
+    // print(res1);
   }
-
-  void viewSellDetail() {}
 
   //get image from camera
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       selectedImage = image;

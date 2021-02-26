@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Driver/components/profile_animations/animations.dart';
+import 'package:frontend/Screens/Driver/components/track_map.dart';
+import 'package:frontend/components/rounded_button.dart';
 import '../../../constants.dart';
 import 'package:frontend/Screens/Driver/bloc.navigation_bloc/navigation_bloc.dart';
 
@@ -150,19 +152,37 @@ class Track extends StatelessWidget with NavigationStates {
                                                 Container(
                                                   margin: EdgeInsets.symmetric(
                                                       horizontal: 5),
-                                                  height: 50,
+                                                  height: 80,
                                                   width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              90),
+                                                              60),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      // child: Text(
+                                                      //   "View",
+                                                      //   style: TextStyle(
+                                                      //     color: Colors.white
+                                                      //   ),
+
+                                                      // )
+                                                      RoundedButton(
+                                                        text: "View",
+                                                        press: () {
+                                                           Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) {
+                                                                return trackMap();
+                                                              },
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
