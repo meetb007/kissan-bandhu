@@ -22,12 +22,14 @@ router.post('/', async (req, res) => {
     return ;
   }
 
-const { name, type, quantity } = req.body;
+const { name, quantity,cost,latitude, longitude } = req.body;
   const sellProductTemp = new SellProduct({
     name,
-    type,
     quantity,
-    userFk:farmer.userFk
+    userFk:farmer.userFk,
+    cost,
+    latitude,
+    longitude
   });
 
   sellProductTemp
