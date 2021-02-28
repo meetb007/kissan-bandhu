@@ -8,6 +8,7 @@ const driverSchema = mongoose.Schema({
   longitude: { type: String, required: true },
   capacity: { type: String },
   driverLicence: { type: String},
+  imageUrl : { type: String }
 });
 
 module.exports = mongoose.model('driver', driverSchema);

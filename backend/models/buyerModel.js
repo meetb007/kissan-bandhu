@@ -6,6 +6,7 @@ const buyerSchema = mongoose.Schema({
   address: { type: String, required: true },
   latitude: { type: String, required: true },
   longitude: { type: String, required: true },
+  imageUrl : { type: String}
 });
 
 module.exports = mongoose.model('buyers', buyerSchema);
