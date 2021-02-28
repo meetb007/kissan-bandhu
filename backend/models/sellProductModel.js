@@ -8,7 +8,8 @@ const SellProductSchema = mongoose.Schema({
 	status : {type:String , default:"Placed"},
 	cost :{ type: String,required:true },
 	latitude : {type:String,required:true},
-	longitude : {type:String,required:true}	
+	longitude : {type:String,required:true},
+	imageUrl : 	{ type: String,required:true }
 });
 
 module.exports = mongoose.model('sellproduct', SellProductSchema);

@@ -47,6 +47,7 @@ const swaggerSpec = swaggerJsdoc(options);
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
