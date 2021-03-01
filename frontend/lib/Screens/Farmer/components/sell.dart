@@ -14,6 +14,8 @@ import 'package:path/path.dart';
 import 'package:frontend/Screens/Signup/components/background.dart';
 import 'package:frontend/components/rounded_button.dart';
 import 'package:frontend/components/rounded_input_field.dart';
+import 'package:frontend/components/readOnly_rounded_input_field.dart';
+
 
 class Sell extends StatefulWidget with NavigationStates {
   @override
@@ -23,7 +25,7 @@ class Sell extends StatefulWidget with NavigationStates {
 class _SellState extends State<Sell> {
   //backup
   File selectedImage;
-  String name = "";
+  String name = "", type = "", description = "";
   bool viewVisible = false;
   String quantity = "", cost = "", latitude = "", longitude = "";
 
@@ -126,14 +128,20 @@ class _SellState extends State<Sell> {
                       children: <Widget>[
                         SizedBox(height: size.height * 0.03),
                         viewVisible
-                            ? RoundedInputField(
-                                hintText: "Name",
-                                text: name,
+                            ? ReadRoundedInputField(
+                                hintText: "Type",
+                                text: type,
                                 onChanged: (value) {
-                                  this.name = value;
+                                  this.type = value;
                                 },
                               )
                             : Text(""),
+                        RoundedInputField(
+                          hintText: "Name",
+                          onChanged: (value) {
+                            this.name = value;
+                          },
+                        ),
                         RoundedInputField(
                           hintText: "Quantity",
                           onChanged: (value) {
@@ -150,6 +158,12 @@ class _SellState extends State<Sell> {
                           hintText: "Cost",
                           onChanged: (value) {
                             this.cost = value;
+                          },
+                        ),
+                        RoundedInputField(
+                          hintText: "Description",
+                          onChanged: (value) {
+                            this.description = value;
                           },
                         ),
                         RoundedButton(
@@ -208,11 +222,13 @@ class _SellState extends State<Sell> {
     var response = await http.post(
       sell_product,
       body: {
+        'type':type,
         'name': name,
         'quantity': quantity,
         'latitude': latitude,
         'longitude': longitude,
-        'cost': cost
+        'cost': cost,
+        'description':description
       },
       headers: {HttpHeaders.authorizationHeader: token},
     );
@@ -221,23 +237,27 @@ class _SellState extends State<Sell> {
     print(res);
     var status = res["statusCode"];
     if (status == 200) {
-      Toast.show("Order placed successfully", context, duration : Toast.LENGTH_LONG);
+      Toast.show("Order placed successfully", context,
+          duration: Toast.LENGTH_LONG);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return FarmerSideBarLayout();
-            },
-          ),
-        );
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return FarmerSideBarLayout();
+          },
+        ),
+      );
     } else {
-      Toast.show("Order was not placed successfully", context, duration : Toast.LENGTH_LONG);
+      Toast.show("Order was not placed successfully", context,
+          duration: Toast.LENGTH_LONG);
       setState(() {
+        type = "";
         name = "";
         quantity = "";
         cost = "";
         latitude = "";
         longitude = "";
+        description = "";
         selectedImage = null;
         viewVisible = false;
       });
@@ -269,7 +289,7 @@ class _SellState extends State<Sell> {
     if (body1["statusCode"] == 200) {
       print(body1["data"]);
       setState(() {
-        name = body1["data"];
+        type = body1["data"];
         viewVisible = true;
       });
     } else {
