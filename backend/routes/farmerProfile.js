@@ -98,7 +98,7 @@ router.post('/upload', upload.single("image"), async (req, res) => {
 
 
   var imageUrl = req.file.filename;
-  Farmer.findOneAndUpdate({token},{imageUrl})
+  Farmer.findByIdAndUpdate(farmer.userFk,{imageUrl},{new:true})
     .then((doc) => {
       res.status(200).json({
         message: 'Successfully uploaded Profile Image',

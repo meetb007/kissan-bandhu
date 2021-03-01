@@ -97,7 +97,7 @@ router.post('/upload', upload.single("image"), async (req, res) => {
   }
 
   var imageUrl = req.file.filename;
-  Buyer.findOneAndUpdate({token},{imageUrl})
+  Buyer.findByIdAndUpdate(buyer.userFk,{imageUrl},{new:true})
     .then((doc) => {
       res.status(200).json({
         message: 'Successfully uploaded Profile Image',

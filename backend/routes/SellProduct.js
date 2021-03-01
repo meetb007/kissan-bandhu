@@ -47,7 +47,7 @@ router.post('/', upload.single("image"), async (req, res) => {
 
 
   var imageUrl = req.file.filename;
-  const { name, quantity,cost,latitude, longitude } = req.body;
+  const { name, quantity,cost,latitude, longitude,category,description } = req.body;
   const sellProductTemp = new SellProduct({
     name,
     quantity,
@@ -55,7 +55,9 @@ router.post('/', upload.single("image"), async (req, res) => {
     cost,
     latitude,
     longitude,
-    imageUrl
+    imageUrl,
+    category,
+    description
   });
 
   sellProductTemp
