@@ -19,6 +19,7 @@ const driverPickUpRoute = require("./routes/DriverPickUpRoute")
 const buyerProfileRoute = require('./routes/buyerProfile');
 const driverProfileRoute = require('./routes/driverProfile');
 const productRoute = require('./routes/productRoute');
+const cartRoute = require('./routes/cart')
 
 mongoose.connect(
   db,
@@ -54,7 +55,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', '*');
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET POST PATCH DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET POST PATCH DELETE PUT');
     return res.status(200).json({});
   }
   next();
@@ -72,7 +73,8 @@ app.use('/buyer/profile',buyerProfileRoute);
 app.use('/driver/profile',driverProfileRoute);
 app.use('/farmer/product',farmerProductRoute);
 app.use('/driver/pickup',driverPickUpRoute);
-app.use('product',productRoute);
+app.use('/product',productRoute);
+app.use('/cart',cartRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res, next) => {
