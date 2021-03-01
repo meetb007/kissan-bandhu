@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 //import 'package:frontend/Screens/Login/components/body.dart';
 //import 'package:frontend/Screens/Buyer/components/background.dart';
-import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
+// import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/ghome.dart';
 // import 'package:frontend/components/rounded_button.dart';
 // import 'package:frontend/Screens/Buyer/components/my_orders.dart';
 // import 'package:frontend/Screens/Buyer/components/profile.dart';
@@ -13,7 +14,7 @@ import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
 class MainScreen extends StatelessWidget{
     Widget build(BuildContext context) {
     return Scaffold(
-      body: BuyerSideBarLayout(),
+      body: GroceryHomePage(),
     );
   }
 }

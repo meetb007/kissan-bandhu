@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Buyer/sidebar/sidebar_layout.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/ghome.dart';
 import 'package:frontend/Screens/Driver/sidebar/sidebar_layout.dart';
 import 'package:frontend/Screens/Login/components/background.dart';
 import 'package:frontend/Screens/Signup/signup_screen.dart';
@@ -110,7 +111,8 @@ class _BodyState extends State<Body> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return BuyerSideBarLayout();
+              // return BuyerSideBarLayout();
+              return GroceryHomePage();
             },
           ),
         );
