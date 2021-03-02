@@ -97,12 +97,16 @@ class GroceryHomePageState extends State<GroceryHomePage> {
       onTap: _onTabTapped,
       backgroundColor: Color(0xFFF1E6FF),
       items: <BottomNavigationBarItem>[
+        // ignore: deprecated_member_use
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
         BottomNavigationBarItem(
+            // ignore: deprecated_member_use
             icon: Icon(Icons.shopping_cart), title: Text("Cart")),
         BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border), title: Text("Order")),
+            // ignore: deprecated_member_use
+            icon: Icon(Icons.view_list_rounded), title: Text("Order")),
         BottomNavigationBarItem(
+            // ignore: deprecated_member_use
             icon: Icon(Icons.person_outline), title: Text("Profile")),
       ],
       type: BottomNavigationBarType.fixed,

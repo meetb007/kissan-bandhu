@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gcategory.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem1.dart';
 
 class GroceryHomeTabView extends StatelessWidget {
@@ -40,7 +39,7 @@ class GroceryHomeTabView extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: InkWell(
-              onTap: () => _openDetailPage(context),
+              // onTap: () => _openDetailPage(context, pro1),
               child: GroceryListItemOne(
                 image: mango,
                 // subtitle: "1 kg",
@@ -48,26 +47,27 @@ class GroceryHomeTabView extends StatelessWidget {
               ),
             ),
           ),
-          // pro2!= "" ?
           Expanded(
             child: InkWell(
-              onTap: () => _openDetailPage(context),
+              // onTap: () =>
+                  // {if (pro2.compareTo("") != 0) _openDetailPage(context, pro2)},
               child: GroceryListItemOne(
                 image: brocoli,
                 // subtitle: "6 in a pack",
                 title: pro2,
               ),
             ),
-          ), // : print("empty"),
+          ),
         ],
       ),
     );
   }
 
-  void _openDetailPage(BuildContext context) {
+  void _openDetailPage(BuildContext context, String product) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => GroceryDetailsPage()));
+            builder: (BuildContext context) =>
+                GroceryDetailsPage(product: product)));
   }
 }

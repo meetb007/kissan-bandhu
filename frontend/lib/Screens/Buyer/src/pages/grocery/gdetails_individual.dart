@@ -103,29 +103,16 @@ import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem2.dar
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
 import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
 
-class GroceryDetailsPage extends StatefulWidget {
-  final String product;
-  const GroceryDetailsPage({Key key, this.product}) : super(key: key);
-
-  @override
-  _GroceryDetailsPageState createState() =>
-      _GroceryDetailsPageState(product: product);
-}
-
-class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
-  // static final String path = "lib/src/pages/grocery/gdetails.dart";
-  final String product;
-  _GroceryDetailsPageState({this.product});
-
+class GroceryDetailsPage extends StatelessWidget {
+  static final String path = "lib/src/pages/grocery/gdetails.dart";
   @override
   Widget build(BuildContext context) {
-    // print(product);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Color(0xFF6F35A5),
-        title: Text("List of product"),
+        backgroundColor: Colors.green,
+        title: Text("Details"),
       ),
       body: _buildPageContent(context),
     );
@@ -137,41 +124,41 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
         Expanded(
           child: ListView(
             children: <Widget>[
-              _buildItemCard(context, product),
-              // Container(
-              //     padding: EdgeInsets.all(30.0),
-              //     child: GrocerySubtitle(
-              //         text:
-              //             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh ut eros suscipit, vel cursus dolor imperdiet. Proin volutpat ligula eget purus maximus tristique. Pellentesque ullamcorper libero vitae metus feugiat fringilla. Ut luctus neque sed tortor placerat, faucibus mollis risus ullamcorper. Cras at nunc et odio ultrices tempor et.")),
+              _buildItemCard(context),
+              Container(
+                  padding: EdgeInsets.all(30.0),
+                  child: GrocerySubtitle(
+                      text:
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh ut eros suscipit, vel cursus dolor imperdiet. Proin volutpat ligula eget purus maximus tristique. Pellentesque ullamcorper libero vitae metus feugiat fringilla. Ut luctus neque sed tortor placerat, faucibus mollis risus ullamcorper. Cras at nunc et odio ultrices tempor et.")),
               // Container(
               //     padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
               //     child: GroceryTitle(text: "Related Items")),
-              GroceryListItemTwo(
-                  title: "Broccoli", image: brocoli, subtitle: "1 kg"),
-              GroceryListItemTwo(
-                  title: "Cabbage", image: cabbage, subtitle: "1 kg"),
+              // GroceryListItemTwo(
+              //     title: "Broccoli", image: brocoli, subtitle: "1 kg"),
+              // GroceryListItemTwo(
+              //     title: "Cabbage", image: cabbage, subtitle: "1 kg"),
             ],
           ),
         ),
-        // Row(
-        //   children: <Widget>[
-        //     Expanded(
-        //       child: Container(
-        //         color: Colors.green,
-        //         child: FlatButton(
-        //           color: Colors.green,
-        //           onPressed: () {},
-        //           child: Text("Add to Cart"),
-        //         ),
-        //       ),
-        //     )
-        //   ],
-        // )
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                color: Colors.green,
+                child: FlatButton(
+                  color: Colors.green,
+                  onPressed: () {},
+                  child: Text("Add to Cart"),
+                ),
+              ),
+            )
+          ],
+        )
       ],
     );
   }
 
-  Widget _buildItemCard(context, String product) {  
+  Widget _buildItemCard(context) {
     return Stack(
       children: <Widget>[
         Card(
@@ -199,7 +186,7 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                GroceryTitle(text: product),
+                GroceryTitle(text: "Local Cabbage"),
                 SizedBox(
                   height: 5.0,
                 ),

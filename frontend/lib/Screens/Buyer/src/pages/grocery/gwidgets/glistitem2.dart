@@ -44,15 +44,15 @@ class GroceryListItemTwo extends StatelessWidget {
           const SizedBox(width: 10.0),
           Column(
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () {},
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.favorite_border),
+              //   onPressed: () {},
+              // ),
               IconButton(
                 icon: Icon(
                   Icons.add,
                 ),
-                color: Colors.green,
+                color: Color(0xFF6F35A5),
                 onPressed: () {},
               )
             ],

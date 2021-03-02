@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
 import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
 
 class GroceryListItemOne extends StatelessWidget {
   final String image, title, price;
@@ -49,7 +50,8 @@ class GroceryListItemOne extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => 
+                    {if (title.compareTo("") != 0) _openDetailPage(context, title)},
                   child: Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -58,7 +60,7 @@ class GroceryListItemOne extends StatelessWidget {
                             bottomLeft: Radius.circular(5.0),
                             bottomRight: Radius.circular(5.0))),
                     child: Text(
-                      "Add to Cart",
+                      "See more",
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -69,5 +71,13 @@ class GroceryListItemOne extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _openDetailPage(BuildContext context, String product) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) =>
+                GroceryDetailsPage(product: product)));
   }
 }
