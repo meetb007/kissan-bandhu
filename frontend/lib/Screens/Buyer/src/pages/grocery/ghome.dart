@@ -29,9 +29,9 @@ class GroceryHomePageState extends State<GroceryHomePage> {
     _children.add(ProfileTabView());
 
     _appBars.add(_buildAppBar());
-    _appBars.add(_buildAppBarOne("Your Cart"));
-    _appBars.add(_buildAppBarOne("Your Current Orders"));
-    _appBars.add(_buildAppBarOne("Your Previous Orders"));
+    _appBars.add(_buildAppBarOne("My Cart"));
+    _appBars.add(_buildAppBarOne("My Current Orders"));
+    _appBars.add(_buildAppBarOne("My Previous Orders"));
     _appBars.add(_buildAppBarOne("My Account"));
     super.initState();
   }

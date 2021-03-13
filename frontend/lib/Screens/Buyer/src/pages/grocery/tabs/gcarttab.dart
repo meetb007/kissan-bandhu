@@ -3,8 +3,13 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem3.dart';
 
-class CartTabView extends StatelessWidget {
+class CartTabView extends StatefulWidget {
   @override
+  _CartTabViewState createState() => _CartTabViewState();
+}
+
+class _CartTabViewState extends State<CartTabView> {
+    @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[

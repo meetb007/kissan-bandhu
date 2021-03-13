@@ -39,7 +39,7 @@ class HomeTabView extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: InkWell(
-              // onTap: () => _openDetailPage(context, pro1),
+              onTap: () => _openDetailPage(context, pro1),
               child: GroceryListItemOne(
                 image: mango,
                 // subtitle: "1 kg",
@@ -49,8 +49,8 @@ class HomeTabView extends StatelessWidget {
           ),
           Expanded(
             child: InkWell(
-              // onTap: () =>
-                  // {if (pro2.compareTo("") != 0) _openDetailPage(context, pro2)},
+              onTap: () =>
+                  {if (pro2.compareTo("") != 0) _openDetailPage(context, pro2)},
               child: GroceryListItemOne(
                 image: brocoli,
                 // subtitle: "6 in a pack",
