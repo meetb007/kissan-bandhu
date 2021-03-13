@@ -3,7 +3,7 @@ import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem1.dart';
 
-class GroceryHomeTabView extends StatelessWidget {
+class HomeTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(

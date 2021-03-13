@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/components/profile_animations/animations.dart';
-import '../../../constants.dart';
-import 'package:frontend/Screens/Buyer/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/animations.dart';
 
-class MyOrders extends StatelessWidget with NavigationStates {
-  const MyOrders({Key key}) : super(key: key);
+import '../../../../../../constants.dart';
+
+class CurrentOrder extends StatelessWidget {
+  const CurrentOrder({Key key}) : super(key: key);
+
   final Color color = kPrimaryLightColor;
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(20, 9, 50, 0.5),
-                Color.fromRGBO(150, 95, 171, 0.5),
-              ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(20, 9, 50, 0.5),
+            //     Color.fromRGBO(150, 95, 171, 0.5),
+            //   ],
+            //   begin: FractionalOffset.bottomCenter,
+            //   end: FractionalOffset.topCenter,
+            // ),
           ),
         ),
         Scaffold(
@@ -34,31 +35,28 @@ class MyOrders extends StatelessWidget with NavigationStates {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Icon(
-                      //   AntDesign.arrowleft,
-                      //   color: Colors.white,
-                      // ),
-                      // Icon(
-                      //   AntDesign.logout,
-                      //   color: Colors.white,
-                      // ),
-                    ],
-                  ),
-                  Text(
-                    'My\nPrevious\nOrders',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 34,
-                      fontFamily: 'Nisebuschgardens',
-                    ),
-                  ),
-                  SizedBox(
-                    height:25,
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     // Icon(
+                  //     //   AntDesign.arrowleft,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //     // Icon(
+                  //     //   AntDesign.logout,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //   ],
+                  // ),
+                  // Text(
+                  //   'My\nCurrent\nOrders',
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 34,
+                  //     fontFamily: 'Nisebuschgardens',
+                  //   ),
+                  // ),
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(
@@ -444,5 +442,4 @@ class MyOrders extends StatelessWidget with NavigationStates {
         ),
       ],
     );
-  }
-}
+  }}

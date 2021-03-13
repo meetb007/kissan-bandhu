@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/components/profile_animations/animations.dart';
-import '../../../constants.dart';
-import '../bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/animations.dart';
+import '../../../../../../constants.dart';
 
-class Track extends StatelessWidget with NavigationStates {
-  const Track({Key key}) : super(key: key);
+class PreviousOrder extends StatelessWidget {
+  const PreviousOrder({Key key}) : super(key: key);
 
   final Color color = kPrimaryLightColor;
 
@@ -17,14 +16,14 @@ class Track extends StatelessWidget with NavigationStates {
       children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(20, 9, 50, 0.5),
-                Color.fromRGBO(150, 95, 171, 0.5),
-              ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(20, 9, 50, 0.5),
+            //     Color.fromRGBO(150, 95, 171, 0.5),
+            //   ],
+            //   begin: FractionalOffset.bottomCenter,
+            //   end: FractionalOffset.topCenter,
+            // ),
           ),
         ),
         Scaffold(
@@ -35,28 +34,28 @@ class Track extends StatelessWidget with NavigationStates {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Icon(
-                      //   AntDesign.arrowleft,
-                      //   color: Colors.white,
-                      // ),
-                      // Icon(
-                      //   AntDesign.logout,
-                      //   color: Colors.white,
-                      // ),
-                    ],
-                  ),
-                  Text(
-                    'My\nCurrent\nOrders',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 34,
-                      fontFamily: 'Nisebuschgardens',
-                    ),
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     // Icon(
+                  //     //   AntDesign.arrowleft,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //     // Icon(
+                  //     //   AntDesign.logout,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //   ],
+                  // ),
+                  // Text(
+                  //   'My\nCurrent\nOrders',
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 34,
+                  //     fontFamily: 'Nisebuschgardens',
+                  //   ),
+                  // ),
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(

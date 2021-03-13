@@ -3,7 +3,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem3.dart';
 
-class GroceryCartTabView extends StatelessWidget {
+class CartTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

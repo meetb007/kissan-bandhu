@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gcarttab.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/ghometab.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gprofiletab.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gwishlisttab.dart';
-import 'package:frontend/Screens/Buyer/components/background.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
-import 'package:frontend/Screens/Buyer/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gcurrentordertab.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gpreviousordertab.dart';
+// import 'package:frontend/Screens/Buyer/components/background.dart';
 
-// class GroceryHomePage extends StatefulWidget with NavigationStates{
 class GroceryHomePage extends StatefulWidget {
   static final String path = "lib/src/pages/grocery/ghome.dart";
 
@@ -25,15 +22,17 @@ class GroceryHomePageState extends State<GroceryHomePage> {
 
   @override
   void initState() {
-    _children.add(GroceryHomeTabView());
-    _children.add(GroceryCartTabView());
-    _children.add(GroceryWishlistTabView());
-    _children.add(GroceryProfileTabView());
+    _children.add(HomeTabView());
+    _children.add(CartTabView());
+    _children.add(CurrentOrder());
+    _children.add(PreviousOrder());
+    _children.add(ProfileTabView());
 
     _appBars.add(_buildAppBar());
     _appBars.add(_buildAppBarOne("Your Cart"));
-    _appBars.add(_buildAppBarOne("Your current Orders"));
-    _appBars.add(_buildAppBarOne("You"));
+    _appBars.add(_buildAppBarOne("Your Current Orders"));
+    _appBars.add(_buildAppBarOne("Your Previous Orders"));
+    _appBars.add(_buildAppBarOne("My Account"));
     super.initState();
   }
 
@@ -104,7 +103,10 @@ class GroceryHomePageState extends State<GroceryHomePage> {
             icon: Icon(Icons.shopping_cart), title: Text("Cart")),
         BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            icon: Icon(Icons.view_list_rounded), title: Text("Order")),
+            icon: Icon(Icons.view_list_rounded), title: Text("Current Order")),
+        BottomNavigationBarItem(
+        // ignore: deprecated_member_use
+        icon: Icon(Icons.view_list_rounded), title: Text("Previous Order")),
         BottomNavigationBarItem(
             // ignore: deprecated_member_use
             icon: Icon(Icons.person_outline), title: Text("Profile")),
