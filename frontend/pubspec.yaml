@@ -56,6 +56,7 @@ dependencies:
   intro_views_flutter: ^2.8.2
   share: ^0.6.4+3
   url_launcher: ^5.5.0
+  # rflutter_alert: ^2.0.2
   #provider: ^4.3.1 # for State management
 
 

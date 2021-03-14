@@ -26,7 +26,7 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     if (!getData) {
-      return Text("no profile fetch");
+      return Text("loading");
     }
     return Stack(
       fit: StackFit.expand,
@@ -51,28 +51,6 @@ class _ProfileTabViewState extends State<ProfileTabView> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     // Icon(
-                  //     //   AntDesign.arrowleft,
-                  //     //   color: Colors.white,
-                  //     // ),
-                  //     // Icon(
-                  //     //   AntDesign.logout,
-                  //     //   color: Colors.white,
-                  //     // ),
-                  //   ],
-                  // ),
-                  // Text(
-                  //   'My\nProfile',
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //     color: Colors.white,
-                  //     fontSize: 34,
-                  //     fontFamily: 'Nisebuschgardens',
-                  //   ),
-                  // ),
                   Container(
                     height: height * 0.43,
                     child: LayoutBuilder(
@@ -395,4 +373,5 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     });
     print(profileData);
   }
+  
 }

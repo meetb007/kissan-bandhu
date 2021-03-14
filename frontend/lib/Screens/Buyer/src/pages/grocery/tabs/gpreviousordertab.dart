@@ -156,12 +156,16 @@ class PreviousOrder extends StatelessWidget {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"lady finger");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -282,12 +286,16 @@ class PreviousOrder extends StatelessWidget {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"cotton");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -408,12 +416,16 @@ class PreviousOrder extends StatelessWidget {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"potato");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -442,4 +454,31 @@ class PreviousOrder extends StatelessWidget {
       ],
     );
   }
+
+  showAlertDialog(BuildContext context,String product) {  
+  // Create button  
+    Widget okButton = FlatButton(  
+      child: Text("OK"),  
+      onPressed: () {  
+        Navigator.of(context).pop();  
+      },  
+    );  
+    
+    // Create AlertDialog  
+    AlertDialog alert = AlertDialog(  
+      title: Text("Simple Alert"),  
+      content: Text(product),  
+      actions: [  
+        okButton,  
+      ],  
+    );  
+    
+    // show the dialog  
+    showDialog(  
+      context: context,  
+      builder: (BuildContext context) {  
+        return alert;  
+      },  
+    );  
+  }  
 }
