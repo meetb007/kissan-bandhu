@@ -15,7 +15,7 @@ import 'package:frontend/Screens/Signup/components/background.dart';
 import 'package:frontend/components/rounded_button.dart';
 import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/readOnly_rounded_input_field.dart';
-
+import 'package:http_parser/http_parser.dart';
 
 class Sell extends StatefulWidget with NavigationStates {
   @override
@@ -218,24 +218,40 @@ class _SellState extends State<Sell> {
     longitude = position.longitude.toString();
     SharedPreferences storage = await SharedPreferences.getInstance();
     String token = storage.getString("token");
-
-    var response = await http.post(
-      sell_product,
-      body: {
-        'type':type,
-        'name': name,
-        'quantity': quantity,
-        'latitude': latitude,
-        'longitude': longitude,
-        'cost': cost,
-        'description':description
-      },
-      headers: {HttpHeaders.authorizationHeader: token},
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(sell_product),
     );
-    print(response.statusCode);
-    var res = jsonDecode(response.body);
-    print(res);
-    var status = res["statusCode"];
+    Map<String, String> headers = {
+      "Content-type": "multipart/form-data",
+      HttpHeaders.authorizationHeader: token
+    };
+    // print("****************************"+basename(selectedImage.path));
+    request.files.add(
+      http.MultipartFile(
+        'image',
+        selectedImage.readAsBytes().asStream(),
+        selectedImage.lengthSync(),
+        filename: basename(selectedImage.path),
+        contentType: MediaType('image', 'jpg'),
+      ),
+    );
+    request.headers.addAll(headers);
+    request.fields['category'] = type;
+    request.fields['name'] = name;
+    request.fields['quantity'] = quantity;
+    request.fields['latitude'] = latitude;
+    request.fields['longitude'] = longitude;
+    request.fields['cost'] = cost;
+    request.fields['description'] = description;
+    print("request: " + request.toString());
+    var res = await request.send();
+    print("This is response:" + res.toString());
+    final respStr = await res.stream.bytesToString();
+    // print(respStr);
+    final body1 = json.decode(respStr);
+    print(body1);
+    var status = body1["statusCode"];
     if (status == 200) {
       Toast.show("Order placed successfully", context,
           duration: Toast.LENGTH_LONG);
