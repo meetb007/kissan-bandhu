@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  console.log(file.mimetype)
   if (
     file.mimetype === 'image/jpeg' ||
     file.mimetype === 'image/jpg' ||
@@ -24,7 +25,7 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('File Name is not Supported'), false);
   }
 };
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ storage: storage});
 
 router.post('/', upload.single("image"), async (req, res) => {
   const token = req.headers.authorization;
@@ -48,6 +49,7 @@ router.post('/', upload.single("image"), async (req, res) => {
 
   var imageUrl = req.file.filename;
   const { name, quantity,cost,latitude, longitude,category,description } = req.body;
+  console.log(req.body)
   const sellProductTemp = new SellProduct({
     name,
     quantity,

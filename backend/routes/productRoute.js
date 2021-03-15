@@ -23,7 +23,8 @@ router.get('/', async (req, res) => {
     return ;
   }
 
-  const {category} = req.body;
+  const category = req.query["category"];
+  console.log(category)
 
   SellProduct
     .find({status:{"$ne":"Completed"},category})
