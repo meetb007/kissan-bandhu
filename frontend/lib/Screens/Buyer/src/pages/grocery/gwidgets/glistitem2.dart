@@ -30,10 +30,11 @@ class GroceryListItemTwo extends StatelessWidget {
           const SizedBox(width: 10.0),
           Container(
               height: 80.0,
-              child: PNetworkImage(
-                image,
+              child: Image(
+                image: NetworkImage(image),
                 height: 80.0,
-              )),
+              )
+            ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Column(
@@ -52,13 +53,13 @@ class GroceryListItemTwo extends StatelessWidget {
                 icon: Icon(Icons.arrow_forward_ios_rounded),
                 onPressed: press,
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.add_shopping_cart_rounded
-                ),
-                color: Color(0xFF6F35A5),
-                onPressed: () => _openCartPage(context, title),
-              )
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.add_shopping_cart_rounded
+              //   ),
+              //   color: Color(0xFF6F35A5),
+              //   onPressed: () => _openCartPage(context, title),
+              // )
             ],
           ),
           const SizedBox(width: 10.0),
