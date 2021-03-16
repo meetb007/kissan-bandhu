@@ -69,6 +69,7 @@ router.get('/', async (req, res) => {
     .then((doc) => {
       res.status(200).json({
         message: 'List of Product in Cart',
+        length:doc.length,
         response: doc,
         statusCode: 200,
       });

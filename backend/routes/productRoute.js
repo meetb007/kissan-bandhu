@@ -64,7 +64,7 @@ router.get('/:id', async (req, res) => {
 
 
   SellProduct
-    .findbyid(req.params.id)
+    .findById(req.params.id)
     .then((doc) => {
       res.status(200).json({
         message: 'Product',
