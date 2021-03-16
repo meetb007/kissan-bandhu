@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/animations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../../../../constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
+import 'dart:io';
+import 'dart:convert';
 
-class CurrentOrder extends StatelessWidget {
-  const CurrentOrder({Key key}) : super(key: key);
+class CurrentOrder extends StatefulWidget {
+  @override
+  _CurrentOrderState createState() => _CurrentOrderState();
+}
 
+class _CurrentOrderState extends State<CurrentOrder> {
+ 
   final Color color = kPrimaryLightColor;
+  bool getData = false;
+  var jsonData;
+
+  void getDetails() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.get(
+      product_list,
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200 && res['length'] > 0) {
+      // getCard(res['response']);
+      jsonData = res['response'];
+      setState(() {
+        getData = true;
+      });
+    } else {
+      print("Product not found");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

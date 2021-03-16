@@ -43,25 +43,28 @@ class GroceryListItemThree extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10.0),
-          Column(
+          Row(
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.add_circle),
-                color: Colors.green,
-                onPressed: () {},
-              ),
-              Text(
-                "1",
-                textAlign: TextAlign.right,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.remove_circle,
-                ),
-                color: Colors.green,
-                onPressed: () {},
-              )
+              // IconButton(
+              //   icon: Icon(Icons.add_circle),
+              //   color: Colors.green,
+              //   onPressed: () {},
+              // ),
+              // Text(
+              //   "1",
+              //   textAlign: TextAlign.right,
+              //   style: TextStyle(fontWeight: FontWeight.bold),
+              // ),
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.remove_circle,
+              //   ),
+              //   color: Colors.green,
+              //   onPressed: () {},
+              // )
+              RaisedButton(child: Text("View"), onPressed: () {}),
+              RaisedButton(child: Text("Update"), onPressed: () {}),
+              RaisedButton(child: Text("Remove"), onPressed: () {}),
             ],
           ),
           const SizedBox(width: 10.0),
