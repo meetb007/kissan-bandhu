@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/ghome.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
 import 'package:toast/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class GroceryIndividualPage extends StatefulWidget {
   final String product;
@@ -11,13 +14,42 @@ class GroceryIndividualPage extends StatefulWidget {
 
   @override
   _GroceryIndividualPageState createState() =>
-      _GroceryIndividualPageState(product: product);
+      _GroceryIndividualPageState(product);
 }
 
 class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
   // static final String path = "lib/src/pages/grocery/gdetails.dart";
-  final String product;
-  _GroceryIndividualPageState({this.product});
+  String product;
+  bool getData = false;
+  var jsonData;
+  // String url = "https://kissan-bandhu.herokuapp.com/uploads/";
+
+  _GroceryIndividualPageState(String product) {
+    this.product = product;
+    getDetails();
+  }
+
+  void getDetails() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.get(
+      product_list + '/' + product,
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200) {
+      // getCard(res['response']);
+      jsonData = res['response'];
+      setState(() {
+        getData = true;
+      });
+    } else {
+      print("Product not found");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +59,14 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Color(0xFF6F35A5),
-        title: Text(product),
+        title: Text("Product Details"),
       ),
-      body: _buildPageContent(context),
+      body: getData
+          ? _buildPageContent(context)
+          : Container(
+              child: Center(
+              child: CircularProgressIndicator(),
+            )),
     );
   }
 
@@ -39,19 +76,12 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
         Expanded(
           child: ListView(
             children: <Widget>[
-              _buildItemCard(context, product),
+              _buildItemCard(context),
               Container(
                   padding: EdgeInsets.all(30.0),
                   child: GrocerySubtitle(
-                      text:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh ut eros suscipit, vel cursus dolor imperdiet. Proin volutpat ligula eget purus maximus tristique. Pellentesque ullamcorper libero vitae metus feugiat fringilla. Ut luctus neque sed tortor placerat, faucibus mollis risus ullamcorper. Cras at nunc et odio ultrices tempor et.")),
-              // Container(
-              //     padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
-              //     child: GroceryTitle(text: "Related Items")),
-              // GroceryListItemTwo(
-              //     title: "Broccoli", image: brocoli, subtitle: "1 kg"),
-              // GroceryListItemTwo(
-              //     title: "Cabbage", image: cabbage, subtitle: "1 kg"),
+                    text: jsonData['description'],
+                  )),
             ],
           ),
         ),
@@ -62,7 +92,7 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
                 color: Colors.green,
                 child: FlatButton(
                   color: Colors.green,
-                  onPressed: () => _openCartPage(context, product),
+                  onPressed: () => addToCart(context, product),
                   child: Text("Add to Cart"),
                 ),
               ),
@@ -73,7 +103,7 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
     );
   }
 
-  Widget _buildItemCard(context, String product) {  
+  Widget _buildItemCard(context) {
     return Stack(
       children: <Widget>[
         Card(
@@ -87,19 +117,19 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: PNetworkImage(
-                    cabbage,
+                  child: Image(
+                    image: NetworkImage(upload_url + jsonData['imageUrl']),
                     height: 200,
                   ),
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
-                GroceryTitle(text: product),
+                GroceryTitle(text: jsonData['name']),
                 SizedBox(
                   height: 5.0,
                 ),
-                GrocerySubtitle(text: "1 kg")
+                GrocerySubtitle(text: "₹" + jsonData['cost']),
               ],
             ),
           ),
@@ -108,12 +138,34 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
     );
   }
 
-   void _openCartPage(BuildContext context, String product) {
-    Toast.show(product+" added to cart", context, duration : Toast.LENGTH_LONG);
+  void _openCartPage(BuildContext context) {
+    Toast.show("Product added to cart", context,
+        duration: Toast.LENGTH_LONG);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) =>
-                GroceryHomePage()));
+            builder: (BuildContext context) => GroceryHomePage()));
+  }
+
+  void addToCart(BuildContext context, String product) async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.post(
+      cart,
+      body: {
+        'product': product,
+        'quantity': "1",
+      },
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200) {
+      _openCartPage(context);
+    } else {
+      print("Error in adding cart");
+    }
   }
 }

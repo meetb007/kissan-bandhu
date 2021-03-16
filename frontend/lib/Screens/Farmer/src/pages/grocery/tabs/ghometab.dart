@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Farmer/bloc.navigation_bloc/navigation_bloc.dart';
-import 'package:frontend/Screens/Login/components/background.dart';
+// import 'package:frontend/Screens/Login/components/background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget with NavigationStates {
-  const Body({
+class HomeTabView extends StatelessWidget{
+  const HomeTabView({
     Key key,
   }) : super(key: key);
 
@@ -12,7 +11,8 @@ class Body extends StatelessWidget with NavigationStates {
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     getToken();
-    return Background(
+    // return Background(
+    return Container(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/ghome.dart';
 //import 'package:flutter/services.dart';
 //import 'package:frontend/Screens/Login/components/body.dart';
 //import 'package:frontend/Screens/Farmer/components/background.dart';
-import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
 // import 'package:frontend/components/rounded_button.dart';
 // import 'package:frontend/Screens/Farmer/components/my_orders.dart';
 // import 'package:frontend/Screens/Farmer/components/profile.dart';
@@ -13,7 +13,7 @@ import 'package:frontend/Screens/Farmer/sidebar/sidebar_layout.dart';
 class MainScreen extends StatelessWidget{
     Widget build(BuildContext context) {
     return Scaffold(
-      body: FarmerSideBarLayout(),
+      body: FarmerHomePage(),
     );
   }
 }

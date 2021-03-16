@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Farmer/components/profile_animations/animations.dart';
-import '../../../constants.dart';
-import '../bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/animations.dart';
+// import 'package:rflutter_alert/rflutter_alert.dart';
+import '../../../../../../constants.dart';
 
-class Track extends StatelessWidget with NavigationStates {
-  const Track({Key key}) : super(key: key);
+class CurrentOrder extends StatelessWidget {
+  const CurrentOrder({Key key}) : super(key: key);
 
   final Color color = kPrimaryLightColor;
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(20, 9, 50, 0.5),
-                Color.fromRGBO(150, 95, 171, 0.5),
-              ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(20, 9, 50, 0.5),
+            //     Color.fromRGBO(150, 95, 171, 0.5),
+            //   ],
+            //   begin: FractionalOffset.bottomCenter,
+            //   end: FractionalOffset.topCenter,
+            // ),
           ),
         ),
         Scaffold(
@@ -35,28 +35,28 @@ class Track extends StatelessWidget with NavigationStates {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Icon(
-                      //   AntDesign.arrowleft,
-                      //   color: Colors.white,
-                      // ),
-                      // Icon(
-                      //   AntDesign.logout,
-                      //   color: Colors.white,
-                      // ),
-                    ],
-                  ),
-                  Text(
-                    'My\nCurrent\nOrders',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 34,
-                      fontFamily: 'Nisebuschgardens',
-                    ),
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     // Icon(
+                  //     //   AntDesign.arrowleft,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //     // Icon(
+                  //     //   AntDesign.logout,
+                  //     //   color: Colors.white,
+                  //     // ),
+                  //   ],
+                  // ),
+                  // Text(
+                  //   'My\nCurrent\nOrders',
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 34,
+                  //     fontFamily: 'Nisebuschgardens',
+                  //   ),
+                  // ),
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(
@@ -157,12 +157,16 @@ class Track extends StatelessWidget with NavigationStates {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"rice");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -283,12 +287,16 @@ class Track extends StatelessWidget with NavigationStates {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"strawberry");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -409,12 +417,16 @@ class Track extends StatelessWidget with NavigationStates {
                                                           BorderRadius.circular(
                                                               90),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context,"tomato");  
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
                                                         color: Colors.white),
-                                                  )),
+                                                    )
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -443,4 +455,63 @@ class Track extends StatelessWidget with NavigationStates {
       ],
     );
   }
+
+  showAlertDialog(BuildContext context,String product) {  
+  // Create button  
+  Widget okButton = FlatButton(  
+    child: Text("OK"),  
+    onPressed: () {  
+      Navigator.of(context).pop();  
+    },  
+  );  
+  
+  // Create AlertDialog  
+  AlertDialog alert = AlertDialog(  
+    title: Text("Simple Alert"),  
+    content: Text(product),  
+    actions: [  
+      okButton,  
+    ],  
+  );  
+  
+  // show the dialog  
+  showDialog(  
+    context: context,  
+    builder: (BuildContext context) {  
+      return alert;  
+    },  
+  );  
+}  
+
+  // _onAlertWithCustomContentPressed(context) {
+  //   Alert(
+  //       context: context,
+  //       title: "LOGIN",
+  //       content: Column(
+  //         children: <Widget>[
+  //           TextField(
+  //             decoration: InputDecoration(
+  //               icon: Icon(Icons.account_circle),
+  //               labelText: 'Username',
+  //             ),
+  //           ),
+  //           TextField(
+  //             obscureText: true,
+  //             decoration: InputDecoration(
+  //               icon: Icon(Icons.lock),
+  //               labelText: 'Password',
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       buttons: [
+  //         DialogButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text(
+  //             "LOGIN",
+  //             style: TextStyle(color: Colors.white, fontSize: 20),
+  //           ),
+  //         )
+  //       ]).show();
+  // }
 }
