@@ -336,6 +336,7 @@ class _SellTabViewState extends State<SellTabView> {
 
   //get image from camera
   Future getImage() async {
+    // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
 
@@ -348,6 +349,7 @@ class _SellTabViewState extends State<SellTabView> {
   //resize the image
   Future<void> _getImage(BuildContext context) async {
     if (selectedImage != null) {
+      // ignore: unused_local_variable
       var imageFile = selectedImage;
       /*var image = imageLib.decodeImage(imageFile.readAsBytesSync());
       fileName = basename(imageFile.path);

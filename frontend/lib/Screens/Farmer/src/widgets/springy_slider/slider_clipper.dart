@@ -1,5 +1,6 @@
 import 'dart:math';
 
+// ignore: slash_for_doc_comments
 /**
  * Author: Damodar Lohani
  * profile: https://github.com/lohanidamodar
@@ -21,6 +22,7 @@ class SliderClipper extends CustomClipper<Path> {
   });
 
   @override
+  // ignore: missing_return
   Path getClip(Size size) {
     switch (sliderController.state) {
       case SpringySliderState.idle:

@@ -1,3 +1,4 @@
+// ignore: slash_for_doc_comments
 /**
  * Author: Damodar Lohani
  * profile: https://github.com/lohanidamodar

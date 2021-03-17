@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
-import 'package:toast/toast.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/ghome.dart';
+
 
 class GroceryListItemTwo extends StatelessWidget {
   const GroceryListItemTwo({
@@ -66,13 +64,5 @@ class GroceryListItemTwo extends StatelessWidget {
         ],
       ),
     );
-  }
-    void _openCartPage(BuildContext context, String product) {
-    Toast.show(product+" added to cart", context, duration : Toast.LENGTH_LONG);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) =>
-                GroceryHomePage()));
   }
 }

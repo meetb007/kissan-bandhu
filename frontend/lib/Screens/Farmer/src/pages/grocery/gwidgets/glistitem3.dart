@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/gwidgets/gtypography.dart';
+import 'package:frontend/Screens/Farmer/src/widgets/network_image.dart';
 
 class GroceryListItemThree extends StatelessWidget {
   const GroceryListItemThree({

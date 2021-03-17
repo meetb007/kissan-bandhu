@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/gwidgets/gtypography.dart';
+import 'package:frontend/Screens/Farmer/src/widgets/network_image.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/gdetails.dart';
 
 class GroceryListItemOne extends StatelessWidget {
   final String image, title, price;

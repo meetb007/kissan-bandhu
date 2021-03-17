@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;

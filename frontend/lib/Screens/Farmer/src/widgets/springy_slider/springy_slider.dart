@@ -1,9 +1,11 @@
+// ignore: slash_for_doc_comments
 /**
  * Codes for stringy widgets and all corresponding widgets related to this
  * are taken from Fluttery UI Challenges 
  * (https://github.com/matthew-carroll/flutter_ui_challenge_springy_slider)
  * Check out the repository and give it a start
  */
+// ignore: slash_for_doc_comments
 /**
  * Author: Damodar Lohani
  * profile: https://github.com/lohanidamodar
@@ -52,6 +54,7 @@ class _SpringySliderState extends State<SpringySlider>
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     double sliderPercent = sliderController.sliderValue;
     if (sliderController.state == SpringySliderState.springing) {
       sliderPercent = sliderController.springingPercent;

@@ -43,7 +43,7 @@ class GroceryListItemThree extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10.0),
-          Row(
+          Column(
             children: <Widget>[
               // IconButton(
               //   icon: Icon(Icons.add_circle),
@@ -67,6 +67,16 @@ class GroceryListItemThree extends StatelessWidget {
               RaisedButton(child: Text("Remove"), onPressed: () {}),
             ],
           ),
+          SizedBox(
+            height:10.0,
+          ),
+          // Row(
+          //   children: [
+          //     RaisedButton(child: Text("View"), onPressed: () {}),
+          //     RaisedButton(child: Text("Update"), onPressed: () {}),
+          //     RaisedButton(child: Text("Remove"), onPressed: () {}),
+          //   ],
+          // ),
           const SizedBox(width: 10.0),
         ],
       ),

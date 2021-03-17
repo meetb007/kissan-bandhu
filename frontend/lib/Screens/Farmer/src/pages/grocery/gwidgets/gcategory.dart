@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
+import 'package:frontend/Screens/Farmer/src/widgets/network_image.dart';
 
 class GroceryCategory extends StatelessWidget {
   final String image, title;
@@ -7,8 +7,11 @@ class GroceryCategory extends StatelessWidget {
 
   const GroceryCategory(
       {Key key,
+      // ignore: type_init_formals
       @required String this.image,
+      // ignore: type_init_formals
       @required String this.title,
+      // ignore: type_init_formals
       Color this.backgroundColor})
       : super(key: key);
 

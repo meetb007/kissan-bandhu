@@ -1,4 +1,4 @@
-import 'package:frontend/Screens/Buyer/core/presentation/res/text_styles.dart';
+import 'package:frontend/Screens/Farmer/core/presentation/res/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class EmptyMessage extends StatelessWidget {

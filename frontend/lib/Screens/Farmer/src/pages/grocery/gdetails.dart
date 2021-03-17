@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem2.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails_individual.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
