@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Driver/components/profile_animations/animations.dart';
-import 'package:frontend/constants.dart';
-import 'package:frontend/Screens/Driver/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Driver/src/pages/grocery/animations.dart';
+import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/track_map.dart';
+import '../../../../../../constants.dart';
 
-class MyOrders extends StatelessWidget with NavigationStates {
-  const MyOrders({Key key}) : super(key: key);
+class CurrentOrder extends StatelessWidget {
+  const CurrentOrder({Key key}) : super(key: key);
+
   final Color color = kPrimaryLightColor;
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(20, 9, 50, 0.5),
-                Color.fromRGBO(150, 95, 171, 0.5),
-              ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(20, 9, 50, 0.5),
+            //     Color.fromRGBO(150, 95, 171, 0.5),
+            //   ],
+            //   begin: FractionalOffset.bottomCenter,
+            //   end: FractionalOffset.topCenter,
+            // ),
           ),
         ),
         Scaffold(
@@ -34,28 +35,6 @@ class MyOrders extends StatelessWidget with NavigationStates {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Icon(
-                      //   AntDesign.arrowleft,
-                      //   color: Colors.white,
-                      // ),
-                      // Icon(
-                      //   AntDesign.logout,
-                      //   color: Colors.white,
-                      // ),
-                    ],
-                  ),
-                  Text(
-                    'My\nPrevious\nOrders',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 34,
-                      fontFamily: 'Nisebuschgardens',
-                    ),
-                  ),
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(
@@ -140,33 +119,41 @@ class MyOrders extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
                                                   height: 50,
-                                                  width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              90),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) {
+                                                            return trackMap();
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -266,33 +253,41 @@ class MyOrders extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
                                                   height: 50,
-                                                  width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              90),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) {
+                                                            return trackMap();
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -392,33 +387,41 @@ class MyOrders extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
                                                   height: 50,
-                                                  width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              90),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) {
+                                                            return trackMap();
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -439,7 +442,35 @@ class MyOrders extends StatelessWidget with NavigationStates {
             ),
           ),
         ),
+
       ],
     );
   }
+
+  showAlertDialog(BuildContext context,String product) {  
+  // Create button  
+    Widget okButton = FlatButton(  
+      child: Text("OK"),  
+      onPressed: () {  
+        Navigator.of(context).pop();  
+      },  
+    );  
+    
+    // Create AlertDialog  
+    AlertDialog alert = AlertDialog(  
+      title: Text("Simple Alert"),  
+      content: Text(product),  
+      actions: [  
+        okButton,  
+      ],  
+    );  
+    
+    // show the dialog  
+    showDialog(  
+      context: context,  
+      builder: (BuildContext context) {  
+        return alert;  
+      },  
+    );  
+  }  
 }

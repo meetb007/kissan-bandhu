@@ -1,4 +1,4 @@
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
+import 'package:frontend/Screens/Farmer/core/presentation/res/assets.dart';
 
 import 'data/models/developer.dart';
 

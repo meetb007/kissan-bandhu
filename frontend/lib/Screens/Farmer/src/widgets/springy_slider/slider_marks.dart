@@ -1,10 +1,11 @@
 import 'dart:ui';
 
+// ignore: slash_for_doc_comments
 /**
  * Author: Damodar Lohani
  * profile: https://github.com/lohanidamodar
   */
-  
+
 import 'package:flutter/material.dart';
 
 class SliderMarks extends StatelessWidget {

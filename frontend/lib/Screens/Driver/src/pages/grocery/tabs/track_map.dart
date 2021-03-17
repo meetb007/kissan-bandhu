@@ -35,12 +35,14 @@ class _trackMapState extends State<trackMap> {
       name: "Way Point 5",
       latitude: 38.90894949285854,
       longitude: -77.03651905059814);
+  // ignore: unused_field
   final _farAway = WayPoint(
       name: "Far Far Away", latitude: 36.1175275, longitude: -115.1839524);
 
   MapBoxNavigation _directions;
   MapBoxOptions _options;
 
+  // ignore: unused_field
   bool _arrived = false;
   bool _isMultipleStop = false;
   double _distanceRemaining, _durationRemaining;
@@ -102,7 +104,7 @@ class _trackMapState extends State<trackMap> {
         ),
         body: Center(
           child: Column(children: <Widget>[
-            Expanded(
+            Container(
               child: SingleChildScrollView(
                 child: Column(
                   children: [

@@ -7,8 +7,11 @@ class GroceryCategory extends StatelessWidget {
 
   const GroceryCategory(
       {Key key,
+      // ignore: type_init_formals
       @required String this.image,
+      // ignore: type_init_formals
       @required String this.title,
+      // ignore: type_init_formals
       Color this.backgroundColor})
       : super(key: key);
 

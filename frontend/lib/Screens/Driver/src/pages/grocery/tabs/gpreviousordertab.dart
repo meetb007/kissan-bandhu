@@ -1,32 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Driver/components/profile_animations/animations.dart';
-import 'package:frontend/Screens/Driver/components/track_map.dart';
-import 'package:frontend/components/rounded_button.dart';
-import '../../../constants.dart';
-import 'package:frontend/Screens/Driver/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:frontend/Screens/Driver/src/pages/grocery/animations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:rflutter_alert/rflutter_alert.dart';
+import '../../../../../../constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
+import 'dart:io';
+import 'dart:convert';
 
-class Track extends StatelessWidget with NavigationStates {
-  const Track({Key key}) : super(key: key);
+class PreviousOrder extends StatefulWidget {
+  @override
+  _PreviousOrderState createState() => _PreviousOrderState();
+}
 
+class _PreviousOrderState extends State<PreviousOrder> {
+ 
   final Color color = kPrimaryLightColor;
+  bool getData = false;
+  var jsonData;
+
+  void getDetails() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.get(
+      product_list,
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200 && res['length'] > 0) {
+      // getCard(res['response']);
+      jsonData = res['response'];
+      setState(() {
+        getData = true;
+      });
+    } else {
+      print("Product not found");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(20, 9, 50, 0.5),
-                Color.fromRGBO(150, 95, 171, 0.5),
-              ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [
+            //     Color.fromRGBO(20, 9, 50, 0.5),
+            //     Color.fromRGBO(150, 95, 171, 0.5),
+            //   ],
+            //   begin: FractionalOffset.bottomCenter,
+            //   end: FractionalOffset.topCenter,
+            // ),
           ),
         ),
         Scaffold(
@@ -37,28 +68,6 @@ class Track extends StatelessWidget with NavigationStates {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Icon(
-                      //   AntDesign.arrowleft,
-                      //   color: Colors.white,
-                      // ),
-                      // Icon(
-                      //   AntDesign.logout,
-                      //   color: Colors.white,
-                      // ),
-                    ],
-                  ),
-                  Text(
-                    'My\nCurrent\nOrders',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 34,
-                      fontFamily: 'Nisebuschgardens',
-                    ),
-                  ),
                   Container(
                     height: height * 0.20,
                     child: LayoutBuilder(
@@ -143,51 +152,41 @@ class Track extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                                  height: 80,
-                                                  width: 150,
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
+                                                  height: 50,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              60),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      // child: Text(
-                                                      //   "View",
-                                                      //   style: TextStyle(
-                                                      //     color: Colors.white
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      // Navigator.push(
+                                                      //   context,
+                                                      //   MaterialPageRoute(
+                                                      //     builder: (context) {
+                                                      //       return trackMap();
+                                                      //     },
                                                       //   ),
-
-                                                      // )
-                                                      RoundedButton(
-                                                        text: "View",
-                                                        press: () {
-                                                           Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) {
-                                                                return trackMap();
-                                                              },
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                      // );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -287,33 +286,41 @@ class Track extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
                                                   height: 50,
-                                                  width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              90),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      // Navigator.push(
+                                                      //   context,
+                                                      //   MaterialPageRoute(
+                                                      //     builder: (context) {
+                                                      //       return trackMap();
+                                                      //     },
+                                                      //   ),
+                                                      // );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -413,33 +420,41 @@ class Track extends StatelessWidget with NavigationStates {
                                         ),
                                         //Column(
                                         Positioned.fill(
-                                          //bottom: 50,
+                                          bottom: 50,
                                           child: Container(
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: FadeAnimation(
                                                 2,
                                                 Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
+                                                  margin:
+                                                      EdgeInsets.symmetric(horizontal: 10,vertical:15),
                                                   height: 50,
-                                                  width: 150,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              90),
+                                                          BorderRadius.circular(50),
                                                       color: Colors.deepPurple),
-                                                  child: Align(
-                                                      child: Text(
-                                                    "View",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                                  child: FlatButton(
+                                                    minWidth: innerWidth * 0.45,
+                                                    onPressed: () {
+                                                      // Navigator.push(
+                                                      //   context,
+                                                      //   MaterialPageRoute(
+                                                      //     builder: (context) {
+                                                      //       return trackMap();
+                                                      //     },
+                                                      //   ),
+                                                      // );
+                                                    },
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(color: Colors.white)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // )
                                         ),
                                       ],
                                     )
@@ -463,4 +478,63 @@ class Track extends StatelessWidget with NavigationStates {
       ],
     );
   }
+
+  showAlertDialog(BuildContext context,String product) {  
+  // Create button  
+  Widget okButton = FlatButton(  
+    child: Text("OK"),  
+    onPressed: () {  
+      Navigator.of(context).pop();  
+    },  
+  );  
+  
+  // Create AlertDialog  
+  AlertDialog alert = AlertDialog(  
+    title: Text("Simple Alert"),  
+    content: Text(product),  
+    actions: [  
+      okButton,  
+    ],  
+  );  
+  
+  // show the dialog  
+  showDialog(  
+    context: context,  
+    builder: (BuildContext context) {  
+      return alert;  
+    },  
+  );  
+}  
+
+  // _onAlertWithCustomContentPressed(context) {
+  //   Alert(
+  //       context: context,
+  //       title: "LOGIN",
+  //       content: Column(
+  //         children: <Widget>[
+  //           TextField(
+  //             decoration: InputDecoration(
+  //               icon: Icon(Icons.account_circle),
+  //               labelText: 'Username',
+  //             ),
+  //           ),
+  //           TextField(
+  //             obscureText: true,
+  //             decoration: InputDecoration(
+  //               icon: Icon(Icons.lock),
+  //               labelText: 'Password',
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       buttons: [
+  //         DialogButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text(
+  //             "LOGIN",
+  //             style: TextStyle(color: Colors.white, fontSize: 20),
+  //           ),
+  //         )
+  //       ]).show();
+  // }
 }

@@ -31,6 +31,7 @@ ThemeData buildDefaultTheme() {
         borderRadius: BorderRadius.circular(10.0),
       ),
       contentPadding: const EdgeInsets.all(16.0),
+      // ignore: deprecated_member_use
       hasFloatingPlaceholder: true,
     )
   );

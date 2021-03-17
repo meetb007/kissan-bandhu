@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/core/data/models/menu.dart';
-import 'package:frontend/Screens/Buyer/src/pages/grocery/ghome.dart';
+import 'package:frontend/Screens/Farmer/core/data/models/menu.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/ghome.dart';
 
 final List<dynamic> pages = [
   MenuItem(
       title: "UI Kits (Clones)",
       items: [
-        SubMenuItem("Grocery UI Kit", GroceryHomePage(),
-            path: GroceryHomePage.path),
+        SubMenuItem("Grocery UI Kit", FarmerHomePage(),
+            path: FarmerHomePage.path),
       ],
       icon: Icons.account_balance_wallet),
 ];

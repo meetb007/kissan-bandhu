@@ -1,3 +1,4 @@
+// ignore: slash_for_doc_comments
 /**
  * Author: Damodar Lohani
  * profile: https://github.com/lohanidamodar
@@ -7,7 +8,7 @@ import 'dart:math';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/code_highlighter.dart';
+import 'package:frontend/Screens/Farmer/core/presentation/res/code_highlighter.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '../../constants.dart';
