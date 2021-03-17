@@ -7,7 +7,7 @@ const ordersSchema = mongoose.Schema({
   orderId: { type: String, required: true },
   status: { type: String },
   payment: { type: String, required: true },
-  product: { type: mongoose.Schema.Types.ObjectId, ref: Product, required: true },
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: Product, required: true }],
   buyer: { type: mongoose.Schema.Types.ObjectId, ref: Buyer, required: true },
   payment_mode: { type: String, required: true },
   payment_done: { type: String, required: true },
