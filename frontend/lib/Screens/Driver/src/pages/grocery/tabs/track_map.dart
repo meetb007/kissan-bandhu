@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:frontend/constants.dart';
 
 import 'package:flutter/services.dart';
 // import 'package:flutter_mapbox_navigation/library.dart';
@@ -17,27 +18,27 @@ class _trackMapState extends State<trackMap> {
   String _instruction = "";
   final _origin = WayPoint(
       name: "Way Point 1",
-      latitude: 38.9111117447887,
-      longitude: -77.04012393951416);
+      latitude: 19.172079,
+      longitude: 72.948257);
   final _stop1 = WayPoint(
       name: "Way Point 2",
-      latitude: 38.91113678979344,
-      longitude: -77.03847169876099);
-  final _stop2 = WayPoint(
-      name: "Way Point 3",
-      latitude: 38.91040213277608,
-      longitude: -77.03848242759705);
-  final _stop3 = WayPoint(
-      name: "Way Point 4",
-      latitude: 38.909650771013034,
-      longitude: -77.03850388526917);
-  final _stop4 = WayPoint(
-      name: "Way Point 5",
-      latitude: 38.90894949285854,
-      longitude: -77.03651905059814);
+      latitude: 19.172082,
+      longitude: 72.948277);
+   final _stop2 = WayPoint(
+      name: "Way Point 2",
+      latitude: 19.172085,
+      longitude: 72.948297);
+   final _stop3 = WayPoint(
+      name: "Way Point 2",
+      latitude: 19.172086,
+      longitude: 72.948287);
+   final _stop4 = WayPoint(
+      name: "Way Point 2",
+      latitude: 19.172090,
+      longitude: 72.948280);
   // ignore: unused_field
   final _farAway = WayPoint(
-      name: "Far Far Away", latitude: 36.1175275, longitude: -115.1839524);
+      name: "Far Far Away", latitude: 19.172090, longitude: 72.948257);
 
   MapBoxNavigation _directions;
   MapBoxOptions _options;
@@ -98,9 +99,13 @@ class _trackMapState extends State<trackMap> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Map',style:TextStyle(
+            color:Colors.black
+          )),
+          backgroundColor: kPrimaryLightColor,
         ),
         body: Center(
           child: Column(children: <Widget>[
@@ -110,19 +115,6 @@ class _trackMapState extends State<trackMap> {
                   children: [
                     SizedBox(
                       height: 10,
-                    ),
-                    Text('Running on: $_platformVersion\n'),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          "Full Screen Navigation",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
