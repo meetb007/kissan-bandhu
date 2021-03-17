@@ -103,7 +103,7 @@ router.get('/', async (req, res) => {
 
 
   SellProduct
-    .find({userFk:farmer.userFk,status:"Placed"})
+    .find({userFk:farmer.userFk,status:{"$ne":"Completed"}})
     .then((doc) => {
       res.status(200).json({
         message: 'List of Product',
@@ -142,7 +142,7 @@ router.get('/:id', async (req, res) => {
 
 
   SellProduct
-    .findbyid(req.params.id)
+    .findById(req.params.id)
     .then((doc) => {
       res.status(200).json({
         message: 'Product',
@@ -256,7 +256,7 @@ router.get('/history/:id', async (req, res) => {
 
 
   SellProduct
-    .findbyid(req.params.id)
+    .findById(req.params.id)
     .then((doc) => {
       res.status(200).json({
         message: 'Product',
