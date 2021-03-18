@@ -82,7 +82,7 @@ router.post('/', upload.single("image"), async (req, res) => {
 
 //get List 
 
-router.get('/', async (req, res) => {
+router.get('/current', async (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
     res.status(403).json({
@@ -121,7 +121,7 @@ router.get('/', async (req, res) => {
 
 //get single 
 
-router.get('/:id', async (req, res) => {
+router.get('/current/:id', async (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
     res.status(403).json({
