@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
 
-class ProfileTabView extends StatefulWidget{
+class ProfileTabView extends StatefulWidget {
   @override
   _ProfileTabViewState createState() => _ProfileTabViewState();
 }
@@ -26,29 +26,21 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     if (!getData) {
-      return Text("loading");
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(
-          decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Color.fromRGBO(20, 9, 50, 1),
-              //     Color.fromRGBO(150, 95, 171, 0.5),
-              //   ],
-              //   begin: FractionalOffset.bottomCenter,
-              //   end: FractionalOffset.topCenter,
-              // ),
-              ),
-        ),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: Column(
                 children: [
                   Container(
@@ -309,10 +301,9 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                                             ),
                                           );
                                         },
-                                        child: Text(
-                                          "Logout",
-                                          style: TextStyle(color: Colors.white)
-                                        ),
+                                        child: Text("Logout",
+                                            style:
+                                                TextStyle(color: Colors.white)),
                                       ),
                                     ),
                                   ),
@@ -373,5 +364,4 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     });
     print(profileData);
   }
-  
 }

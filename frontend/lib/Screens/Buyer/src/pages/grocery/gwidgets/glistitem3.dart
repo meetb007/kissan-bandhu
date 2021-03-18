@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
 
 class GroceryListItemThree extends StatelessWidget {
   const GroceryListItemThree({
@@ -24,10 +23,11 @@ class GroceryListItemThree extends StatelessWidget {
           const SizedBox(width: 10.0),
           Container(
               height: 80.0,
-              child: PNetworkImage(
-                image,
+              child: Image(
+                image: NetworkImage(image),
                 height: 80.0,
-              )),
+              )
+          ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Container(
@@ -43,28 +43,52 @@ class GroceryListItemThree extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10.0),
+          Divider(
+            color: Colors.black,
+          ),
           Column(
             children: <Widget>[
-              // IconButton(
-              //   icon: Icon(Icons.add_circle),
-              //   color: Colors.green,
-              //   onPressed: () {},
+              IconButton(
+                icon: Icon(Icons.arrow_forward_ios_rounded),
+                color: Colors.green,
+                onPressed: () {},
+              ),
+              Text('View item')
+            ],
+          ),
+          VerticalDivider(
+            color: Colors.black,
+            thickness: 2,
+            width: 20,),
+          Column(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.update_rounded),
+                color: Colors.green,
+                onPressed: () {},
+              ),
+              Text('Update item')
+            ],
+          ),
+          VerticalDivider(
+            color: Colors.black,
+            thickness: 2,
+            width: 20,),
+          Column(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.delete),
+                color: Colors.green,
+                onPressed: () {},
+              ),
+              Text('Delete Item')
+              // ButtonBar(
+              //   children: <Widget>[
+              //     RaisedButton(child: Text("View"), onPressed: () {}),
+              //     RaisedButton(child: Text("Update"), onPressed: () {}),
+              //     RaisedButton(child: Text("Remove"), onPressed: () {}),
+              //   ],
               // ),
-              // Text(
-              //   "1",
-              //   textAlign: TextAlign.right,
-              //   style: TextStyle(fontWeight: FontWeight.bold),
-              // ),
-              // IconButton(
-              //   icon: Icon(
-              //     Icons.remove_circle,
-              //   ),
-              //   color: Colors.green,
-              //   onPressed: () {},
-              // )
-              RaisedButton(child: Text("View"), onPressed: () {}),
-              RaisedButton(child: Text("Update"), onPressed: () {}),
-              RaisedButton(child: Text("Remove"), onPressed: () {}),
             ],
           ),
           SizedBox(
