@@ -26,23 +26,15 @@ class _ProfileTabViewState extends State<ProfileTabView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     if (!getData) {
-      return Text("loading");
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(
-          decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Color.fromRGBO(20, 9, 50, 1),
-              //     Color.fromRGBO(150, 95, 171, 0.5),
-              //   ],
-              //   begin: FractionalOffset.bottomCenter,
-              //   end: FractionalOffset.topCenter,
-              // ),
-              ),
-        ),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
