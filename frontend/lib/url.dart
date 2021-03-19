@@ -22,3 +22,4 @@ final String product_list = baseURL + "product";
 final String cart = baseURL + "cart";
 // ignore: non_constant_identifier_names
 final String upload_url = baseURL + "uploads/";
+final String order = baseURL + "order";
