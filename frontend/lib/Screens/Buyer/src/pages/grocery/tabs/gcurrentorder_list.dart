@@ -27,7 +27,7 @@ class _CurrentOrderListState extends State<CurrentOrderList> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Color(0xFF6F35A5),
-        title: Text("List of Items in current order"),
+        title: Text("List of Items in your order"),
       ),
       body: _buildPageContent(context),
     );

@@ -90,6 +90,10 @@ class _CartTabViewState extends State<CartTabView> {
                 return GroceryListItemThree(
                   title: jsonData[index]["product"]['name'],
                   image: upload_url + jsonData[index]["product"]['imageUrl'],
+                  subtitle: jsonData[index]["quantity"],
+                  id: jsonData[index]["_id"],
+                  productId: jsonData[index]["product"]["_id"],
+                  quantity: jsonData[index]["quantity"]
                   // press: () {
                   //   Navigator.push(
                   //     context,
