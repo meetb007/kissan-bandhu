@@ -46,14 +46,14 @@ router.post('/', async (req, res) => {
 
   axios.post('https://kissan-bandhu.govindapatel61.repl.co/clustering',
     {farmers:docs,
-     driver:{capacity:tempDriver.capacity,coordinates:[latitude,longitude]}
+     driver:{capacity:tempDriver.capacity,latitude,longitude}
    })
   .then(result =>{
-    console.log(result)
+    // console.log(result)
     res.status(200).json({
       message: 'Place To PickUP Location',
-      length:result.data.length,
-      response: result.data,
+      length:result.data.data.length,
+      response: result.data.data,
       statusCode: 200,
     });
   })
