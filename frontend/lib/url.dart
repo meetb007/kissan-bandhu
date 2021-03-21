@@ -23,3 +23,4 @@ final String cart = baseURL + "cart";
 // ignore: non_constant_identifier_names
 final String upload_url = baseURL + "uploads/";
 final String order = baseURL + "order";
+final String pickUp = baseURL + "driver/pickup";
