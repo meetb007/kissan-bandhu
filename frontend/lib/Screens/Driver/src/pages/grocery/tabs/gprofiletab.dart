@@ -246,6 +246,60 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                             SizedBox(
                               height: 10,
                             ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  "Capacity",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  profileData["capacity"]
+                                      .toString()
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      height: 2,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  "Driver Licence",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FadeAnimation(
+                                1.6,
+                                Text(
+                                  profileData["driverLicence"]
+                                      .toString()
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      height: 2,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Positioned.fill(
                               bottom: 50,
                               child: Container(
