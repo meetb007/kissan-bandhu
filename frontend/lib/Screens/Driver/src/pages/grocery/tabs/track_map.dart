@@ -1,9 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:frontend/url.dart';
 // void main() => runApp(MyApp());
 
 // ignore: camel_case_types
@@ -75,7 +81,7 @@ class _MyAppState extends State<trackMap> {
         allowsUTurnAtWayPoints: true,
         mode: MapBoxNavigationMode.drivingWithTraffic,
         units: VoiceUnits.imperial,
-        simulateRoute: false,
+        simulateRoute: true,
         animateBuildRoute: true,
         longPressDestinationEnabled: false,
         language: "en");
@@ -150,13 +156,62 @@ class _MyAppState extends State<trackMap> {
                           child: Text("Start Route"),
                           onPressed: () async {
                             _isMultipleStop = true;
-                            var wayPoints = List<WayPoint>();
-                            var coordinates = [
-                              [19.2011, 72.9785],
-                              [19.2015, 72.9787],
-                              [19.1726, 72.9425],
-                              [19.0745, 72.9978]
-                            ];
+                            Position position =
+                                await Geolocator.getCurrentPosition(
+                                    desiredAccuracy: LocationAccuracy.high);
+                            // print(
+                            //     position.latitude.toString() + "****" + position.longitude.toString());
+                            String latitude = position.latitude.toString();
+                            String longitude = position.longitude.toString();
+                            SharedPreferences storage =
+                                await SharedPreferences.getInstance();
+                            print(storage.getString("token"));
+                            String token = storage.getString("token");
+                            var response = await http.post(pickUp, headers: {
+                              HttpHeaders.authorizationHeader: token
+                            }, body: {
+                              "longitude": longitude,
+                              "latitude": latitude
+                            });
+                            print(response.statusCode);
+                            var res = jsonDecode(response.body);
+                            print(res);
+                            var status = res['statusCode'];
+                            var r = res['response'];
+                            if (status == 200) {
+                              var wayPoints = List<WayPoint>();
+                              for (var i = 0;i<res['length']; i++) {
+                                print('lon:'+r[i]['latitude']+','+r[i]['longitude']);
+                                WayPoint a=WayPoint(
+                                    name: i.toString(),
+                                    latitude: double.parse(r[i]['latitude']),
+                                    longitude:double.parse(r[i]['longitude']));
+                                wayPoints.add(a);
+                              }
+                              // wayPoints.add(WayPoint(
+                              //   name: 100.toString(),
+                              //   latitude: double.parse(r[0]['latitude']),
+                              //   longitude:double.parse(r[0]['longitude'])));
+                              print(wayPoints);
+                              await _directions.startNavigation(
+                                  wayPoints: wayPoints,
+                                  options: MapBoxOptions(
+                                      mode: MapBoxNavigationMode.driving,
+                                      simulateRoute: true,
+                                      language: "en",
+                                      allowsUTurnAtWayPoints: true,
+                                      units: VoiceUnits.metric));
+                              print(wayPoints);
+                            } else {
+                              print("Some error occured..");
+                            }
+                            // var wayPoints = List<WayPoint>();
+                            // var coordinates = [
+                            //   [19.2011, 72.9785],
+                            //   [19.2015, 72.9787],
+                            //   [19.1726, 72.9425],
+                            //   [19.0745, 72.9978]
+                            // ];
                             // wayPoints.add(_origin);
                             // wayPoints.add(_stop1);
                             // wayPoints.add(_stop2);
@@ -164,20 +219,20 @@ class _MyAppState extends State<trackMap> {
                             // wayPoints.add(_stop4);
                             // wayPoints.add(_origin);
 
-                            for (var i = 0; i < coordinates.length; i++) {
-                              wayPoints.add(WayPoint(
-                                  name: i.toString(),
-                                  latitude: coordinates[i][0],
-                                  longitude: coordinates[i][1]));
-                            }
-                            await _directions.startNavigation(
-                                wayPoints: wayPoints,
-                                options: MapBoxOptions(
-                                    mode: MapBoxNavigationMode.driving,
-                                    simulateRoute: true,
-                                    language: "en",
-                                    allowsUTurnAtWayPoints: false,
-                                    units: VoiceUnits.metric));
+                            // for (var i = 0; i < coordinates.length; i++) {
+                            //   wayPoints.add(WayPoint(
+                            //       name: i.toString(),
+                            //       latitude: coordinates[i][0],
+                            //       longitude: coordinates[i][1]));
+                            // }
+                            // await _directions.startNavigation(
+                            //     wayPoints: wayPoints,
+                            //     options: MapBoxOptions(
+                            //         mode: MapBoxNavigationMode.driving,
+                            //         simulateRoute: true,
+                            //         language: "en",
+                            //         allowsUTurnAtWayPoints: false,
+                            //         units: VoiceUnits.metric));
                           },
                         )
                       ],
@@ -292,7 +347,7 @@ class _MyAppState extends State<trackMap> {
                     //     ],
                     //   ),
                     // ),
-            //         Divider()
+                    //         Divider()
                   ],
                 ),
               ),
