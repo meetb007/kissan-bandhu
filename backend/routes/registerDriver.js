@@ -50,6 +50,8 @@ router.post('/', async(req, res) => {
     address,
     latitude,
     longitude,
+    capacity,
+    driverLicence
   } = req.body;
   const drivertemp = new Driver({
     name,
@@ -57,6 +59,8 @@ router.post('/', async(req, res) => {
     address,
     latitude,
     longitude,
+    capacity,
+    driverLicence
   });
 
   const temp = await Driver.findOne({mobile}).exec();
