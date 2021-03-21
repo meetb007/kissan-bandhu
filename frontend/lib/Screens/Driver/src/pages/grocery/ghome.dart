@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/ghometab.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/gprofiletab.dart';
-import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/gcurrentordertab.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/gpreviousordertab.dart';
 
 class DriverHomePage extends StatefulWidget {
@@ -21,12 +20,10 @@ class DriverHomePageState extends State<DriverHomePage> {
   @override
   void initState() {
     _children.add(HomeTabView());
-    _children.add(CurrentOrder());
     _children.add(PreviousOrder());
     _children.add(ProfileTabView());
 
     _appBars.add(_buildAppBar());
-    _appBars.add(_buildAppBarOne("My Current Orders"));
     _appBars.add(_buildAppBarOne("My Previous Orders"));
     _appBars.add(_buildAppBarOne("My Account"));
     super.initState();
@@ -94,9 +91,6 @@ class DriverHomePageState extends State<DriverHomePage> {
       items: <BottomNavigationBarItem>[
         // ignore: deprecated_member_use
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-        BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            icon: Icon(Icons.view_list_rounded), title: Text("Current Order")),
         BottomNavigationBarItem(
         // ignore: deprecated_member_use
         icon: Icon(Icons.view_list_rounded), title: Text("Previous Order")),
