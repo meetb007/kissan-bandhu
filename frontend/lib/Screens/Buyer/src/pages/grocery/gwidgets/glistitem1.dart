@@ -36,7 +36,7 @@ class GroceryListItemOne extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Center(
-                      child: PNetworkImage(
+                      child: Image.asset(
                     image,
                     height: 150.0,
                   )),
@@ -51,7 +51,7 @@ class GroceryListItemOne extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   onTap: () => 
-                    {if (title.compareTo("") != 0) _openDetailPage(context, title)},
+                    {if (title.compareTo("brocoli") != 0) _openDetailPage(context, title)},
                   child: Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(

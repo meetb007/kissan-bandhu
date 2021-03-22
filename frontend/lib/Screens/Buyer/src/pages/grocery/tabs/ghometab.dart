@@ -13,19 +13,7 @@ class HomeTabView extends StatelessWidget {
         // _buildListHeader("NEW ARRIVALS","SEE ALL"),
         _buildNewArrivalsRow(context, "Rice", "Strawberry"),
         _buildNewArrivalsRow(context, "LadyFinger", "Tomato"),
-        _buildNewArrivalsRow(context, "Potato", ""),
-        // SizedBox(height: 10.0,),
-        // _buildListHeader("DAILY NEEDS","SEE ALL"),
-        // SizedBox(height: 10.0,),
-        // InkWell(
-        //   onTap: ()=> _openDetailPage(context),
-        //   child: GroceryListItemTwo(title: "Cabbage", image: cabbage, subtitle: "1 kg")),
-        // InkWell(
-        //   onTap: ()=> _openDetailPage(context),
-        //   child: GroceryListItemTwo(title: "Red/yellow Capsicum", image: capsicum, subtitle: "1 kg")),
-        // InkWell(
-        //   onTap: ()=> _openDetailPage(context),
-        //   child: GroceryListItemTwo(title: "Pineapple", image: pineapple, subtitle: "4 in a pack")),
+        _buildNewArrivalsRow(context, "Potato", "brocoli"),
       ],
     );
   }
@@ -41,7 +29,7 @@ class HomeTabView extends StatelessWidget {
             child: InkWell(
               onTap: () => _openDetailPage(context, pro1),
               child: GroceryListItemOne(
-                image: mango,
+                image: 'assets/images/'+pro1+'.jpg',
                 // subtitle: "1 kg",
                 title: pro1,
               ),
@@ -50,9 +38,9 @@ class HomeTabView extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () =>
-                  {if (pro2.compareTo("") != 0) _openDetailPage(context, pro2)},
+                  {if (pro2.compareTo("brocoli") != 0) _openDetailPage(context, pro2)},
               child: GroceryListItemOne(
-                image: brocoli,
+                image: 'assets/images/'+pro2+'.jpg',
                 // subtitle: "6 in a pack",
                 title: pro2,
               ),

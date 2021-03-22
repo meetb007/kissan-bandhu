@@ -85,6 +85,12 @@ flutter:
     - assets/icons/
     - assets/images/download.png
     - assets/images/profile.png
+    - assets/images/Rice.jpg
+    - assets/images/Strawberry.jpg
+    - assets/images/Tomato.jpg
+    - assets/images/Potato.jpg
+    - assets/images/brocoli.jpg
+    - assets/images/LadyFinger.jpg
     - lib/Screens/Buyer/src/pages/grocery/
   
   # An image asset can refer to one or more resolution-specific "variants", see
