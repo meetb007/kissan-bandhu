@@ -14,7 +14,7 @@ class CartTabView extends StatefulWidget {
 
 class _CartTabViewState extends State<CartTabView> {
   String product;
-  bool getData = false;
+  bool getData = false, exist = false;
   var jsonData;
   // String url =
 
@@ -38,8 +38,13 @@ class _CartTabViewState extends State<CartTabView> {
       jsonData = res['response'];
       setState(() {
         getData = true;
+        exist = true;
       });
     } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });
       print("Product not found");
     }
   }
@@ -77,6 +82,12 @@ class _CartTabViewState extends State<CartTabView> {
         child: CircularProgressIndicator(),
       ));
     }
+    if(!exist){
+      return Container(
+          child: Center(
+          child: Text("No objects in cart",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
+      ));
+    }
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -88,24 +99,24 @@ class _CartTabViewState extends State<CartTabView> {
               physics: ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return GroceryListItemThree(
-                  title: jsonData[index]["product"]['name'],
-                  image: upload_url + jsonData[index]["product"]['imageUrl'],
-                  subtitle: jsonData[index]["quantity"],
-                  id: jsonData[index]["_id"],
-                  productId: jsonData[index]["product"]["_id"],
-                  quantity: jsonData[index]["quantity"]
-                  // press: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) {
-                  //         return GroceryIndividualPage(
-                  //             product: jsonData[index]['_id']);
-                  //       },
-                  //     ),
-                  //   );
-                  // },
-                );
+                    title: jsonData[index]["product"]['name'],
+                    image: upload_url + jsonData[index]["product"]['imageUrl'],
+                    subtitle: jsonData[index]["quantity"],
+                    id: jsonData[index]["_id"],
+                    productId: jsonData[index]["product"]["_id"],
+                    quantity: jsonData[index]["quantity"]
+                    // press: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) {
+                    //         return GroceryIndividualPage(
+                    //             product: jsonData[index]['_id']);
+                    //       },
+                    //     ),
+                    //   );
+                    // },
+                    );
               },
             ), // ),
           ),

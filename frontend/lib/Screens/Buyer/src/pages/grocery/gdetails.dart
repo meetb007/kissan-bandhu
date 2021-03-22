@@ -18,7 +18,7 @@ class GroceryDetailsPage extends StatefulWidget {
 class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
   // static final String path = "lib/src/pages/grocery/gdetails.dart";
   String product;
-  bool getData = false;
+  bool getData = false, exist = false;
   var jsonData;
   // String url = "https://kissan-bandhu.herokuapp.com/uploads/";
 
@@ -44,8 +44,13 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
       jsonData = res['response'];
       setState(() {
         getData = true;
+        exist = true;
       });
     } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });
       print("Product not found");
     }
   }
@@ -61,7 +66,14 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
         title: Text("List of " + product),
       ),
       body: getData
-          ? _buildPageContent(context)
+          ? ( exist?
+              _buildPageContent(context): 
+                Container(
+                  child: Center(
+                    child: Text("No items present in selected category",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
+                  ),
+                )
+            )
           : Container(
               child: Center(
               child: CircularProgressIndicator(),

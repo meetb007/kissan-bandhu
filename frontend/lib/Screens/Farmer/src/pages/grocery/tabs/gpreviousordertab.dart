@@ -18,7 +18,7 @@ class _PreviousOrderState extends State<PreviousOrder> {
     getDetails();
   }
 
-  bool getData = false;
+  bool getData = false, exist = false;
   var product, jsonData;
   void getDetails() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -35,8 +35,13 @@ class _PreviousOrderState extends State<PreviousOrder> {
       jsonData = res['response'];
       setState(() {
         getData = true;
+        exist = true;
       });
     } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });      
       print("Some error occured");
     }
   }
@@ -203,19 +208,25 @@ class _PreviousOrderState extends State<PreviousOrder> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: getData
-                  ? Column(
-                      children: [
-                        ListView.builder(
-                          itemCount: jsonData.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return getContainer(index);
-                          },
-                        ),
-                      ],
-                    )
+                  ? (exist
+                      ? Column(
+                          children: [
+                            ListView.builder(
+                              itemCount: jsonData.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                return getContainer(index);
+                              },
+                            ),
+                          ],
+                        )
+                      : Container(
+                          child: Center(
+                            child: Text("No previous order",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
+                          ),
+                        ))
                   : Container(
                       child: Center(
                         child: CircularProgressIndicator(),
@@ -287,8 +298,8 @@ class _PreviousOrderState extends State<PreviousOrder> {
                   ),
                   Text(
                     "Date of Order : " +
-                      jsonData[index]['date'].toString().split("T")[0],
-                      style: TextStyle(fontSize: 20),
+                        jsonData[index]['date'].toString().split("T")[0],
+                    style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 10.0,

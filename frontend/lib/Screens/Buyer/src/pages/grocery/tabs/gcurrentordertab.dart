@@ -19,7 +19,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
     getDetails();
   }
 
-  bool getData = false;
+  bool getData = false, exist = false;
   var product, jsonData;
   void getDetails() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -36,8 +36,13 @@ class _CurrentOrderState extends State<CurrentOrder> {
       jsonData = res['response'];
       setState(() {
         getData = true;
+        exist = true;
       });
     } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });
       print("Some error occured");
     }
   }
@@ -151,7 +156,9 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                                   MaterialPageRoute(
                                                     builder: (context) {
                                                       return CurrentOrderList(
-                                                          product:jsonData[index]['products']);
+                                                          product:
+                                                              jsonData[index]
+                                                                  ['products']);
                                                     },
                                                   ),
                                                 );
@@ -212,19 +219,28 @@ class _CurrentOrderState extends State<CurrentOrder> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: getData
-                  ? Column(
-                      children: [
-                        ListView.builder(
-                          itemCount: jsonData.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return getContainer(index);
-                          },
-                        ),
-                      ],
-                    )
+                  ? (exist
+                      ? Column(
+                          children: [
+                            ListView.builder(
+                              itemCount: jsonData.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                return getContainer(index);
+                              },
+                            ),
+                          ],
+                        )
+                      : Container(
+                          child: Center(
+                            child: Text("No items in your current order list",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18.0)),
+                          ),
+                        ))
                   : Container(
                       child: Center(
                         child: CircularProgressIndicator(),

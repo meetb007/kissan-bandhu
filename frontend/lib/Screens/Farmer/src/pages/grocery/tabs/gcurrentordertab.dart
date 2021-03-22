@@ -20,6 +20,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
 
   bool getData = false;
   var product, jsonData;
+  bool exist = false;
   void getDetails() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     print(storage.getString("token"));
@@ -35,8 +36,13 @@ class _CurrentOrderState extends State<CurrentOrder> {
       jsonData = res['response'];
       setState(() {
         getData = true;
+        exist = true;
       });
     } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });
       print("Some error occured");
     }
   }
@@ -203,18 +209,24 @@ class _CurrentOrderState extends State<CurrentOrder> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: getData
-                  ? Column(
-                      children: [
-                        ListView.builder(
-                          itemCount: jsonData.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return getContainer(index);
-                          },
+                  ? ( exist ? 
+                        Column(
+                          children: [
+                            ListView.builder(
+                              itemCount: jsonData.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                return getContainer(index);
+                              },
+                            ),
+                          ],
+                        ) : Container(
+                          child: Center(
+                          child: Text("No Current Order Found",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
                         ),
-                      ],
+                      )
                     )
                   : Container(
                       child: Center(
@@ -288,8 +300,8 @@ class _CurrentOrderState extends State<CurrentOrder> {
                   ),
                   Text(
                     "Date of Order : " +
-                      jsonData[index]['date'].toString().split("T")[0],
-                      style: TextStyle(fontSize: 20),
+                        jsonData[index]['date'].toString().split("T")[0],
+                    style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 10.0,
