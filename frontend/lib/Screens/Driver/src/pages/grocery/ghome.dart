@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/ghometab.dart';
+import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/track_map.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/gprofiletab.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/gpreviousordertab.dart';
 
@@ -19,7 +19,7 @@ class DriverHomePageState extends State<DriverHomePage> {
 
   @override
   void initState() {
-    _children.add(HomeTabView());
+    _children.add(trackMap());
     _children.add(PreviousOrder());
     _children.add(ProfileTabView());
 

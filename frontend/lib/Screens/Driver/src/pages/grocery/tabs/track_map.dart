@@ -53,7 +53,8 @@ class _MyAppState extends State<trackMap> {
   MapBoxNavigationViewController _controller;
   bool _routeBuilt = false;
   bool _isNavigating = false;
-
+  var jsonData;
+  bool getData = false, exist = false, startLoading = false;
   @override
   void initState() {
     super.initState();
@@ -85,18 +86,6 @@ class _MyAppState extends State<trackMap> {
         animateBuildRoute: true,
         longPressDestinationEnabled: false,
         language: "en");
-
-    //String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // try {
-    //   platformVersion = await _directions.platformVersion;
-    // } on PlatformException {
-    //   platformVersion = 'Failed to get platform version.';
-    // }
-
-    // setState(() {
-    //   _platformVersion = platformVersion;
-    // });
   }
 
   @override
@@ -106,6 +95,7 @@ class _MyAppState extends State<trackMap> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Route to be followed'),
+          // backgroundColor: Color(0xFFF1E6FF),
         ),
         body: Center(
           child: Column(children: <Widget>[
@@ -116,261 +106,222 @@ class _MyAppState extends State<trackMap> {
                     SizedBox(
                       height: 10,
                     ),
-                    // Text('Running on: $_platformVersion\n'),
-                    // Container(
-                    //   color: Colors.grey,
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(10),
-                    //     child: (Text(
-                    //       "Full Screen Navigation",
-                    //       style: TextStyle(color: Colors.white),
-                    //       textAlign: TextAlign.center,
-                    //     )),
-                    //   ),
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // RaisedButton(
-                        //   child: Text("Start A to B"),
-                        //   onPressed: () async {
-                        //     var wayPoints = List<WayPoint>();
-                        //     wayPoints.add(_origin);
-                        //     wayPoints.add(_stop1);
-
-                        //     await _directions.startNavigation(
-                        //         wayPoints: wayPoints,
-                        //         options: MapBoxOptions(
-                        //             mode:
-                        //                 MapBoxNavigationMode.drivingWithTraffic,
-                        //             simulateRoute: true,
-                        //             language: "en",
-                        //             units: VoiceUnits.metric));
-                        //   },
-                        // ),
                         SizedBox(
                           width: 10,
                         ),
                         RaisedButton(
                           child: Text("Start Route"),
-                          onPressed: () async {
-                            _isMultipleStop = true;
-                            Position position =
-                                await Geolocator.getCurrentPosition(
-                                    desiredAccuracy: LocationAccuracy.high);
-                            // print(
-                            //     position.latitude.toString() + "****" + position.longitude.toString());
-                            String latitude = position.latitude.toString();
-                            String longitude = position.longitude.toString();
-                            SharedPreferences storage =
-                                await SharedPreferences.getInstance();
-                            print(storage.getString("token"));
-                            String token = storage.getString("token");
-                            var response = await http.post(pickUp, headers: {
-                              HttpHeaders.authorizationHeader: token
-                            }, body: {
-                              "longitude": longitude,
-                              "latitude": latitude
-                            });
-                            print(response.statusCode);
-                            var res = jsonDecode(response.body);
-                            print(res);
-                            var status = res['statusCode'];
-                            var r = res['response'];
-                            if (status == 200) {
-                              var wayPoints = List<WayPoint>();
-                              for (var i = 0;i<res['length']; i++) {
-                                print('lon:'+r[i]['latitude']+','+r[i]['longitude']);
-                                WayPoint a=WayPoint(
-                                    name: i.toString(),
-                                    latitude: double.parse(r[i]['latitude']),
-                                    longitude:double.parse(r[i]['longitude']));
-                                wayPoints.add(a);
-                              }
-                              // wayPoints.add(WayPoint(
-                              //   name: 100.toString(),
-                              //   latitude: double.parse(r[0]['latitude']),
-                              //   longitude:double.parse(r[0]['longitude'])));
-                              print(wayPoints);
-                              await _directions.startNavigation(
-                                  wayPoints: wayPoints,
-                                  options: MapBoxOptions(
-                                      mode: MapBoxNavigationMode.driving,
-                                      simulateRoute: true,
-                                      language: "en",
-                                      allowsUTurnAtWayPoints: true,
-                                      units: VoiceUnits.metric));
-                              print(wayPoints);
-                            } else {
-                              print("Some error occured..");
-                            }
-                            // var wayPoints = List<WayPoint>();
-                            // var coordinates = [
-                            //   [19.2011, 72.9785],
-                            //   [19.2015, 72.9787],
-                            //   [19.1726, 72.9425],
-                            //   [19.0745, 72.9978]
-                            // ];
-                            // wayPoints.add(_origin);
-                            // wayPoints.add(_stop1);
-                            // wayPoints.add(_stop2);
-                            // wayPoints.add(_stop3);
-                            // wayPoints.add(_stop4);
-                            // wayPoints.add(_origin);
-
-                            // for (var i = 0; i < coordinates.length; i++) {
-                            //   wayPoints.add(WayPoint(
-                            //       name: i.toString(),
-                            //       latitude: coordinates[i][0],
-                            //       longitude: coordinates[i][1]));
-                            // }
-                            // await _directions.startNavigation(
-                            //     wayPoints: wayPoints,
-                            //     options: MapBoxOptions(
-                            //         mode: MapBoxNavigationMode.driving,
-                            //         simulateRoute: true,
-                            //         language: "en",
-                            //         allowsUTurnAtWayPoints: false,
-                            //         units: VoiceUnits.metric));
+                          onPressed: () {
+                            getDetail();
                           },
                         )
                       ],
                     ),
-                    // Container(
-                    //   color: Colors.grey,
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(10),
-                    //     child: (Text(
-                    //       "Embedded Navigation",
-                    //       style: TextStyle(color: Colors.white),
-                    //       textAlign: TextAlign.center,
-                    //     )),
-                    //   ),
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     RaisedButton(
-                    //       child: Text(_routeBuilt && !_isNavigating
-                    //           ? "Clear Route"
-                    //           : "Build Route"),
-                    //       onPressed: _isNavigating
-                    //           ? null
-                    //           : () {
-                    //               if (_routeBuilt) {
-                    //                 _controller.clearRoute();
-                    //               } else {
-                    //                 var wayPoints = List<WayPoint>();
-                    //                 wayPoints.add(_origin);
-                    //                 wayPoints.add(_stop1);
-                    //                 wayPoints.add(_stop2);
-                    //                 wayPoints.add(_stop3);
-                    //                 wayPoints.add(_stop4);
-                    //                 wayPoints.add(_origin);
-                    //                 _isMultipleStop = wayPoints.length > 2;
-                    //                 _controller.buildRoute(
-                    //                     wayPoints: wayPoints);
-                    //               }
-                    //             },
-                    //     ),
-                    //     SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     RaisedButton(
-                    //       child: Text("Start "),
-                    //       onPressed: _routeBuilt && !_isNavigating
-                    //           ? () {
-                    //               _controller.startNavigation();
-                    //             }
-                    //           : null,
-                    //     ),
-                    //     SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     RaisedButton(
-                    //       child: Text("Cancel "),
-                    //       onPressed: _isNavigating
-                    //           ? () {
-                    //               _controller.finishNavigation();
-                    //             }
-                    //           : null,
-                    //     )
-                    //   ],
-                    // ),
-                    // Center(
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(10),
-                    //     child: Text(
-                    //       "Long-Press Embedded Map to Set Destination",
-                    //       textAlign: TextAlign.center,
-                    //     ),
-                    //   ),
-                    // ),
-                    // Container(
-                    //   color: Colors.grey,
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(10),
-                    //     child: (Text(
-                    //       _instruction == null || _instruction.isEmpty
-                    //           ? "Banner Instruction Here"
-                    //           : _instruction,
-                    //       style: TextStyle(color: Colors.white),
-                    //       textAlign: TextAlign.center,
-                    //     )),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //       left: 20.0, right: 20, top: 20, bottom: 10),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: <Widget>[
-                    //       Row(
-                    //         children: <Widget>[
-                    //           Text("Duration Remaining: "),
-                    //           Text(_durationRemaining != null
-                    //               ? "${(_durationRemaining / 60).toStringAsFixed(0)} minutes"
-                    //               : "---")
-                    //         ],
-                    //       ),
-                    //       Row(
-                    //         children: <Widget>[
-                    //           Text("Distance Remaining: "),
-                    //           Text(_distanceRemaining != null
-                    //               ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(1)} miles"
-                    //               : "---")
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //         Divider()
+                    SizedBox(
+                      height: 10,
+                    ),
+                    getData
+                        ? (exist
+                            ?
+                            // ListView.builder(
+                            //     itemCount: jsonData.length,
+                            //     scrollDirection: Axis.vertical,
+                            //     shrinkWrap: true,
+                            //     physics: ClampingScrollPhysics(),
+                            //     itemBuilder: (BuildContext context, int index) {
+                            //       return getCard(index);
+                            //     },
+                            //   )
+                            getCard()
+                            : Container(
+                                child: Center(
+                                child: Text("No order to pickup ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18.0)),
+                              )))
+                        : (startLoading
+                            ? Container(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            : Text("")),
                   ],
                 ),
               ),
             ),
-            // Expanded(
-            //   flex: 1,
-            //   child: Container(
-            //     color: Colors.grey,
-            //     child: MapBoxNavigationView(
-            //         options: _options,
-            //         onRouteEvent: _onEmbeddedRouteEvent,
-            //         onCreated:
-            //             (MapBoxNavigationViewController controller) async {
-            //           _controller = controller;
-            //           controller.initialize();
-            //         }),
-            //   ),
-            // )
           ]),
         ),
       ),
     );
   }
+
+  void getDetail() async {
+    setState(() {
+      startLoading = true;
+    });
+    _isMultipleStop = true;
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    // print(
+    //     position.latitude.toString() + "****" + position.longitude.toString());
+    String latitude = position.latitude.toString();
+    String longitude = position.longitude.toString();
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response = await http.post(pickUp,
+        headers: {HttpHeaders.authorizationHeader: token},
+        body: {"longitude": longitude, "latitude": latitude});
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    var status = res['statusCode'];
+    if (status == 200 && res['length'] > 2) {
+      jsonData = res['response'];
+      setState(() {
+        getData = true;
+        exist = true;
+      });
+    } else {
+      setState(() {
+        getData = true;
+        exist = false;
+      });
+      print("Some error occured..");
+    }
+    // var wayPoints = List<WayPoint>();
+    // var coordinates = [
+    //   [19.2011, 72.9785],
+    //   [19.2015, 72.9787],
+    //   [19.1726, 72.9425],
+    //   [19.0745, 72.9978]
+    // ];
+    // wayPoints.add(_origin);
+    // wayPoints.add(_stop1);
+    // wayPoints.add(_stop2);
+    // wayPoints.add(_stop3);
+    // wayPoints.add(_stop4);
+    // wayPoints.add(_origin);
+
+    // for (var i = 0; i < coordinates.length; i++) {
+    //   wayPoints.add(WayPoint(
+    //       name: i.toString(),
+    //       latitude: coordinates[i][0],
+    //       longitude: coordinates[i][1]));
+    // }
+    // await _directions.startNavigation(
+    //     wayPoints: wayPoints,
+    //     options: MapBoxOptions(
+    //         mode: MapBoxNavigationMode.driving,
+    //         simulateRoute: true,
+    //         language: "en",
+    //         allowsUTurnAtWayPoints: false,
+    //         units: VoiceUnits.metric));
+  }
+
+  void getMap() async {
+    var wayPoints = List<WayPoint>();
+    for (var i = 0; i < jsonData.length; i++) {
+      print('lon:' + jsonData[i]['latitude'] + ',' + jsonData[i]['longitude']);
+      WayPoint a = WayPoint(
+          name: i.toString(),
+          latitude: double.parse(jsonData[i]['latitude']),
+          longitude: double.parse(jsonData[i]['longitude']));
+      wayPoints.add(a);
+    }
+    print(wayPoints);
+    await _directions.startNavigation(
+        wayPoints: wayPoints,
+        options: MapBoxOptions(
+            mode: MapBoxNavigationMode.driving,
+            simulateRoute: true,
+            language: "en",
+            allowsUTurnAtWayPoints: true,
+            units: VoiceUnits.metric));
+    print(wayPoints);
+  }
+
+  Widget getCard() {
+    var cards = List<DataRow>();
+    for (int i = 1; i < (jsonData.length - 1); i++) {
+      cards.add(DataRow(cells: [
+        DataCell(Text('Farmer' + i.toString())),
+        DataCell(Text(jsonData[i]['name'])),
+        DataCell(Text(jsonData[i]['quantity'])),
+        DataCell(Text(jsonData[i]['latitude'])),
+        DataCell(Text(jsonData[i]['longitude']))
+      ]));
+    }
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          DataTable(
+            columns: [
+              DataColumn(
+                  label: Text('Number',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Name',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Quantity',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Latitude',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Longitude',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold))),
+            ],
+            rows: cards,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget getCard(int index) {
+  //   if (index == 0) {
+  //     return Container(
+  //         child: Column(
+  //       children: [
+  //         Text("Driver current location = "),
+  //         Text("Latitude = " + jsonData[index]['latitude']),
+  //         Text("Longitude = " + jsonData[index]['longitude']),
+  //       ],
+  //     ));
+  //   }
+  //   if (index == (jsonData.length - 1)) {
+  //     return Container(
+  //         child: Column(
+  //       children: [
+  //         Text("APMC Location"),
+  //         Text("Latitude = " + jsonData[index]['latitude']),
+  //         Text("Longitude = " + jsonData[index]['longitude']),
+  //       ],
+  //     ));
+  //   }
+  //   return Container(
+  //       child: Column(
+  //     children: [
+  //       Text("Name = " + jsonData[index]['name']),
+  //       Text("Quantity = " + jsonData[index]['quantity']),
+  //       Text("Latitude = " + jsonData[index]['latitude']),
+  //       Text("Longitude = " + jsonData[index]['longitude']),
+  //     ],
+  //   ));
+  // }
 
   Future<void> _onEmbeddedRouteEvent(e) async {
     _distanceRemaining = await _directions.distanceRemaining;

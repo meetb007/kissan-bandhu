@@ -18,7 +18,7 @@ class _HomeTabViewState extends State<HomeTabView> {
 
   void getData() async {
     String url =
-        "https://newsapi.org/v2/everything?q=farmer&apiKey=869afd0e6e274fa999c6179c245ba002";
+        "https://newsapi.org/v2/everything?qintitle=farmer&sortBy=popularity&apiKey=869afd0e6e274fa999c6179c245ba002";
     var response = await http.get(url);
     var jsonData = jsonDecode(response.body);
     print(jsonData["articles"].length);
