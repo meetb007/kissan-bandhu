@@ -46,7 +46,7 @@ class _CurrentOrderListState extends State<CurrentOrderList> {
               itemBuilder: (BuildContext context, int index) {
                 return GroceryListItemTwo(
                   title: jsonData[index]['name'],
-                  image: upload_url + jsonData[index]['imageUrl'],
+                  image: jsonData[index]['imageUrl'],
                   subtitle: jsonData[index]['quantity'],
                   press: () {
                     Navigator.push(

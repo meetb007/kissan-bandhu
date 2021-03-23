@@ -209,8 +209,8 @@ class _CurrentOrderState extends State<CurrentOrder> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: getData
-                  ? ( exist ? 
-                        Column(
+                  ? (exist
+                      ? Column(
                           children: [
                             ListView.builder(
                               itemCount: jsonData.length,
@@ -222,12 +222,15 @@ class _CurrentOrderState extends State<CurrentOrder> {
                               },
                             ),
                           ],
-                        ) : Container(
+                        )
+                      : Container(
                           child: Center(
-                          child: Text("No Current Order Found",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
-                        ),
-                      )
-                    )
+                            child: Text("No Current Order Found",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18.0)),
+                          ),
+                        ))
                   : Container(
                       child: Center(
                         child: CircularProgressIndicator(),
@@ -258,7 +261,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
             Container(
               // width: MediaQuery.of(context).size.width,
               child: Image(
-                image: NetworkImage(upload_url + jsonData[index]['imageUrl']),
+                image: NetworkImage(jsonData[index]['imageUrl']),
                 height: 200,
               ),
             ),

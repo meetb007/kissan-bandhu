@@ -257,7 +257,7 @@ class _PreviousOrderState extends State<PreviousOrder> {
             Container(
               // width: MediaQuery.of(context).size.width,
               child: Image(
-                image: NetworkImage(upload_url + jsonData[index]['imageUrl']),
+                image: NetworkImage(jsonData[index]['imageUrl']),
                 height: 200,
               ),
             ),

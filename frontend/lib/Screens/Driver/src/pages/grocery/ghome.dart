@@ -23,7 +23,7 @@ class DriverHomePageState extends State<DriverHomePage> {
     _children.add(PreviousOrder());
     _children.add(ProfileTabView());
 
-    _appBars.add(_buildAppBar());
+    _appBars.add(_buildAppBarOne("Home Page"));
     _appBars.add(_buildAppBarOne("My Previous Orders"));
     _appBars.add(_buildAppBarOne("My Account"));
     super.initState();
@@ -36,36 +36,6 @@ class DriverHomePageState extends State<DriverHomePage> {
       appBar: _appBars[_currentIndex],
       body: _children[_currentIndex],
       bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(90.0),
-      child: Container(
-        margin: EdgeInsets.only(top: 20.0),
-        child: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: Color(0xFFF1E6FF),
-          title: Container(
-            child: Card(
-              child: Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 15.0),
-                      hintText: "Search products",
-                      border: InputBorder.none,
-                      suffixIcon: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.search))),
-                ),
-              ),
-            ),
-          ),
-          // leading: PNetworkImage(deliveryIcon),
-        ),
-      ),
     );
   }
 

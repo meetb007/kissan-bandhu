@@ -118,7 +118,7 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Image(
-                    image: NetworkImage(upload_url + jsonData['imageUrl']),
+                    image: NetworkImage(jsonData['imageUrl']),
                     height: 200,
                   ),
                 ),
@@ -139,8 +139,7 @@ class _GroceryIndividualPageState extends State<GroceryIndividualPage> {
   }
 
   void _openCartPage(BuildContext context) {
-    Toast.show("Product added to cart", context,
-        duration: Toast.LENGTH_LONG);
+    Toast.show("Product added to cart", context, duration: Toast.LENGTH_LONG);
     Navigator.push(
         context,
         MaterialPageRoute(

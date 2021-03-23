@@ -185,11 +185,9 @@ class _HomeTabViewState extends State<HomeTabView> {
               itemBuilder: (BuildContext context, int index) {
                 return GroceryListItemTwo(
                   title: jsonData[index]['name'],
-                  image: upload_url + jsonData[index]['imageUrl'],
+                  image: jsonData[index]['imageUrl'],
                   subtitle: jsonData[index]['quantity'],
-                  press: () {
-                    
-                  },
+                  press: () {},
                 );
               },
             ),

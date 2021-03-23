@@ -12,7 +12,8 @@ class CurrentOrderListIndividual extends StatefulWidget {
       _CurrentOrderListIndividualState(product);
 }
 
-class _CurrentOrderListIndividualState extends State<CurrentOrderListIndividual> {
+class _CurrentOrderListIndividualState
+    extends State<CurrentOrderListIndividual> {
   var jsonData;
 
   _CurrentOrderListIndividualState(var product) {
@@ -41,11 +42,11 @@ class _CurrentOrderListIndividualState extends State<CurrentOrderListIndividual>
             children: <Widget>[
               _buildItemCard(context),
               Container(
-                  margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-                  padding: EdgeInsets.all(30.0),
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:[
+                margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                padding: EdgeInsets.all(30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     SizedBox(
                       height: 10.0,
                     ),
@@ -57,7 +58,7 @@ class _CurrentOrderListIndividualState extends State<CurrentOrderListIndividual>
                     SizedBox(
                       height: 10.0,
                     ),
-                    GrocerySubtitle(text:jsonData['quantity']),
+                    GrocerySubtitle(text: jsonData['quantity']),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -89,7 +90,7 @@ class _CurrentOrderListIndividualState extends State<CurrentOrderListIndividual>
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Image(
-                    image: NetworkImage(upload_url + jsonData['imageUrl']),
+                    image: NetworkImage(jsonData['imageUrl']),
                     height: 200,
                   ),
                 ),

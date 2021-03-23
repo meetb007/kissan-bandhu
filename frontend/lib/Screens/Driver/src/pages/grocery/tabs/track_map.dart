@@ -93,10 +93,6 @@ class _MyAppState extends State<trackMap> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Route to be followed'),
-          // backgroundColor: Color(0xFFF1E6FF),
-        ),
         body: Center(
           child: Column(children: <Widget>[
             Expanded(
@@ -135,7 +131,32 @@ class _MyAppState extends State<trackMap> {
                             //       return getCard(index);
                             //     },
                             //   )
-                            getCard()
+                            Column(children: [
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                          "List of farmer for pickup of products",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18.0)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                getCard(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                RaisedButton(
+                                  child: Text("Go To Map"),
+                                  onPressed: () {
+                                    getMap();
+                                  },
+                                ),
+                              ])
                             : Container(
                                 child: Center(
                                 child: Text("No order to pickup ",
@@ -248,15 +269,30 @@ class _MyAppState extends State<trackMap> {
 
   Widget getCard() {
     var cards = List<DataRow>();
-    for (int i = 1; i < (jsonData.length - 1); i++) {
+    int i = 1;
+    cards.add(DataRow(cells: [
+      DataCell(Text('Your Location ')),
+      DataCell(Text("-")),
+      DataCell(Text("-")),
+      DataCell(Text(jsonData[0]['latitude'])),
+      DataCell(Text(jsonData[0]['longitude']))
+    ]));
+    for (i = 1; i < (jsonData.length - 1); i++) {
       cards.add(DataRow(cells: [
-        DataCell(Text('Farmer' + i.toString())),
+        DataCell(Text('Farmer ' + i.toString())),
         DataCell(Text(jsonData[i]['name'])),
         DataCell(Text(jsonData[i]['quantity'])),
         DataCell(Text(jsonData[i]['latitude'])),
         DataCell(Text(jsonData[i]['longitude']))
       ]));
     }
+    cards.add(DataRow(cells: [
+      DataCell(Text('APMC Location ')),
+      DataCell(Text("-")),
+      DataCell(Text("-")),
+      DataCell(Text(jsonData[i]['latitude'])),
+      DataCell(Text(jsonData[i]['longitude']))
+    ]));
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(

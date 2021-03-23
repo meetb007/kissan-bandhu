@@ -66,14 +66,15 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
         title: Text("List of " + product),
       ),
       body: getData
-          ? ( exist?
-              _buildPageContent(context): 
-                Container(
+          ? (exist
+              ? _buildPageContent(context)
+              : Container(
                   child: Center(
-                    child: Text("No items present in selected category",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
+                    child: Text("No items present in selected category",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 18.0)),
                   ),
-                )
-            )
+                ))
           : Container(
               child: Center(
               child: CircularProgressIndicator(),
@@ -94,7 +95,7 @@ class _GroceryDetailsPageState extends State<GroceryDetailsPage> {
               itemBuilder: (BuildContext context, int index) {
                 return GroceryListItemTwo(
                   title: jsonData[index]['name'],
-                  image: upload_url + jsonData[index]['imageUrl'],
+                  image: jsonData[index]['imageUrl'],
                   subtitle: jsonData[index]['quantity'],
                   press: () {
                     Navigator.push(

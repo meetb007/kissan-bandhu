@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Farmer/src/pages/grocery/gwidgets/gtypography.dart';
 import 'package:frontend/Screens/Farmer/src/widgets/network_image.dart';
-import 'package:frontend/Screens/Farmer/src/pages/grocery/gdetails.dart';
+// import 'package:frontend/Screens/Farmer/src/pages/grocery/gdetails.dart';
 
 class GroceryListItemOne extends StatelessWidget {
   final String image, title, price;
@@ -74,10 +74,10 @@ class GroceryListItemOne extends StatelessWidget {
   }
 
   void _openDetailPage(BuildContext context, String product) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) =>
-                GroceryDetailsPage(product: product)));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (BuildContext context) =>
+    //             GroceryDetailsPage(product: product)));
   }
 }

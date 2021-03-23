@@ -78,9 +78,9 @@ class _CartTabViewIndividualState extends State<CartTabViewIndividual> {
               Container(
                 margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                 padding: EdgeInsets.all(30.0),
-                child:Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:[
+                  children: [
                     SizedBox(
                       height: 10.0,
                     ),
@@ -92,7 +92,7 @@ class _CartTabViewIndividualState extends State<CartTabViewIndividual> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    GrocerySubtitle(text:jsonData['quantity']),
+                    GrocerySubtitle(text: jsonData['quantity']),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -124,7 +124,7 @@ class _CartTabViewIndividualState extends State<CartTabViewIndividual> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Image(
-                    image: NetworkImage(upload_url + jsonData['imageUrl']),
+                    image: NetworkImage(jsonData['imageUrl']),
                     height: 200,
                   ),
                 ),

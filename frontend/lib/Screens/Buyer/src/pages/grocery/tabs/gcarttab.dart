@@ -82,10 +82,11 @@ class _CartTabViewState extends State<CartTabView> {
         child: CircularProgressIndicator(),
       ));
     }
-    if(!exist){
+    if (!exist) {
       return Container(
           child: Center(
-          child: Text("No objects in cart",style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
+        child: Text("No objects in cart",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
       ));
     }
     return SingleChildScrollView(
@@ -98,35 +99,48 @@ class _CartTabViewState extends State<CartTabView> {
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return GroceryListItemThree(
-                    title: jsonData[index]["product"]['name'],
-                    image: upload_url + jsonData[index]["product"]['imageUrl'],
-                    subtitle: jsonData[index]["quantity"],
-                    id: jsonData[index]["_id"],
-                    productId: jsonData[index]["product"]["_id"],
-                    quantity: jsonData[index]["quantity"]
-                    // press: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) {
-                    //         return GroceryIndividualPage(
-                    //             product: jsonData[index]['_id']);
-                    //       },
-                    //     ),
-                    //   );
-                    // },
-                    );
+                return Container(
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: GroceryListItemThree(
+                      title: jsonData[index]["product"]['name'],
+                      image: jsonData[index]["product"]['imageUrl'],
+                      subtitle: jsonData[index]["quantity"],
+                      id: jsonData[index]["_id"],
+                      productId: jsonData[index]["product"]["_id"],
+                      quantity: jsonData[index]["quantity"],
+                      func1:f1,
+                      // press: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) {
+                      //         return GroceryIndividualPage(
+                      //             product: jsonData[index]['_id']);
+                      //       },
+                      //     ),
+                      //   );
+                      // },
+                      ),
+                );
               },
             ), // ),
           ),
           SizedBox(
-            height: 10.0,
+            height: 20.0,
           ),
           _buildTotals(),
         ],
       ),
     );
+  }
+
+  Future<void> f1() async{
+    // ignore: await_only_futures
+    await getDetails();
+    setState(() {});
   }
 
   Widget _buildTotals() {

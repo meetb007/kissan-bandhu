@@ -271,7 +271,7 @@ class _SellTabViewState extends State<SellTabView> {
     print(body1);
     var status = body1["statusCode"];
     if (status == 200) {
-      Toast.show("Order placed successfully", context,
+      Toast.show("Product Posted successfully", context,
           duration: Toast.LENGTH_LONG);
       Navigator.push(
         context,
@@ -282,7 +282,7 @@ class _SellTabViewState extends State<SellTabView> {
         ),
       );
     } else {
-      Toast.show("Order was not placed successfully", context,
+      Toast.show("Order was not placed successfully. Please try again", context,
           duration: Toast.LENGTH_LONG);
       setState(() {
         type = "";
