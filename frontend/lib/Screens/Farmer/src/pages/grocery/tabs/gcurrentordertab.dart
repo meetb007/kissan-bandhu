@@ -256,67 +256,69 @@ class _CurrentOrderState extends State<CurrentOrder> {
     AlertDialog alert = AlertDialog(
       title: Text("More Details"),
       content: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              // width: MediaQuery.of(context).size.width,
-              child: Image(
-                image: NetworkImage(jsonData[index]['imageUrl']),
-                height: 200,
+        child:SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                // width: MediaQuery.of(context).size.width,
+                child: Image(
+                  image: NetworkImage(jsonData[index]['imageUrl']),
+                  height: 200,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              // alignment: Alignment.bottomLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Name : " + jsonData[index]['name'],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Description : " + jsonData[index]['description'],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Cost : ₹" + jsonData[index]['cost'],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Quantity : " + jsonData[index]['quantity'],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Date of Order : " +
-                        jsonData[index]['date'].toString().split("T")[0],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Status of Order: " + jsonData[index]['status'],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
+              SizedBox(
+                height: 10.0,
               ),
-            ),
-          ],
+              Container(
+                // alignment: Alignment.bottomLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name : " + jsonData[index]['name'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Description : " + jsonData[index]['description'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Cost : ₹" + jsonData[index]['cost'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Quantity : " + jsonData[index]['quantity'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Date of Order : " +
+                          jsonData[index]['date'].toString().split("T")[0],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Status of Order: " + jsonData[index]['status'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
