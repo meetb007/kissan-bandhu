@@ -105,25 +105,15 @@ class _CartTabViewState extends State<CartTabView> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: GroceryListItemThree(
-                      title: jsonData[index]["product"]['name'],
-                      image: jsonData[index]["product"]['imageUrl'],
-                      subtitle: jsonData[index]["quantity"],
-                      id: jsonData[index]["_id"],
-                      productId: jsonData[index]["product"]["_id"],
-                      quantity: jsonData[index]["quantity"],
-                      func1:f1,
-                      // press: () {
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) {
-                      //         return GroceryIndividualPage(
-                      //             product: jsonData[index]['_id']);
-                      //       },
-                      //     ),
-                      //   );
-                      // },
-                      ),
+                    title: jsonData[index]["product"]['name'],
+                    image: jsonData[index]["product"]['imageUrl'],
+                    subtitle: jsonData[index]["quantity"],
+                    id: jsonData[index]["_id"],
+                    productId: jsonData[index]["product"]["_id"],
+                    quantity: jsonData[index]["quantity"],
+                    cost: jsonData[index]["product"]["cost"],
+                    func1: f1,
+                  ),
                 );
               },
             ), // ),
@@ -137,13 +127,17 @@ class _CartTabViewState extends State<CartTabView> {
     );
   }
 
-  Future<void> f1() async{
+  Future<void> f1() async {
     // ignore: await_only_futures
     await getDetails();
     setState(() {});
   }
 
   Widget _buildTotals() {
+    double total = 0;
+    jsonData.forEach((items) {
+      total += double.parse(items["quantity"]) * double.parse(items["product"]["cost"]);
+    });
     return ClipPath(
       clipper: OvalTopBorderClipper(),
       child: Container(
@@ -165,7 +159,7 @@ class _CartTabViewState extends State<CartTabView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Subtotal"),
-                Text("Rs. 1500"),
+                Text("₹ "+total.toString()),
               ],
             ),
             SizedBox(
@@ -175,7 +169,7 @@ class _CartTabViewState extends State<CartTabView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Delivery fee"),
-                Text("Rs. 100"),
+                Text("₹ 100"),
               ],
             ),
             SizedBox(
@@ -185,7 +179,7 @@ class _CartTabViewState extends State<CartTabView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Total"),
-                Text("Rs. 1600"),
+                Text("₹ "+(total+100).toString()),
               ],
             ),
             SizedBox(
@@ -199,7 +193,7 @@ class _CartTabViewState extends State<CartTabView> {
                 children: <Widget>[
                   Text("Continue to Checkout",
                       style: TextStyle(color: Colors.white)),
-                  Text("Rs. 1600", style: TextStyle(color: Colors.white)),
+                  Text("₹ "+(total+100).toString(), style: TextStyle(color: Colors.white)),
                 ],
               ),
             )
