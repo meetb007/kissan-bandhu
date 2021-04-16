@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem3.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
@@ -15,10 +16,26 @@ class CartTabView extends StatefulWidget {
 class _CartTabViewState extends State<CartTabView> {
   String product;
   bool getData = false, exist = false;
-  var jsonData;
+  var jsonData, _razorpay;
   // String url =
+  //
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    print("Success"+response.toString());
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("Failure"+response.toString());
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    print("ExternalWallet"+response.toString());
+  }
 
   _CartTabViewState() {
+    this._razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     getDetails();
   }
 
@@ -136,7 +153,8 @@ class _CartTabViewState extends State<CartTabView> {
   Widget _buildTotals() {
     double total = 0;
     jsonData.forEach((items) {
-      total += double.parse(items["quantity"]) * double.parse(items["product"]["cost"]);
+      total += double.parse(items["quantity"]) *
+          double.parse(items["product"]["cost"]);
     });
     return ClipPath(
       clipper: OvalTopBorderClipper(),
@@ -159,7 +177,7 @@ class _CartTabViewState extends State<CartTabView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Subtotal"),
-                Text("₹ "+total.toString()),
+                Text("₹ " + total.toString()),
               ],
             ),
             SizedBox(
@@ -179,7 +197,7 @@ class _CartTabViewState extends State<CartTabView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Total"),
-                Text("₹ "+(total+100).toString()),
+                Text("₹ " + (total + 100).toString()),
               ],
             ),
             SizedBox(
@@ -187,13 +205,16 @@ class _CartTabViewState extends State<CartTabView> {
             ),
             RaisedButton(
               color: Colors.green,
-              onPressed: () {},
+              onPressed: () {
+                onSubmit();
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text("Continue to Checkout",
                       style: TextStyle(color: Colors.white)),
-                  Text("₹ "+(total+100).toString(), style: TextStyle(color: Colors.white)),
+                  Text("₹ " + (total + 100).toString(),
+                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             )
@@ -201,5 +222,17 @@ class _CartTabViewState extends State<CartTabView> {
         ),
       ),
     );
+  }
+
+  void onSubmit() {
+    var options = {
+      "key":"rzp_test_FBDyyu7Qmwa8XV",
+      "amount": 100, // amount in the smallest currency unit
+      "currency": "INR",
+      "name":"Parth",
+      "description":"Payment6 trial"
+    };
+    // this._razorpay.orders.create(options);
+    this._razorpay.open(options);
   }
 }

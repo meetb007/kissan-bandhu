@@ -57,6 +57,7 @@ dependencies:
   share: ^0.6.4+3
   url_launcher: ^5.5.0
   webview_flutter: ^0.3.20+2
+  razorpay_flutter: 1.1.0
   # rflutter_alert: ^2.0.2
   #provider: ^4.3.1 # for State management
 
