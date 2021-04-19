@@ -206,6 +206,45 @@ router.get('/current/:id', async (req, res) => {
         .json({ error: 'Error in Farmer Place Get Single API', statusCode: 500 });
     });
 });
+//Edit
+router.put('/:id', async (req, res) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res.status(403).json({
+      message: 'Token is Required',
+      statusCode: 403,
+    });
+    return;
+  }
+
+  const farmer = await Token.findOne({ token }).exec();
+  if (!farmer || farmer.role != "farmer") {
+    res.status(403).json({
+      message: 'Token is Invalid',
+      statusCode: 403,
+    });
+    return ;
+  }
+
+  const id = req.params.id;
+  const {name, quantity,cost,description} = req.body;
+
+  SellProduct
+    .updateOne({"status":"Placed",_id:id},{name,quantity,cost,description})
+    .exec()
+    .then((doc) => {
+      res.status(200).json({
+        message: 'Product is Updated',
+        response: doc,
+        statusCode: 200,
+      });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: 'Error in Farmer Place Put API', statusCode: 500 });
+    });
+});
 
 //delete 
 router.delete('/', async (req, res) => {
