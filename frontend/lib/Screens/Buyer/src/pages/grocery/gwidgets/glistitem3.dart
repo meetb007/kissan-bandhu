@@ -20,17 +20,16 @@ class GroceryListItemThree extends StatelessWidget {
     @required this.id,
     @required this.productId,
     @required this.quantity,
+    @required this.cost,
     @required this.func1,
-    this.price,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
   final String image;
-  final double price;
   final String id, productId;
   var func1;
-  String quantity;
+  String quantity,cost;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,9 @@ class GroceryListItemThree extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           new GroceryTitle(text: title),
-                          new GrocerySubtitle(text: "Quantity : " + subtitle)
+                          new GrocerySubtitle(text: "Quantity : " + subtitle),
+                          new GrocerySubtitle(text: "Cost/kg : ₹ " + cost),
+                          new GrocerySubtitle(text: "Total Cost : ₹ " + (double.parse(subtitle) * double.parse(cost)).toString())
                         ],
                       ),
                     ),
