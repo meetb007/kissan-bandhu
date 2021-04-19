@@ -76,6 +76,7 @@ router.get('/current', async (req, res) => {
 
   Order
     .find({buyer:buyer.userFk,status:{"$ne":"Completed"}})
+    .sort({date:-1})
     .populate("products")
     .then((doc) => {
       res.status(200).json({
@@ -114,6 +115,7 @@ router.get('/history', async (req, res) => {
 
   Order
     .find({buyer:buyer.userFk,status:"Completed"})
+    .sort({date:-1})
     .populate("products")
     .then((doc) => {
       res.status(200).json({
