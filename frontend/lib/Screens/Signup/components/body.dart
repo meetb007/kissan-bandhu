@@ -149,6 +149,25 @@ class _BodyState extends State<Body> {
     longitude = position.longitude.toString();
     String role = RoleButton.value;
     String url = "";
+    if (mobile.length != 10) {
+      Toast.show("Pls enter correct mobile number of length 10", context,
+          duration: Toast.LENGTH_LONG);
+      return;
+    }
+    if (password.length < 7) {
+      Toast.show("Pls enter valid password of length greater than 7", context,
+          duration: Toast.LENGTH_LONG);
+      return;
+    }
+    if (address.length == 0) {
+      Toast.show("Pls enter Valid address", context,
+          duration: Toast.LENGTH_LONG);
+      return;
+    }
+    if (name.length == 0) {
+      Toast.show("Pls enter valid name", context, duration: Toast.LENGTH_LONG);
+      return;
+    }
     print(name +
         "***" +
         address +
@@ -193,7 +212,7 @@ class _BodyState extends State<Body> {
       };
     }
 
-    var response = await http.post(url, body:body);
+    var response = await http.post(url, body: body);
     print(response.statusCode);
     var res = jsonDecode(response.body);
     print(res);
@@ -209,6 +228,11 @@ class _BodyState extends State<Body> {
         ),
       );
     } else {
+      if (status == 302) {
+        Toast.show("Mobile number already registered", context,
+            duration: Toast.LENGTH_LONG);
+        return;
+      }
       Toast.show("Error in signup", context, duration: Toast.LENGTH_LONG);
     }
   }

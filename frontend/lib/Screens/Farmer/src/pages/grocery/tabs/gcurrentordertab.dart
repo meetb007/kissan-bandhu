@@ -53,7 +53,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
       child: Column(
         children: [
           Container(
-            height: height * 0.20,
+            height: height * 0.25,
             child: LayoutBuilder(
               builder: (context, constraints) {
                 double innerHeight = constraints.maxHeight;
@@ -138,27 +138,56 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                   child: Container(
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
-                                      child: FadeAnimation(
-                                        2,
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          height: 50,
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(90),
-                                              color: Colors.deepPurple),
-                                          child: FlatButton(
-                                              onPressed: () {
-                                                showAlertDialog(context, index);
-                                              },
-                                              child: Text(
-                                                "View",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )),
-                                        ),
+                                      child: Column(
+                                        children:[
+                                          FadeAnimation(
+                                            2,
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              height: 50,
+                                              width: 150,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(90),
+                                                  color: Colors.deepPurple),
+                                              child: FlatButton(
+                                                  onPressed: () {
+                                                    showAlertDialog(context, index);
+                                                  },
+                                                  child: Text(
+                                                    "View",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          FadeAnimation(
+                                            2,
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              height: 50,
+                                              width: 150,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(90),
+                                                  color: Colors.deepPurple),
+                                              child: FlatButton(
+                                                  onPressed: () {
+                                                    showAlertDialog1(context, index);
+                                                  },
+                                                  child: Text(
+                                                    "Edit",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -255,6 +284,98 @@ class _CurrentOrderState extends State<CurrentOrder> {
     // Create AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("More Details"),
+      content: Container(
+        child:SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                // width: MediaQuery.of(context).size.width,
+                child: Image(
+                  image: NetworkImage(jsonData[index]['imageUrl']),
+                  height: 200,
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                // alignment: Alignment.bottomLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name : " + jsonData[index]['name'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Description : " + jsonData[index]['description'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Cost : ₹" + jsonData[index]['cost'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Quantity : " + jsonData[index]['quantity'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Date of Order : " +
+                          jsonData[index]['date'].toString().split("T")[0],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Status of Order: " + jsonData[index]['status'],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+    showAlertDialog1(BuildContext context, int index) {
+    // Create button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // Create AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Edit Details"),
       content: Container(
         child:SingleChildScrollView(
           child: Column(

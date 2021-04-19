@@ -10,6 +10,7 @@ import 'package:frontend/components/already_have_an_account_acheck.dart';
 import 'package:frontend/components/rounded_button.dart';
 import 'package:frontend/components/rounded_input_field.dart';
 import 'package:frontend/components/rounded_password_field.dart';
+import 'package:toast/toast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend/url.dart';
 import 'package:http/http.dart' as http;
@@ -84,6 +85,16 @@ class _BodyState extends State<Body> {
   }
 
   void login() async {
+    //  if (mobile.length != 10) {
+    //   Toast.show("Pls enter correct mobile number of length 10", context,
+    //       duration: Toast.LENGTH_LONG);
+    //   return;
+    // }
+    // if (password.length < 7) {
+    //   Toast.show("Pls enter valid password of length greater than 7", context,
+    //       duration: Toast.LENGTH_LONG);
+    //   return;
+    // }
     var response = await http
         .post(login_url, body: {'mobile': mobile, 'password': password});
 
@@ -125,10 +136,12 @@ class _BodyState extends State<Body> {
           ),
         );
       } else {
-        print("Not successful");
+        Toast.show("User not found", context,
+          duration: Toast.LENGTH_LONG);
       }
     } else {
-      print("error");
+      Toast.show("User not found", context,
+          duration: Toast.LENGTH_LONG);
     }
   }
 }

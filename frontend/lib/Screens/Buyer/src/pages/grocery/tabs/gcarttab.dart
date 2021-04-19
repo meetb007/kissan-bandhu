@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem3.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
@@ -16,19 +17,49 @@ class CartTabView extends StatefulWidget {
 class _CartTabViewState extends State<CartTabView> {
   String product;
   bool getData = false, exist = false;
+  double total;
   var jsonData, _razorpay;
   // String url =
   //
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print("Success"+response.toString());
+  Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    print("Success");
+    // print(PaymentSuccessResponse.orderId);
+    print(response.paymentId);
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    var response1 = await http.post(
+      order,
+      body: {
+        'orderId': response.paymentId,
+        'payment': (total + 100).toString(),
+        'payment_mode': "RazorPay",
+        'status': "Placed",
+        'payment_done': "true"
+      },
+      headers: {HttpHeaders.authorizationHeader: token},
+    );
+    print(response1.statusCode);
+    var res = jsonDecode(response1.body);
+    print(res);
+    if (res['statusCode'] == 200) {
+      Toast.show("Order Placed Successfully", context,
+          duration: Toast.LENGTH_LONG);
+      getDetails();
+    } else {
+      Toast.show("Some Error Occured! Pls try again", context,
+          duration: Toast.LENGTH_LONG);
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Failure"+response.toString());
+    print("Failure " + response.toString());
+    Toast.show("Some Error Occured! Pls try again", context,
+        duration: Toast.LENGTH_LONG);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    print("ExternalWallet"+response.toString());
+    print("ExternalWallet " + response.toString());
   }
 
   _CartTabViewState() {
@@ -62,7 +93,7 @@ class _CartTabViewState extends State<CartTabView> {
         getData = true;
         exist = false;
       });
-      print("Product not found");
+      print("No Products found in Cart");
     }
   }
 
@@ -102,7 +133,7 @@ class _CartTabViewState extends State<CartTabView> {
     if (!exist) {
       return Container(
           child: Center(
-        child: Text("No objects in cart",
+        child: Text("No Products found in Cart",
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
       ));
     }
@@ -151,7 +182,7 @@ class _CartTabViewState extends State<CartTabView> {
   }
 
   Widget _buildTotals() {
-    double total = 0;
+    total = 0;
     jsonData.forEach((items) {
       total += double.parse(items["quantity"]) *
           double.parse(items["product"]["cost"]);
@@ -226,11 +257,11 @@ class _CartTabViewState extends State<CartTabView> {
 
   void onSubmit() {
     var options = {
-      "key":"rzp_test_FBDyyu7Qmwa8XV",
-      "amount": 100, // amount in the smallest currency unit
+      "key": "rzp_test_FBDyyu7Qmwa8XV",
+      "amount": (total + 100) * 100, // amount in the smallest currency unit
       "currency": "INR",
-      "name":"Parth",
-      "description":"Payment6 trial"
+      "name": "Parth",
+      "description": "Payment trial"
     };
     // this._razorpay.orders.create(options);
     this._razorpay.open(options);
