@@ -154,6 +154,7 @@ router.get('/current', async (req, res) => {
 
   SellProduct
     .find({userFk:farmer.userFk,status:{"$ne":"Completed"}})
+    .sort({date:-1})
     .then((doc) => {
       res.status(200).json({
         message: 'List of Product',
@@ -307,6 +308,7 @@ router.get('/history', async (req, res) => {
 
   SellProduct
     .find({userFk:farmer.userFk,status:"Completed"})
+    .sort({date:-1})
     .then((doc) => {
       res.status(200).json({
         message: 'List of Product',
