@@ -4,6 +4,7 @@ import 'package:frontend/Screens/Farmer/src/pages/grocery/animations.dart';
 import '../../../../../../constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/components/rounded_input_field.dart';
+import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
 import 'dart:convert';
@@ -178,12 +179,30 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(90),
-                                                  color: Colors.deepPurple),
+                                                  color: jsonData[index]
+                                                              ['status'] ==
+                                                          "Placed"
+                                                      ? Colors.deepPurple
+                                                      : Colors.grey),
                                               child: FlatButton(
-                                                  onPressed: () {
-                                                    showAlertDialog1(
-                                                        context, index);
-                                                  },
+                                                  onPressed: jsonData[index]
+                                                              ['status'] ==
+                                                          "Placed"
+                                                      ? () {
+                                                          this.name = jsonData[index]["name"];
+                                                          this.description = jsonData[index]["description"];
+                                                          this.cost = jsonData[index]["cost"];
+                                                          this.quantity = jsonData[index]["quantity"];
+                                                          showAlertDialog1(
+                                                              context, index);
+                                                        }
+                                                      : () {
+                                                          Toast.show(
+                                                              "Edit option not available",
+                                                              context,
+                                                              duration: Toast
+                                                                  .LENGTH_LONG);
+                                                        },
                                                   child: Text(
                                                     "Edit",
                                                     style: TextStyle(
@@ -308,10 +327,11 @@ class _CurrentOrderState extends State<CurrentOrder> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children:<Widget>[
+                      children: <Widget>[
                         Text(
                           "Name : ",
-                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jsonData[index]['name'],
@@ -324,12 +344,13 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       height: 10.0,
                     ),
                     Column(
-                      children:<Widget>[
+                      children: <Widget>[
                         Align(
                           alignment: Alignment.centerLeft,
-                          child:Text(
+                          child: Text(
                             "Description : ",
-                            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
@@ -347,10 +368,11 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       height: 10.0,
                     ),
                     Row(
-                      children:<Widget>[
+                      children: <Widget>[
                         Text(
                           "Cost : ₹",
-                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jsonData[index]['cost'],
@@ -363,10 +385,11 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       height: 10.0,
                     ),
                     Row(
-                      children:<Widget>[
+                      children: <Widget>[
                         Text(
                           "Quantity : ",
-                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jsonData[index]['quantity'],
@@ -379,10 +402,11 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       height: 10.0,
                     ),
                     Column(
-                      children:<Widget>[
+                      children: <Widget>[
                         Text(
                           "Date of Order : ",
-                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jsonData[index]['date'].toString().split("T")[0],
@@ -395,10 +419,11 @@ class _CurrentOrderState extends State<CurrentOrder> {
                       height: 10.0,
                     ),
                     Row(
-                      children:<Widget>[
+                      children: <Widget>[
                         Text(
                           "Status of Order : ",
-                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jsonData[index]['status'],
@@ -427,12 +452,39 @@ class _CurrentOrderState extends State<CurrentOrder> {
     );
   }
 
+  editDetails(int index, BuildContext context) async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String token = storage.getString("token");
+    String url = sell_product + "/" + jsonData[index]["_id"];
+    var response = await http.put(url, body: {
+      "name": this.name,
+      "description": this.description,
+      "cost": this.cost,
+      "quantity": this.quantity
+    }, headers: {
+      HttpHeaders.authorizationHeader: token
+    });
+    print("Response -*********-" + response.statusCode.toString());
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200) {
+      Toast.show("Product Updated successfully", context,
+          duration: Toast.LENGTH_LONG);
+      getDetails();
+      Navigator.of(context).pop();
+    } else {
+      Toast.show("Some Error occured", context, duration: Toast.LENGTH_LONG);
+      Navigator.of(context).pop();
+    }
+  }
+
   showAlertDialog1(BuildContext context, int index) {
     // Create button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.of(context).pop();
+        editDetails(index, context);
+        // Navigator.of(context).pop();
       },
     );
 
@@ -458,9 +510,14 @@ class _CurrentOrderState extends State<CurrentOrder> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      "Name : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                     RoundedInputField(
                       hintText: "Name",
-                      text: quantity,
+                      text: jsonData[index]['name'],
                       icon: Icons.edit,
                       onChanged: (value) {
                         this.name = value;
@@ -470,9 +527,14 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     SizedBox(
                       height: 10.0,
                     ),
+                    Text(
+                      "Description : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                     RoundedInputField(
                       hintText: "Description",
-                      text: quantity,
+                      text: jsonData[index]['description'],
                       icon: Icons.edit,
                       onChanged: (value) {
                         this.description = value;
@@ -482,9 +544,14 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     SizedBox(
                       height: 10.0,
                     ),
+                    Text(
+                      "Cost in ₹ : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                     RoundedInputField(
                       hintText: "Cost in ₹",
-                      text: quantity,
+                      text: jsonData[index]['cost'],
                       icon: Icons.edit,
                       onChanged: (value) {
                         this.cost = value;
@@ -494,9 +561,14 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     SizedBox(
                       height: 10.0,
                     ),
+                    Text(
+                      "Quantity in kg : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                     RoundedInputField(
                       hintText: "Quantity in kg",
-                      text: quantity,
+                      text: jsonData[index]['quantity'],
                       icon: Icons.edit,
                       onChanged: (value) {
                         this.quantity = value;

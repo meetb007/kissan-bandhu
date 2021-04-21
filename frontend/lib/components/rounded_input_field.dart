@@ -20,6 +20,8 @@ class RoundedInputField extends StatelessWidget {
     return TextFieldContainer(
       child: TextFormField(
         onChanged: onChanged,
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
         cursorColor: kPrimaryColor,
         initialValue: this.text,
         decoration: InputDecoration(
