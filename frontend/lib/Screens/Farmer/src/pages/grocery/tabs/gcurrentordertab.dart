@@ -3,6 +3,8 @@ import 'package:frontend/Screens/Farmer/src/pages/grocery/animations.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../../../../constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:frontend/components/rounded_input_field.dart';
+import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
 import 'dart:convert';
@@ -20,6 +22,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
 
   bool getData = false;
   var product, jsonData;
+  String name, cost, quantity, description;
   bool exist = false;
   void getDetails() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -139,7 +142,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
                                       child: Column(
-                                        children:[
+                                        children: [
                                           FadeAnimation(
                                             2,
                                             Container(
@@ -153,7 +156,8 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                                   color: Colors.deepPurple),
                                               child: FlatButton(
                                                   onPressed: () {
-                                                    showAlertDialog(context, index);
+                                                    showAlertDialog(
+                                                        context, index);
                                                   },
                                                   child: Text(
                                                     "View",
@@ -175,11 +179,30 @@ class _CurrentOrderState extends State<CurrentOrder> {
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(90),
-                                                  color: Colors.deepPurple),
+                                                  color: jsonData[index]
+                                                              ['status'] ==
+                                                          "Placed"
+                                                      ? Colors.deepPurple
+                                                      : Colors.grey),
                                               child: FlatButton(
-                                                  onPressed: () {
-                                                    showAlertDialog1(context, index);
-                                                  },
+                                                  onPressed: jsonData[index]
+                                                              ['status'] ==
+                                                          "Placed"
+                                                      ? () {
+                                                          this.name = jsonData[index]["name"];
+                                                          this.description = jsonData[index]["description"];
+                                                          this.cost = jsonData[index]["cost"];
+                                                          this.quantity = jsonData[index]["quantity"];
+                                                          showAlertDialog1(
+                                                              context, index);
+                                                        }
+                                                      : () {
+                                                          Toast.show(
+                                                              "Edit option not available",
+                                                              context,
+                                                              duration: Toast
+                                                                  .LENGTH_LONG);
+                                                        },
                                                   child: Text(
                                                     "Edit",
                                                     style: TextStyle(
@@ -285,7 +308,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
     AlertDialog alert = AlertDialog(
       title: Text("More Details"),
       content: Container(
-        child:SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
@@ -303,45 +326,110 @@ class _CurrentOrderState extends State<CurrentOrder> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Name : " + jsonData[index]['name'],
-                      style: TextStyle(fontSize: 20),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Name : ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          jsonData[index]['name'],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "Description : " + jsonData[index]['description'],
-                      style: TextStyle(fontSize: 20),
+                    Column(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Description : ",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          jsonData[index]['description'],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
+                    // Text(
+                    //   "Description : " + jsonData[index]['description'],
+                    //   style: TextStyle(fontSize: 20),
+                    // ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "Cost : ₹" + jsonData[index]['cost'],
-                      style: TextStyle(fontSize: 20),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Cost : ₹",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          jsonData[index]['cost'],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "Quantity : " + jsonData[index]['quantity'],
-                      style: TextStyle(fontSize: 20),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Quantity : ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          jsonData[index]['quantity'],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "Date of Order : " +
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          "Date of Order : ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
                           jsonData[index]['date'].toString().split("T")[0],
-                      style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "Status of Order: " + jsonData[index]['status'],
-                      style: TextStyle(fontSize: 20),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Status of Order : ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          jsonData[index]['status'],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -364,12 +452,39 @@ class _CurrentOrderState extends State<CurrentOrder> {
     );
   }
 
-    showAlertDialog1(BuildContext context, int index) {
+  editDetails(int index, BuildContext context) async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    String token = storage.getString("token");
+    String url = sell_product + "/" + jsonData[index]["_id"];
+    var response = await http.put(url, body: {
+      "name": this.name,
+      "description": this.description,
+      "cost": this.cost,
+      "quantity": this.quantity
+    }, headers: {
+      HttpHeaders.authorizationHeader: token
+    });
+    print("Response -*********-" + response.statusCode.toString());
+    var res = jsonDecode(response.body);
+    print(res);
+    if (res['statusCode'] == 200) {
+      Toast.show("Product Updated successfully", context,
+          duration: Toast.LENGTH_LONG);
+      getDetails();
+      Navigator.of(context).pop();
+    } else {
+      Toast.show("Some Error occured", context, duration: Toast.LENGTH_LONG);
+      Navigator.of(context).pop();
+    }
+  }
+
+  showAlertDialog1(BuildContext context, int index) {
     // Create button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.of(context).pop();
+        editDetails(index, context);
+        // Navigator.of(context).pop();
       },
     );
 
@@ -377,7 +492,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
     AlertDialog alert = AlertDialog(
       title: Text("Edit Details"),
       content: Container(
-        child:SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
@@ -396,30 +511,70 @@ class _CurrentOrderState extends State<CurrentOrder> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Name : " + jsonData[index]['name'],
-                      style: TextStyle(fontSize: 20),
+                      "Name : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    RoundedInputField(
+                      hintText: "Name",
+                      text: jsonData[index]['name'],
+                      icon: Icons.edit,
+                      onChanged: (value) {
+                        this.name = value;
+                      },
+                    ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                      "Description : " + jsonData[index]['description'],
-                      style: TextStyle(fontSize: 20),
+                      "Description : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    RoundedInputField(
+                      hintText: "Description",
+                      text: jsonData[index]['description'],
+                      icon: Icons.edit,
+                      onChanged: (value) {
+                        this.description = value;
+                      },
+                    ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                      "Cost : ₹" + jsonData[index]['cost'],
-                      style: TextStyle(fontSize: 20),
+                      "Cost in ₹ : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    RoundedInputField(
+                      hintText: "Cost in ₹",
+                      text: jsonData[index]['cost'],
+                      icon: Icons.edit,
+                      onChanged: (value) {
+                        this.cost = value;
+                      },
+                    ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                      "Quantity : " + jsonData[index]['quantity'],
-                      style: TextStyle(fontSize: 20),
+                      "Quantity in kg : ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    RoundedInputField(
+                      hintText: "Quantity in kg",
+                      text: jsonData[index]['quantity'],
+                      icon: Icons.edit,
+                      onChanged: (value) {
+                        this.quantity = value;
+                      },
+                    ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -428,6 +583,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
                           jsonData[index]['date'].toString().split("T")[0],
                       style: TextStyle(fontSize: 20),
                     ),
+                    Divider(color: Colors.black),
                     SizedBox(
                       height: 10.0,
                     ),
