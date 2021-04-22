@@ -50,12 +50,30 @@ router.post('/', async (req, res) => {
    })
   .then(result =>{
     // console.log(result)
-    res.status(200).json({
-      message: 'Place To PickUP Location',
-      length:result.data.data.length,
-      response: result.data.data,
-      statusCode: 200,
-    });
+    var location = result.data.data;
+    var pickupFarmer = []
+    for(let i = 1;i<(location.length-1);i++){
+      pickupFarmer.push(location[i]["_id"])
+    }
+    console.log(pickupFarmer);
+    if(location.length>2){
+      SellProduct.updateMany({_id:{$in:pickupFarmer}},{$set:{status:"Pickup"}})
+      .then(docsTemp =>{
+        res.status(200).json({
+          message: 'Place To PickUP Location',
+          length:result.data.data.length,
+          response: result.data.data,
+          statusCode: 200,
+        });
+      })
+    }else{
+      res.status(200).json({
+        message: 'Place To PickUP Location',
+        length:result.data.data.length,
+        response: result.data.data,
+        statusCode: 200,
+      });
+    }
   })
   .catch((err) => {
     res
