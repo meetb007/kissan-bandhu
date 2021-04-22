@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +52,7 @@ class _MyAppState extends State<trackMap> {
   bool _isNavigating = false;
   var jsonData;
   bool getData = false, exist = false, startLoading = false;
+  int counter = 0;
   @override
   void initState() {
     super.initState();
@@ -388,6 +386,13 @@ class _MyAppState extends State<trackMap> {
         break;
       case MapBoxEvent.on_arrival:
         _arrived = true;
+        counter++;
+        print("arrived at location---------------" +
+            counter.toString() +
+            "-------------");
+        if (counter == (jsonData.length - 1)) {
+          print("Finished---------------------");
+        }
         if (!_isMultipleStop) {
           await Future.delayed(Duration(seconds: 3));
           await _controller.finishNavigation();
