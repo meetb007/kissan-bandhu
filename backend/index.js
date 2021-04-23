@@ -14,13 +14,14 @@ const farmerRegisterRoute = require('./routes/registerFarmer');
 const driverRegisterRoute = require('./routes/registerDriver');
 const buyerRegisterRoute = require('./routes/registerBuyer');
 const farmerProfileRoute = require('./routes/farmerProfile');
-const farmerProductRoute = require("./routes/SellProduct")
-const driverPickUpRoute = require("./routes/DriverPickUpRoute")
+const farmerProductRoute = require('./routes/SellProduct');
+const driverPickUpRoute = require('./routes/DriverPickUpRoute');
 const buyerProfileRoute = require('./routes/buyerProfile');
 const driverProfileRoute = require('./routes/driverProfile');
 const productRoute = require('./routes/productRoute');
-const cartRoute = require('./routes/cart')
-const orderRoute = require('./routes/orderRoute')
+const cartRoute = require('./routes/cart');
+const orderRoute = require('./routes/orderRoute');
+const driverHistoryRoute = require('./routes/driverHistory');
 
 mongoose.connect(
   db,
@@ -62,21 +63,22 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/",(req,res)=>{
-  res.send("API for kissan bandhu");
-})
+app.get('/', (req, res) => {
+  res.send('API for kissan bandhu');
+});
 app.use('/auth/login', LoginRoute);
 app.use('/auth/register/farmer', farmerRegisterRoute);
 app.use('/auth/register/driver', driverRegisterRoute);
 app.use('/auth/register/buyer', buyerRegisterRoute);
-app.use('/farmer/profile',farmerProfileRoute);
-app.use('/buyer/profile',buyerProfileRoute);
-app.use('/driver/profile',driverProfileRoute);
-app.use('/farmer/product',farmerProductRoute);
-app.use('/driver/pickup',driverPickUpRoute);
-app.use('/product',productRoute);
-app.use('/cart',cartRoute);
-app.use('/order',orderRoute);
+app.use('/farmer/profile', farmerProfileRoute);
+app.use('/buyer/profile', buyerProfileRoute);
+app.use('/driver/profile', driverProfileRoute);
+app.use('/farmer/product', farmerProductRoute);
+app.use('/driver/pickup', driverPickUpRoute);
+app.use('/product', productRoute);
+app.use('/cart', cartRoute);
+app.use('/order', orderRoute);
+app.use('/driver/order', driverHistoryRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res, next) => {
