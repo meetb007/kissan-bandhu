@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/url.dart';
 // void main() => runApp(MyApp());
@@ -50,7 +51,7 @@ class _MyAppState extends State<trackMap> {
   MapBoxNavigationViewController _controller;
   bool _routeBuilt = false;
   bool _isNavigating = false;
-  var jsonData;
+  var jsonData = [];
   bool getData = false, exist = false, startLoading = false;
   int counter = 0;
   @override
@@ -387,11 +388,10 @@ class _MyAppState extends State<trackMap> {
       case MapBoxEvent.on_arrival:
         _arrived = true;
         counter++;
-        print("arrived at location---------------" +
-            counter.toString() +
-            "-------------");
+        print("arrived at ------------");
         if (counter == (jsonData.length - 1)) {
-          print("Finished---------------------");
+          print("finished------------------");
+          await finishedRequest();
         }
         if (!_isMultipleStop) {
           await Future.delayed(Duration(seconds: 3));
@@ -409,5 +409,33 @@ class _MyAppState extends State<trackMap> {
         break;
     }
     setState(() {});
+  }
+
+  Future<void> finishedRequest() async {
+    var farmers = new List<String>(jsonData.length-2);
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    print(storage.getString("token"));
+    String token = storage.getString("token");
+    print(jsonData);
+    for (int i = 1; i < jsonData.length - 1; i++) {
+      farmers[i - 1] = jsonData[i]["_id"];
+    }
+    var apmc = jsonData[jsonData.length - 1];
+    print(apmc);
+    print(farmers);
+    print("printed jsondata");
+    var response = await http.post(driver_orders,
+        body: {"farmers": farmers, "apmc": apmc},
+        headers: {HttpHeaders.authorizationHeader: token});
+    print(response.statusCode);
+    var res = jsonDecode(response.body);
+    print(res);
+    var status = res['statusCode'];
+    if (status == 200) {
+      Toast.show("All orders picked up Successfully", context,
+          duration: Toast.LENGTH_LONG);
+    } else {
+      Toast.show("Some error occured", context, duration: Toast.LENGTH_LONG);
+    }
   }
 }
