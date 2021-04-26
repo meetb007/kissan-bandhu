@@ -8,13 +8,11 @@ class GroceryListItemTwo extends StatelessWidget {
     @required this.title,
     @required this.subtitle,
     @required this.image,
-    @required this.press,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
   final String image;
-  final Function press;
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +41,6 @@ class GroceryListItemTwo extends StatelessWidget {
                 new GrocerySubtitle(text: subtitle)
               ],
             ),
-          ),
-          const SizedBox(width: 10.0),
-          Column(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.arrow_forward_ios_rounded),
-                onPressed: press,
-              ),
-              // IconButton(
-              //   icon: Icon(
-              //     Icons.add_shopping_cart_rounded
-              //   ),
-              //   color: Color(0xFF6F35A5),
-              //   onPressed: () => _openCartPage(context, title),
-              // )
-            ],
           ),
           const SizedBox(width: 10.0),
         ],

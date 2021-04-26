@@ -341,10 +341,10 @@ class _PreviousOrderState extends State<PreviousOrder> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Column(
+                    Row(
                       children:<Widget>[
                         Text(
-                          "Date of Order : ",
+                          "Date : ",
                           style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -360,7 +360,7 @@ class _PreviousOrderState extends State<PreviousOrder> {
                     Column(
                       children:<Widget>[
                         Text(
-                          "Status of Order : ",
+                          "Status : ",
                           style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         ),
                         Text(
