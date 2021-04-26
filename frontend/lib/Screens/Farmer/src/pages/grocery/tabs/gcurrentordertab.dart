@@ -401,10 +401,10 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Column(
+                    Row(
                       children: <Widget>[
                         Text(
-                          "Date of Order : ",
+                          "Date : ",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -421,7 +421,7 @@ class _CurrentOrderState extends State<CurrentOrder> {
                     Row(
                       children: <Widget>[
                         Text(
-                          "Status of Order : ",
+                          "Status : ",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
