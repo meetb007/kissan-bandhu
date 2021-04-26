@@ -22,32 +22,40 @@ router.post('/', async (req, res) => {
     });
     return;
   }
-  const { pickupLocation } = req.body;
-  var farmers = [];
-  for (i = 1; i < pickupLocation.length - 1; i++) {
-    farmers.push(pickupLocation[i]['_id']);
-  }
-  let apmcIndex = pickupLocation.length - 1;
-  let apmc = pickupLocation[apmcIndex];
 
-  const newdriverHistory = new DriverHistory({
-    farmers,
-    apmc,
-    driver: driver.userFk,
-  });
-  newdriverHistory
-    .save()
+  const { id } = req.body;
+  // console.log('Id', id);
+  // const { pickupLocation } = req.body;
+  // var farmers = [];
+  // for (i = 1; i < pickupLocation.length - 1; i++) {
+  //   farmers.push(pickupLocation[i]['_id']);
+  // }
+  // let apmcIndex = pickupLocation.length - 1;
+  // let apmc = pickupLocation[apmcIndex];
+
+  // const newdriverHistory = new DriverHistory({
+  //   farmers,
+  //   apmc,
+  //   driver: driver.userFk,
+  // });
+  DriverHistory.findOneAndUpdate(
+    { _id: id },
+    { status: 'Completed' },
+    { returnOriginal: false }
+  )
     .then((doc) => {
+      // console.log('Doc', doc);
       SellProduct.updateMany(
-        { _id: { $in: farmers } },
-        { $set: { status: 'Transport' } }
-      ).then((doc1) => {
-        res.status(200).json({
-          message: 'Transportation is done Successfully',
-          response: doc1,
-          statusCode: 200,
+        { _id: { $in: doc.farmers } },
+        { $set: { status: 'Transported' } }
+      )
+        .exec()
+        .then((doc1) => {
+          res.status(200).json({
+            message: 'Transportation is done Successfully',
+            statusCode: 200,
+          });
         });
-      });
     })
     .catch((err) => {
       res.status(500).json({
