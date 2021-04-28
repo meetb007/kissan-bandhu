@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Farmer/src/pages/grocery/animations.dart';
+import 'package:frontend/Screens/Farmer/src/pages/grocery/tabs/gcontract.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -245,6 +246,45 @@ class _ProfileTabViewState extends State<ProfileTabView> {
                                 )),
                             SizedBox(
                               height: 10,
+                            ),
+                            Positioned.fill(
+                              bottom: 50,
+                              child: Container(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: FadeAnimation(
+                                    2,
+                                    Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 30),
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          color: Colors.deepPurple),
+                                      child: FlatButton(
+                                        minWidth: width,
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return ContractView();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: Text("Contract Farming",
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 22,
                             ),
                             Positioned.fill(
                               bottom: 50,

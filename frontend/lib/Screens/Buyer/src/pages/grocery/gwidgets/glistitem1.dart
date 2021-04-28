@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/gtypography.dart';
-import 'package:frontend/Screens/Buyer/src/widgets/network_image.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
 
 class GroceryListItemOne extends StatelessWidget {

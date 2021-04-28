@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/Buyer/core/presentation/res/assets.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gdetails.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem1.dart';
+import 'package:frontend/components/rounded_button.dart';
+import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gcontract.dart';
 
 class HomeTabView extends StatelessWidget {
   @override
@@ -11,6 +12,25 @@ class HomeTabView extends StatelessWidget {
         // _buildCategories(),
         // SizedBox(height: 10.0,),
         // _buildListHeader("NEW ARRIVALS","SEE ALL"),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal:30.0),
+          child:Row(
+            children: <Widget>[
+              RoundedButton(
+                  text: "Contract Farming",
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ContractView();
+                        },
+                      ),
+                    );
+                  })
+            ],
+          ),
+        ),
         _buildNewArrivalsRow(context, "Rice", "Strawberry"),
         _buildNewArrivalsRow(context, "LadyFinger", "Tomato"),
         _buildNewArrivalsRow(context, "Potato", "brocoli"),
@@ -29,7 +49,7 @@ class HomeTabView extends StatelessWidget {
             child: InkWell(
               onTap: () => _openDetailPage(context, pro1),
               child: GroceryListItemOne(
-                image: 'assets/images/'+pro1+'.jpg',
+                image: 'assets/images/' + pro1 + '.jpg',
                 // subtitle: "1 kg",
                 title: pro1,
               ),
@@ -37,10 +57,12 @@ class HomeTabView extends StatelessWidget {
           ),
           Expanded(
             child: InkWell(
-              onTap: () =>
-                  {if (pro2.compareTo("brocoli") != 0) _openDetailPage(context, pro2)},
+              onTap: () => {
+                if (pro2.compareTo("brocoli") != 0)
+                  _openDetailPage(context, pro2)
+              },
               child: GroceryListItemOne(
-                image: 'assets/images/'+pro2+'.jpg',
+                image: 'assets/images/' + pro2 + '.jpg',
                 // subtitle: "6 in a pack",
                 title: pro2,
               ),

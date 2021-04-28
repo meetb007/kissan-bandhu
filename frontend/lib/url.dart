@@ -26,3 +26,4 @@ final String order = baseURL + "order";
 final String pickUp = baseURL + "driver/pickup";
 // ignore: non_constant_identifier_names
 final String driver_orders = baseURL + "driver/order";
+final String contract = baseURL + "contract";

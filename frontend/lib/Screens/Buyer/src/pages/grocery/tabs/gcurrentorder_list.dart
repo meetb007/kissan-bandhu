@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem2.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/tabs/gcurrentorder_list_individual.dart';
-import 'package:frontend/url.dart';
 
 // ignore: must_be_immutable
 class CurrentOrderList extends StatefulWidget {

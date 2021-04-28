@@ -3,7 +3,6 @@ import 'package:frontend/Screens/Driver/src/pages/grocery/animations.dart';
 import 'package:frontend/Screens/Driver/src/pages/grocery/tabs/track_map.dart';
 import '../../../../../../constants.dart';
 import 'package:frontend/Screens/Buyer/src/pages/grocery/gwidgets/glistitem2.dart';
-import 'package:frontend/url.dart';
 
 class HomeTabView extends StatefulWidget {
   @override
