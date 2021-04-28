@@ -22,6 +22,7 @@ const productRoute = require('./routes/productRoute');
 const cartRoute = require('./routes/cart');
 const orderRoute = require('./routes/orderRoute');
 const driverHistoryRoute = require('./routes/driverHistory');
+const contractRoute = require('./routes/contractFarming');
 
 mongoose.connect(
   db,
@@ -79,6 +80,7 @@ app.use('/product', productRoute);
 app.use('/cart', cartRoute);
 app.use('/order', orderRoute);
 app.use('/driver/order', driverHistoryRoute);
+app.use('/contract', contractRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res, next) => {
