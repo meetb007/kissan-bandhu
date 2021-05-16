@@ -85,26 +85,26 @@ class _BodyState extends State<Body> {
   }
 
   void login() async {
-    //  if (mobile.length != 10) {
-    //   Toast.show("Pls enter correct mobile number of length 10", context,
-    //       duration: Toast.LENGTH_LONG);
-    //   return;
-    // }
-    // if (password.length < 7) {
-    //   Toast.show("Pls enter valid password of length greater than 7", context,
-    //       duration: Toast.LENGTH_LONG);
-    //   return;
-    // }
+     if (mobile.length != 10) {
+      Toast.show("Pls enter correct mobile number of length 10", context,
+          duration: Toast.LENGTH_LONG);
+      return;
+    }
+    if (password.length < 7) {
+      Toast.show("Pls enter valid password of length greater than 7", context,
+          duration: Toast.LENGTH_LONG);
+      return;
+    }
     var response = await http
         .post(login_url, body: {'mobile': mobile, 'password': password});
 
-    print(response.statusCode);
+    // print(response.statusCode);
     var res = jsonDecode(response.body);
-    print(res);
+    // print(res);
     var status = res["statusCode"];
     if (status == 200) {
       String role = res["role"];
-      print(role);
+      // print(role);
       SharedPreferences storage = await SharedPreferences.getInstance();
       await storage.setString("token", res["token"]);
       if (role == "farmer") {

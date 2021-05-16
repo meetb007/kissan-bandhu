@@ -22,7 +22,7 @@ class _PreviousOrderState extends State<PreviousOrder> {
   var product, jsonData;
   void getDetails() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
-    print(storage.getString("token"));
+    // print(storage.getString("token"));
     String token = storage.getString("token");
     var response = await http.get(
       sell_product + '/history',

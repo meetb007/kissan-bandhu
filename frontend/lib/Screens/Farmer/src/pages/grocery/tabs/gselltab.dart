@@ -262,13 +262,13 @@ class _SellTabViewState extends State<SellTabView> {
     request.fields['longitude'] = longitude;
     request.fields['cost'] = cost;
     request.fields['description'] = description;
-    print("request: " + request.toString());
+    // print("request: " + request.toString());
     var res = await request.send();
-    print("This is response:" + res.toString());
+    // print("This is response:" + res.toString());
     final respStr = await res.stream.bytesToString();
     // print(respStr);
     final body1 = json.decode(respStr);
-    print(body1);
+    // print(body1);
     var status = body1["statusCode"];
     if (status == 200) {
       Toast.show("Product Posted successfully", context,

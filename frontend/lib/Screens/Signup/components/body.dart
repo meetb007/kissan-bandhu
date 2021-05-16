@@ -168,19 +168,19 @@ class _BodyState extends State<Body> {
       Toast.show("Pls enter valid name", context, duration: Toast.LENGTH_LONG);
       return;
     }
-    print(name +
-        "***" +
-        address +
-        "**" +
-        mobile +
-        "**" +
-        password +
-        "**" +
-        latitude +
-        "**" +
-        longitude);
-    // print(farmer_register);
-    print(role);
+    // print(name +
+    //     "***" +
+    //     address +
+    //     "**" +
+    //     mobile +
+    //     "**" +
+    //     password +
+    //     "**" +
+    //     latitude +
+    //     "**" +
+    //     longitude);
+    // // print(farmer_register);
+    // print(role);
     var body;
     if (role == "Farmer") {
       url = farmer_register;
@@ -213,9 +213,9 @@ class _BodyState extends State<Body> {
     }
 
     var response = await http.post(url, body: body);
-    print(response.statusCode);
+    // print(response.statusCode);
     var res = jsonDecode(response.body);
-    print(res);
+    // print(res);
     var status = res["statusCode"];
     if (status == 200) {
       Toast.show(res["message"], context, duration: Toast.LENGTH_SHORT);

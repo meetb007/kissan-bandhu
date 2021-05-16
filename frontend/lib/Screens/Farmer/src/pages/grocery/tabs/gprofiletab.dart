@@ -389,15 +389,15 @@ class _ProfileTabViewState extends State<ProfileTabView> {
 
   void getProfile() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
-    print(storage.getString("token"));
+    // print(storage.getString("token"));
     String token = storage.getString("token");
     var response = await http.get(
       farmer_profile,
       headers: {HttpHeaders.authorizationHeader: token},
     );
-    print(response.statusCode);
+    // print(response.statusCode);
     var res = jsonDecode(response.body);
-    print(res);
+    // print(res);
     profileData = res["response"];
     setState(() {
       getData = true;
